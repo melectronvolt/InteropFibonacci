@@ -2,7 +2,7 @@
 name = "pythonproject"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["Rémi MEVAERE <git_commit@alias.mevaere.fr"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
