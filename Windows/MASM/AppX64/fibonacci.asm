@@ -22,54 +22,6 @@ FB_ERR      EQU 7
 .code
 
 
-clearAndFill PROC
-
-    ; Clear arTerms
-    mov r10 , [rbp - 16] ; maxterms
-    imul r8, r10, 50
-    mov rcx, 0
-    mov r9 , [rbp - 8] ; fbstart
-
-loop_unsigned:
-    ; Loop body here
-    mov rax, [rbp+56]
-
-    mov rdx,0 ; zero
-    mov [rax + 8 * rcx], rdx
-
-    mov rax, [rbp+64]
-    mov dl, 0 ; False
-    mov [rax + rcx], dl
-
-    ; Increment the loop counter
-    inc rcx
-    ; Compare the loop counter with the endpoint
-    cmp rcx, r8
-    ; Continue looping if rcx is less than rdx
-    jl loop_unsigned
-
-
-    mov rcx, 0
-    ; init the first value with r11 (fbStart)
-    mov rax, [rbp+56]
-    mov [rax], r9
-    mov [rax + 8 * 50], r9
-
-loop_double:
-    mov rax, [rbp+72]
-    movsd xmm0, QWORD PTR [INIT]  ; Load the double value into xmm0
-    movsd QWORD PTR [rax + 8 * rcx], xmm0
-
-    ; Increment the loop counter
-    inc rcx
-    ; Compare the loop counter with the endpoint
-    cmp rcx, r10
-    ; Continue looping if rcx is less than rdx
-    jl loop_double
-
-    ret
-clearAndFill ENDP
-
 isPrime PROC
 
     push rbx
@@ -241,6 +193,61 @@ not_prime:
     ret
 fiboWork ENDP
 
+clearAndFill PROC
+
+    ; Clear arTerms
+    mov r10 , [rbp - 16] ; maxterms
+    imul r8, r10, 50
+    mov rcx, 0
+    mov r9 , [rbp - 8] ; fbstart
+
+loop_unsigned:
+    ; Loop body here
+    mov rax, [rbp+56]
+
+    mov rdx,0 ; zero
+    mov [rax + 8 * rcx], rdx
+
+    mov rax, [rbp+64]
+    mov dl, 0 ; False
+    mov [rax + rcx], dl
+
+    ; Increment the loop counter
+    inc rcx
+    ; Compare the loop counter with the endpoint
+    cmp rcx, r8
+    ; Continue looping if rcx is less than rdx
+    jl loop_unsigned
+
+
+    mov rcx, 0
+    ; init the first value with r11 (fbStart)
+    mov rax, [rbp+56]
+    mov [rax], r9
+    mov [rax + 8 * 50], r9
+    ; here factorization
+    mov r13, 0
+    call factorization
+    mov r13, 50
+    call factorization
+
+loop_double:
+    mov rax, [rbp+72]
+    movsd xmm0, QWORD PTR [INIT]  ; Load the double value into xmm0
+    movsd QWORD PTR [rax + 8 * rcx], xmm0
+
+    ; Increment the loop counter
+    inc rcx
+    ; Compare the loop counter with the endpoint
+    cmp rcx, r10
+    ; Continue looping if rcx is less than rdx
+    jl loop_double
+
+    ret
+clearAndFill ENDP
+
+
+
 fibonacci_interop_asm PROC
     ; Prologue
     push rbp
@@ -330,10 +337,10 @@ main_loop:
     cmp rcx, rsi
     jl main_loop
 
-    mov r12, 5
-    call isPrime
-    mov r10, [rbp+88]
-    mov [r10], rax
+    ;mov r12, 5
+    ;call isPrime
+    ;mov r10, [rbp+88]
+    ;mov [r10], rax
 
 
     ; test
