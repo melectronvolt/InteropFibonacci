@@ -58,17 +58,17 @@ int main() {
     fbReturn fbRet = fibonacci_interop_asm(1, maxTerms, 1304969544928657, 400000, 1, arTerms, arPrimes, arError, goldenNbr, test);
 
 
-    for (int i = 0; i < maxTerms*50; ++i) {
-        std::cout << arTerms[i] << std::endl;
-    }
+//    for (int i = 0; i < maxTerms*50; ++i) {
+//        std::cout << arTerms[i] << std::endl;
+//    }
 
     for (int i = 0; i < maxTerms*50; ++i) {
         std::cout << arPrimes[i] << std::endl;
     }
 
-    for (int i = 0; i < maxTerms; ++i) {
-        std::cout << arError[i] << std::endl;
-    }
+//    for (int i = 0; i < maxTerms; ++i) {
+//        std::cout << arError[i] << std::endl;
+//    }
     delete[] arTerms;
     delete[] arPrimes;
     delete[] arError;

@@ -114,13 +114,20 @@ exit:
 isPrime ENDP
 
 factorization PROC
+    ; rax, rcx, rdx, r8, r9, r10, r11
+
+    ; need baseIndex in R13
+    mov r11, [rbp - 32]   ; maxFactor
+    mov r10, [rbp + 56]   ; get the first value of arTerms
+    mov r9, [rbp + 64]    ; get the first value of arPrimes
+
+
 
     ret
 factorization ENDP
 
 
 fiboWork PROC
-
     push r12
     push r13
 
@@ -137,6 +144,22 @@ calculate_fibo:
     mov r8, [rax + 8 * rcx - 400] ; 50 * 8
     add rdx, r8
     mov [rax + 8 * rcx], rdx
+    mov r12, rdx
+    call isPrime
+
+   ; si rax = 1 prime sinon rax = 0
+    mov r11, [rbp+64]
+    test rax, rax
+    jz not_prime
+    ; here it is prime we need to modify the value
+
+    mov dl, 1 ; False
+    mov [r11 + rcx], dl
+
+not_prime:
+
+    mov r13, rcx
+    call factorization
 
     ; Increment the loop counter
     add rcx,50
