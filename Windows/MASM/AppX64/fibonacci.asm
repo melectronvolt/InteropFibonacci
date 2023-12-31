@@ -115,29 +115,60 @@ isPrime ENDP
 
 factorization PROC
     ; rax, rcx, rdx, r8, r9, r10, r11
+    push r15
+    push r14
     push r10
     push r9
     push r8
     push rcx
     push rdx
+    push rbx
     ; need baseIndex in R13
     mov r11, [rbp - 32]   ; maxFactor
     mov r10, [rbp + 56]   ; get the first value of arTerms
     mov r9, [rbp + 64]    ; get the first value of arPrimes
 
     mov r8, 0 ; position = 0
-    mov rcx, [r10 + 8*r13] ; rcx = result
+    mov rbx, 2
+    mov rcx, [r10 + 8 * r13] ; rcx = result
 
+start_while:
+    mov rax, rcx
+    xor rdx,rdx
+    div rbx
+    test rdx, rdx
+    jnz not_a_factor
 
-    
-    mov r15, rcx
-    mov [r10 + 8*r13], r15
+    inc r8
+    mov rcx, rax
+    xor r14, r14
+    mov r14, r13
+    add r14, r8
+    mov [r10 + 8 * r14], rbx
 
+    cmp r8, 49
+    je end_factorization
+
+not_a_factor:
+    inc rbx
+    cmp rbx, r11
+    jg end_factorization
+
+    cmp rcx, 1
+    je end_factorization
+
+    jmp start_while
+
+end_factorization:
+
+    pop rbx
     pop rdx
     pop rcx
     pop r8
     pop r9
     pop r10
+    pop r14
+    pop r15
     ret
 factorization ENDP
 
