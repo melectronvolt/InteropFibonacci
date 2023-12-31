@@ -7,6 +7,7 @@ LOCAL_VAR_SPACE  EQU 32                       ; Local variable space in bytes
 GOLDEN_CONST     REAL8  ? ; Double-precision floating-point constant
 FIVE             REAL8 5.0                    ; Floating-point constant 5.0
 TWO              REAL8 2.0                    ; Floating-point constant 2.0
+INIT             REAL8 -1.0
 
 ; Enumeration
 FB_OK       EQU 0
@@ -19,6 +20,52 @@ FB_PRM_ERR  EQU 6
 FB_ERR      EQU 7
 
 .code
+
+
+clearAndFill PROC
+
+    ; Clear arTerms
+    ; maxTerms - R12
+    push r13
+    imul r13, r12, 50
+    mov rcx, 0
+
+loop_unsigned:
+    ; Loop body here
+    mov rax, [rbp+56]
+
+    mov rdx,0 ; zero
+    mov [rax + 8 * rcx], rdx
+
+    mov rax, [rbp+64]
+    mov dl, 0 ; False
+    mov [rax + rcx], dl
+
+    ; Increment the loop counter
+    inc rcx
+    ; Compare the loop counter with the endpoint
+    cmp rcx, r13
+    ; Continue looping if rcx is less than rdx
+    jl loop_unsigned
+
+
+    mov rcx, 0
+
+loop_double:
+    mov rax, [rbp+72]
+    movsd xmm0, QWORD PTR [INIT]  ; Load the double value into xmm0
+    movsd QWORD PTR [rax + 8 * rcx], xmm0
+
+    ; Increment the loop counter
+    inc rcx
+    ; Compare the loop counter with the endpoint
+    cmp rcx, r12
+    ; Continue looping if rcx is less than rdx
+    jl loop_double
+
+    pop r13
+    ret
+clearAndFill ENDP
 
 fibonacci_interop_asm PROC
     ; Prologue
@@ -34,6 +81,7 @@ fibonacci_interop_asm PROC
     push r9
     push r10
     push r11
+    push r12
 
     ; Calculate the golden ratio: (1.0 + sqrt(5.0)) / 2.0
     fld1                     ; Load 1.0 onto the FPU stack
@@ -58,13 +106,50 @@ fibonacci_interop_asm PROC
     ; Return Address -> (8 bytes) - but 16 bytes alignment
     ; Home space -> (32 bytes) (48)
     ; [rbp+48] -> nbrOfLoops - (8 bytes)
-    ; [rbp+56] -> pointer to arTerms - (8 bytes)
-    ; [rbp+64] -> pointer to arPrimes - (8 bytes)
-    ; [rbp+72] -> pointer to arError - (8 bytes)
+    ; [rbp+56] -> pointer to arTerms (unsigned long long*) - (8 bytes)
+    ; [rbp+64] -> pointer to arPrimes (bool*) - (8 bytes)
+    ; [rbp+72] -> pointer to arError (double*) - (8 bytes)
     ; [rbp+80] -> reference to goldenNbr - (8 bytes)
     ; [rbp+88] -> reference to test - (8 bytes)
 
-    // - Every register is ready to work
+    ; fill the array with value
+    mov r12 , [rbp - 16] ; maxterms
+    call clearAndFill
+    ; mov r10, [rbp+88]
+    ; mov [r10], r12
+
+
+    ; - Some verification
+    ; Load the values of fbStart, maxFibo, maxTerms, maxFactor, and nbrOfLoops into registers
+    mov rax, rcx       ; Load fbStart into rax
+    mov rcx, rdx       ; Load maxTerms into rcx
+    mov rbx, r8        ; Load maxFibo into rbx
+    mov rdx, r9        ; Load maxFactor into rdx
+    xor rsi, rsi          ; Zero out rax
+    movzx rsi, byte ptr [rbp+48] ; Move 1 byte from [rbp+48] and zero-extend to 64-bit
+
+    ; Check conditions and return PRM_ERR if any condition is true
+    cmp rax, 1          ; Compare fbStart with 1
+    jl prm_err_label    ; Jump to prm_err_label if fbStart < 1
+
+    cmp rbx, 1          ; Compare maxFibo with 1
+    jl prm_err_label    ; Jump to prm_err_label if maxFibo < 1
+
+    cmp rcx, 3          ; Compare maxTerms with 3
+    jl prm_err_label    ; Jump to prm_err_label if maxTerms < 3
+
+    cmp rdx, 2          ; Compare maxFactor with 2
+    jl prm_err_label    ; Jump to prm_err_label if maxFactor < 2
+
+    cmp rsi, 1          ; Compare nbrOfLoops with 1
+    jl prm_err_label
+
+    cmp rcx, 74          ; Compare maxTerms with 74
+    jg tmt_label
+
+    mov rax, 1304969544928657
+    cmp rbx, rax
+    jg too_big_label
 
 
 
@@ -109,6 +194,18 @@ no_error:
     mov rax,  FB_OK  ; Set rax to the value corresponding to fbReturn::OF
     jmp epilogue
 
+too_big_label:
+    mov rax, FB_TB
+    jmp epilogue
+
+tmt_label:
+    mov rax, FB_TMT
+    jmp epilogue
+
+prm_err_label:
+    mov rax, FB_PRM_ERR
+    jmp epilogue
+
 error:
     mov rax,  FB_NOL  ; Set rax to the value corresponding to fbReturn::OF
     jmp epilogue
@@ -117,6 +214,7 @@ error:
 epilogue:
     ; Epilogue
     ; Restore non-volatile registers
+    pop r12
     pop r11
     pop r10
     pop r9

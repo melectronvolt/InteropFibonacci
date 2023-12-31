@@ -36,7 +36,7 @@ int main() {
 
     unsigned long long* arTerms = new unsigned long long[maxTerms * 50];
 
-    // Fill the arTerms array with the value 12
+   //  Fill the arTerms array with the value 12
     for (int i = 0; i < maxTerms * 50; ++i) {
         arTerms[i] = 12;
     }
@@ -55,16 +55,28 @@ int main() {
 
     double goldenNbr = 0.5;
     unsigned long long test= 0;
-    fbReturn fbRet = fibonacci_interop_asm(1, maxTerms, 1304969544928657, 4000000, 5, arTerms, arPrimes, arError, goldenNbr, test);
+    fbReturn fbRet = fibonacci_interop_asm(1, maxTerms, 1304969544928657, 400000, 5, arTerms, arPrimes, arError, goldenNbr, test);
 
     std::cout << "Return: " << static_cast<int>(fbRet) << std::endl;
     std::cout << "Return: " << test << std::endl;
     std::cout << "Golden Number: " << std::setprecision(20) <<  goldenNbr << std::endl;
 
+    for (int i = 0; i < maxTerms*50; ++i) {
+        std::cout << arTerms[i] << std::endl;
+    }
 
+    for (int i = 0; i < maxTerms*50; ++i) {
+        std::cout << arPrimes[i] << std::endl;
+    }
+
+    for (int i = 0; i < maxTerms; ++i) {
+        std::cout << arError[i] << std::endl;
+    }
     delete[] arTerms;
     delete[] arPrimes;
     delete[] arError;
+
+
 
  /*   for (int i = 0; i < 5; ++i) {
         clock_t start_time = clock();
