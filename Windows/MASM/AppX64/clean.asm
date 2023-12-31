@@ -167,8 +167,6 @@ calculate_fibo:
     add rdx, r8
     mov r8, [rax + 8 * rcx - 400] ; 50 * 8
     add rdx, r8
-    cmp rdx, [rbp - 24]
-    jg out_max_fibo
     mov [rax + 8 * rcx], rdx
     mov r12, rdx
     call isPrime
@@ -193,8 +191,6 @@ not_prime:
     cmp rcx, r10
     ; Continue looping if rcx is less than rdx
     jl calculate_fibo
-
-out_max_fibo:
 
 
 ;    pop r13
@@ -379,6 +375,7 @@ fibonacci_interop_asm PROC
     ; [rbp+64] -> pointer to arPrimes (bool*) - (8 bytes)
     ; [rbp+72] -> pointer to arError (double*) - (8 bytes)
     ; [rbp+80] -> reference to goldenNbr - (8 bytes)
+    ; [rbp+88] -> reference to test - (8 bytes)
 
 
     ; - Some verification

@@ -2,7 +2,6 @@
 //
 
 #include <iostream>
-#include <stdlib.h>
 #include <cmath>
 #include <ctime>
 #include <string>
@@ -15,8 +14,7 @@ enum class fbReturn {
 extern "C" fbReturn
 fibonacci_interop_asm(unsigned long long fbStart, unsigned char maxTerms, unsigned long long maxFibo,
                       unsigned long long maxFactor, unsigned char nbrOfLoops,
-                      unsigned long long* arTerms, bool* arPrimes, double* arError, double& goldenNbr,
-                      unsigned long long& test);
+                      unsigned long long* arTerms, bool* arPrimes, double* arError, double& goldenNbr);
 
 double mean(const double* lst, int size) {
     double sum = 0;
@@ -38,42 +36,20 @@ int main() {
     double timeCount[10];
 
     unsigned long long* arTerms = new unsigned long long[maxTerms * 50];
-
-    //  Fill the arTerms array with the value 12
-    for (int i = 0; i < maxTerms * 50; ++i) {
-        arTerms[i] = 12;
-    }
-
     bool* arPrimes = new bool[maxTerms * 50];
-
-    for (int i = 0; i < maxTerms * 50; ++i) {
-        arPrimes[i] = true;
-    }
-
     double* arError = new double[maxTerms];
 
-    for (int i = 0; i < maxTerms; ++i) {
-        arError[i] = 9.87654321;
-    }
 
     double goldenNbr;
     unsigned long long test = 0;
-//    fbReturn fbRet = fibonacci_interop_asm(1, maxTerms, 1304969544928657, 400000, 1, arTerms, arPrimes, arError, goldenNbr, test);
-
-
-//    for (int i = 0; i < maxTerms; ++i) {
-//        std::cout << std::setprecision(20) << arError[i] << std::endl;
-//    }
 
     fbReturn fbRet;
-
-
 
 
     for (int i = 0; i < 10; ++i) {
         clock_t start_time = clock();
         fbRet = fibonacci_interop_asm(1, maxTerms, 1304969544928657, 4000000, 7, arTerms, arPrimes, arError,
-                                      goldenNbr, test);
+                                      goldenNbr);
         clock_t end_time = clock();
         timeCount[i] = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
     }
@@ -98,11 +74,12 @@ int main() {
             else
                 line += "Factor not found";
         }
-        std::cout << line << std::endl;
+        if (!line.empty()) {
+            std::cout << line << std::endl;
+        }
     }
 
     std::cout << "Return: " << static_cast<int>(fbRet) << std::endl;
-    std::cout << "Test : " << test << std::endl;
     std::cout << "Golden Number: " << std::setprecision(20) << goldenNbr << std::endl;
     std::cout << "---------------------------------" << std::endl;
     std::cout << "Average Duration: " << mean(timeCount, 5) << std::endl;
