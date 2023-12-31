@@ -146,7 +146,10 @@ factorization ENDP
 
 
 fiboWork PROC
-
+    push rcx
+    push rdx
+    push r10
+    push r11
     push r12
     push r13
 
@@ -190,6 +193,10 @@ not_prime:
 
     pop r13
     pop r12
+    pop r11
+    pop r10
+    pop rdx
+    pop rcx
     ret
 fiboWork ENDP
 
@@ -246,7 +253,48 @@ loop_double:
     ret
 clearAndFill ENDP
 
+calculate_error PROC
+    push r8
+    push r9
+    push r10
+    push r11
+    push r12
 
+    mov r10, [rbp - 16] ; maxterms
+    mov r8, [rbp + 72] ; error array
+    mov r9, [rbp + 56] ; arTerms array
+    xor r11, r11
+
+loop_error:
+    imul r12, r11, 50
+
+
+
+    cmp r11,2
+    jl two_first_value
+
+    mov rax,[r9 + 8 * r12 - 400]
+    mov rbx,[r9 + 8 * r12 - 800]
+    cvtsi2sd xmm0, rax
+    cvtsi2sd xmm1, rbx
+    divsd xmm0, xmm1
+    movsd QWORD PTR [r8 + 8 * r11], xmm0
+
+two_first_value:
+    ; Increment the loop counter
+    inc r11
+    ; Compare the loop counter with the endpoint
+    cmp r11, r10
+    ; Continue looping if rcx is less than rdx
+    jl loop_error
+
+    pop r12
+    pop r11
+    pop r10
+    pop r9
+    pop r8
+    ret
+calculate_error ENDP
 
 fibonacci_interop_asm PROC
     ; Prologue
@@ -322,7 +370,6 @@ fibonacci_interop_asm PROC
     cmp rbx, rax
     jg too_big_label
 
-
     ; fill the array with value
     ; number of loop is still in rsi
     xor rcx,rcx
@@ -330,7 +377,7 @@ fibonacci_interop_asm PROC
 main_loop:
     call clearAndFill
     call fiboWork
-
+    call calculate_error
     ; Increment the loop counter
     inc rcx
     ; Compare the loop counter with the endpoint

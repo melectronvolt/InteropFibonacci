@@ -66,9 +66,9 @@ int main() {
         std::cout << arPrimes[i] << std::endl;
     }
 
-//    for (int i = 0; i < maxTerms; ++i) {
-//        std::cout << arError[i] << std::endl;
-//    }
+    for (int i = 0; i < maxTerms; ++i) {
+        std::cout << arError[i] << std::endl;
+    }
 
 
 
