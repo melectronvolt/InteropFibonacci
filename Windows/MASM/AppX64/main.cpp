@@ -55,11 +55,8 @@ int main() {
 
     double goldenNbr = 0.5;
     unsigned long long test= 0;
-    fbReturn fbRet = fibonacci_interop_asm(1, maxTerms, 1304969544928657, 400000, 5, arTerms, arPrimes, arError, goldenNbr, test);
+    fbReturn fbRet = fibonacci_interop_asm(1, maxTerms, 1304969544928657, 400000, 1, arTerms, arPrimes, arError, goldenNbr, test);
 
-    std::cout << "Return: " << static_cast<int>(fbRet) << std::endl;
-    std::cout << "Return: " << test << std::endl;
-    std::cout << "Golden Number: " << std::setprecision(20) <<  goldenNbr << std::endl;
 
     for (int i = 0; i < maxTerms*50; ++i) {
         std::cout << arTerms[i] << std::endl;
@@ -77,6 +74,9 @@ int main() {
     delete[] arError;
 
 
+    std::cout << "Return: " << static_cast<int>(fbRet) << std::endl;
+    std::cout << "Return: " << test << std::endl;
+    std::cout << "Golden Number: " << std::setprecision(20) <<  goldenNbr << std::endl;
 
  /*   for (int i = 0; i < 5; ++i) {
         clock_t start_time = clock();

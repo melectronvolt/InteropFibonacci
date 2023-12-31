@@ -25,10 +25,10 @@ FB_ERR      EQU 7
 clearAndFill PROC
 
     ; Clear arTerms
-    ; maxTerms - R12
-    push r13
-    imul r13, r12, 50
+    mov r10 , [rbp - 16] ; maxterms
+    imul r8, r10, 50
     mov rcx, 0
+    mov r9 , [rbp - 8] ; fbstart
 
 loop_unsigned:
     ; Loop body here
@@ -44,7 +44,7 @@ loop_unsigned:
     ; Increment the loop counter
     inc rcx
     ; Compare the loop counter with the endpoint
-    cmp rcx, r13
+    cmp rcx, r8
     ; Continue looping if rcx is less than rdx
     jl loop_unsigned
 
@@ -52,8 +52,8 @@ loop_unsigned:
     mov rcx, 0
     ; init the first value with r11 (fbStart)
     mov rax, [rbp+56]
-    mov [rax], r11
-    mov [rax + 8 * 50], r11
+    mov [rax], r9
+    mov [rax + 8 * 50], r9
 
 loop_double:
     mov rax, [rbp+72]
@@ -63,40 +63,49 @@ loop_double:
     ; Increment the loop counter
     inc rcx
     ; Compare the loop counter with the endpoint
-    cmp rcx, r12
+    cmp rcx, r10
     ; Continue looping if rcx is less than rdx
     jl loop_double
 
-    pop r13
     ret
 clearAndFill ENDP
 
-fiboWork PROC
-    push r13
-    push r14
-    mov rcx, 100
+isPrime PROC
+    ; need prime_number
+    ; need maxfactor
+    ; rax, rcx, rdx
+    ret
+isPrime ENDP
 
+factorization PROC
+
+    ret
+factorization ENDP
+
+
+fiboWork PROC
+
+    mov r10 , [rbp - 16] ; maxterms
+    mov rcx, 100
     ; maxTerms - R12
-    imul r12, r12, 50
+    imul r10, r10, 48
 calculate_fibo:
     ; Loop body here
     mov rax, [rbp+56] ; get the value
-    mov rdx,0
-    mov r13, [rax - 16*8 + 8 * rcx ]
-    add rdx, r13
-    mov r13, [rax - 8*8 + 8 * rcx ]
-    add rdx, r13
+    mov rdx, 0
+    mov r8, [rax + 8 * rcx - 800] ; 50 * 16
+    add rdx, r8
+    mov r8, [rax + 8 * rcx - 400] ; 50 * 8
+    add rdx, r8
     mov [rax + 8 * rcx], rdx
 
     ; Increment the loop counter
     add rcx,50
     ; Compare the loop counter with the endpoint
-    cmp rcx, r12
+    cmp rcx, r10
     ; Continue looping if rcx is less than rdx
     jl calculate_fibo
 
-    pop r14
-    pop r13
     ret
 fiboWork ENDP
 
@@ -110,10 +119,6 @@ fibonacci_interop_asm PROC
     push rbx
     push rdi
     push rsi
-    push r8
-    push r9
-    push r10
-    push r11
     push r12
 
     ; Calculate the golden ratio: (1.0 + sqrt(5.0)) / 2.0
@@ -184,8 +189,6 @@ fibonacci_interop_asm PROC
     xor rcx,rcx
 
 main_loop:
-    mov r11 , [rbp - 8] ; fbstart
-    mov r12 , [rbp - 16] ; maxterms
     call clearAndFill
     call fiboWork
 
@@ -260,10 +263,6 @@ epilogue:
     ; Epilogue
     ; Restore non-volatile registers
     pop r12
-    pop r11
-    pop r10
-    pop r9
-    pop r8
     pop rsi
     pop rdi
     pop rbx
