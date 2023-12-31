@@ -50,6 +50,10 @@ loop_unsigned:
 
 
     mov rcx, 0
+    ; init the first value with r11 (fbStart)
+    mov rax, [rbp+56]
+    mov [rax], r11
+    mov [rax + 8 * 50], r11
 
 loop_double:
     mov rax, [rbp+72]
@@ -66,6 +70,35 @@ loop_double:
     pop r13
     ret
 clearAndFill ENDP
+
+fiboWork PROC
+    push r13
+    push r14
+    mov rcx, 100
+
+    ; maxTerms - R12
+    imul r12, r12, 50
+calculate_fibo:
+    ; Loop body here
+    mov rax, [rbp+56] ; get the value
+    mov rdx,0
+    mov r13, [rax - 16*8 + 8 * rcx ]
+    add rdx, r13
+    mov r13, [rax - 8*8 + 8 * rcx ]
+    add rdx, r13
+    mov [rax + 8 * rcx], rdx
+
+    ; Increment the loop counter
+    add rcx,50
+    ; Compare the loop counter with the endpoint
+    cmp rcx, r12
+    ; Continue looping if rcx is less than rdx
+    jl calculate_fibo
+
+    pop r14
+    pop r13
+    ret
+fiboWork ENDP
 
 fibonacci_interop_asm PROC
     ; Prologue
@@ -112,12 +145,6 @@ fibonacci_interop_asm PROC
     ; [rbp+80] -> reference to goldenNbr - (8 bytes)
     ; [rbp+88] -> reference to test - (8 bytes)
 
-    ; fill the array with value
-    mov r12 , [rbp - 16] ; maxterms
-    call clearAndFill
-    ; mov r10, [rbp+88]
-    ; mov [r10], r12
-
 
     ; - Some verification
     ; Load the values of fbStart, maxFibo, maxTerms, maxFactor, and nbrOfLoops into registers
@@ -152,6 +179,24 @@ fibonacci_interop_asm PROC
     jg too_big_label
 
 
+    ; fill the array with value
+    ; number of loop is still in rsi
+    xor rcx,rcx
+
+main_loop:
+    mov r11 , [rbp - 8] ; fbstart
+    mov r12 , [rbp - 16] ; maxterms
+    call clearAndFill
+    call fiboWork
+
+    ; Increment the loop counter
+    inc rcx
+    ; Compare the loop counter with the endpoint
+    cmp rcx, rsi
+    jl main_loop
+
+    ; mov r10, [rbp+88]
+    ; mov [r10], r12
 
 
     ; test
