@@ -26,10 +26,10 @@ abs_mask dq 7FFFFFFFFFFFFFFFh  ; Mask with all bits set except the sign bit
 
 isPrime PROC
 
-    push rbx
+    ;push rbx
     push r8
     push r9
-    push rdx
+   ; push rdx
     ; need prime_number in r12
     ; need maxfactor
     ; rax, rcx, rdx, r8, r9, r10, r11
@@ -66,23 +66,23 @@ found:
 
 exit:
     mov rax, r9
-    pop rdx
+   ; pop rdx
     pop r9
     pop r8
-    pop rbx
+   ; pop rbx
     ret
 isPrime ENDP
 
 factorization PROC
     ; rax, rcx, rdx, r8, r9, r10, r11
-    push r15
-    push r14
+ ;   push r15
+ ;   push r14
     push r10
-    push r9
-    push r8
-    push rcx
-    push rdx
-    push rbx
+ ;   push r9
+ ;   push r8
+   push rcx
+ ;   push rdx
+;    push rbx
     ; need baseIndex in R13
     mov r11, [rbp - 32]   ; maxFactor
     mov r10, [rbp + 56]   ; get the first value of arTerms
@@ -135,25 +135,25 @@ not_a_factor:
 
 end_factorization:
 
-    pop rbx
-    pop rdx
+;    pop rbx
+ ;   pop rdx
     pop rcx
-    pop r8
-    pop r9
+ ;   pop r8
+ ;   pop r9
     pop r10
-    pop r14
-    pop r15
+ ;   pop r14
+  ;  pop r15
     ret
 factorization ENDP
 
 
 fiboWork PROC
-    push rcx
-    push rdx
-    push r10
-    push r11
-    push r12
-    push r13
+ ;   push rcx
+ ;   push rdx
+ ;   push r10
+ ;   push r11
+ ;   push r12
+ ;   push r13
 
     mov r10 , [rbp - 16] ; maxterms
     mov rcx, 100
@@ -193,16 +193,23 @@ not_prime:
     jl calculate_fibo
 
 
-    pop r13
-    pop r12
-    pop r11
-    pop r10
-    pop rdx
-    pop rcx
+;    pop r13
+;    pop r12
+;    pop r11
+;    pop r10
+;    pop rdx
+;    pop rcx
     ret
 fiboWork ENDP
 
 clearAndFill PROC
+
+;    push rcx
+ ;   push rdx
+  ;  push r8
+   ; push r9
+    ;push r10
+    ;push r13
 
     ; Clear arTerms
     mov r10 , [rbp - 16] ; maxterms
@@ -252,15 +259,22 @@ loop_double:
     ; Continue looping if rcx is less than rdx
     jl loop_double
 
+
+;    pop r13
+ ;   pop r10
+  ;  pop r9
+   ; pop r8
+   ; pop rdx
+   ; pop rcx
     ret
 clearAndFill ENDP
 
 calculate_error PROC
-    push r8
-    push r9
-    push r10
-    push r11
-    push r12
+  ;  push r8
+  ;  push r9
+  ;  push r10
+  ;  push r11
+  ;  push r12
 
     mov r10, [rbp - 16] ; maxterms
     mov r8, [rbp + 72] ; error array
@@ -269,9 +283,6 @@ calculate_error PROC
 
 loop_error:
     imul r12, r11, 50
-
-
-
     cmp r11,2
     jl two_first_value
 
@@ -309,11 +320,11 @@ two_first_value:
     ; movsd QWORD PTR [rdx], xmm0
 
 
-    pop r12
-    pop r11
-    pop r10
-    pop r9
-    pop r8
+  ;  pop r12
+  ;  pop r11
+  ;  pop r10
+  ;  pop r9
+  ;  pop r8
     ret
 calculate_error ENDP
 
@@ -323,11 +334,19 @@ fibonacci_interop_asm PROC
     mov rbp, rsp
     sub rsp, LOCAL_VAR_SPACE ; Adjust this as needed for your local variables
 
-    ; Save non-volatile registers (if used)
+    ; Save non-volatile registers
     push rbx
-    push rdi
     push rsi
+    push rdi
     push r12
+    push r13
+    push r14
+    push r15
+ ;   push rbx
+ ;   push rdi
+ ;   push rsi
+ ;   push r8
+ ;   push r9
 
     ; Calculate the golden ratio: (1.0 + sqrt(5.0)) / 2.0
     fld1                     ; Load 1.0 onto the FPU stack
@@ -475,10 +494,14 @@ error:
 epilogue:
     ; Epilogue
     ; Restore non-volatile registers
-    pop r12
-    pop rsi
-    pop rdi
-    pop rbx
+; Restore non-volatile registers
+pop r15
+pop r14
+pop r13
+pop r12
+pop rdi
+pop rsi
+pop rbx
 
     ; Restore original rsp
     mov rsp, rbp

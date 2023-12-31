@@ -340,8 +340,8 @@ def main_cython_full():
 
 
 if __name__ == "__main__":
-    # main_cython()
-    # main_cython_full()
-    # main_dll()
+    main_cython()
+    main_cython_full()
+    main_dll()
     # main()
     main_dotnet()

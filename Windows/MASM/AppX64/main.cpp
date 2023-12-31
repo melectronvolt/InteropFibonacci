@@ -12,8 +12,11 @@ enum class fbReturn {
     OK, NOL, OF_P, OF, TMT, TB, PRM_ERR, ERR
 };
 
-extern "C" fbReturn fibonacci_interop_asm(unsigned long long fbStart, unsigned char maxTerms,unsigned long long maxFibo, unsigned long long maxFactor, unsigned char nbrOfLoops,
-                                      unsigned long long* arTerms, bool* arPrimes, double* arError, double& goldenNbr,unsigned long long& test);
+extern "C" fbReturn
+fibonacci_interop_asm(unsigned long long fbStart, unsigned char maxTerms, unsigned long long maxFibo,
+                      unsigned long long maxFactor, unsigned char nbrOfLoops,
+                      unsigned long long* arTerms, bool* arPrimes, double* arError, double& goldenNbr,
+                      unsigned long long& test);
 
 double mean(const double* lst, int size) {
     double sum = 0;
@@ -32,11 +35,11 @@ double standard_deviation(const double* lst, int size) {
 
 int main() {
     unsigned char maxTerms = 74;
-    double timeCount[5];
+    double timeCount[10];
 
     unsigned long long* arTerms = new unsigned long long[maxTerms * 50];
 
-   //  Fill the arTerms array with the value 12
+    //  Fill the arTerms array with the value 12
     for (int i = 0; i < maxTerms * 50; ++i) {
         arTerms[i] = 12;
     }
@@ -53,57 +56,61 @@ int main() {
         arError[i] = 9.87654321;
     }
 
-    double goldenNbr = 0.5;
+    double goldenNbr;
     unsigned long long test = 0;
-    fbReturn fbRet = fibonacci_interop_asm(1, maxTerms, 1304969544928657, 400000, 1, arTerms, arPrimes, arError, goldenNbr, test);
+//    fbReturn fbRet = fibonacci_interop_asm(1, maxTerms, 1304969544928657, 400000, 1, arTerms, arPrimes, arError, goldenNbr, test);
 
 
-    for (int i = 0; i < maxTerms; ++i) {
-        std::cout << std::setprecision(20) << arError[i] << std::endl;
+//    for (int i = 0; i < maxTerms; ++i) {
+//        std::cout << std::setprecision(20) << arError[i] << std::endl;
+//    }
+
+    fbReturn fbRet;
+
+
+
+
+    for (int i = 0; i < 10; ++i) {
+        clock_t start_time = clock();
+        fbRet = fibonacci_interop_asm(1, maxTerms, 1304969544928657, 4000000, 7, arTerms, arPrimes, arError,
+                                      goldenNbr, test);
+        clock_t end_time = clock();
+        timeCount[i] = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
     }
 
-
-
-
-    /*  for (int i = 0; i < 5; ++i) {
-          clock_t start_time = clock();
-   // fbReturn fbRet = fibonacci_interop(1, maxTerms, 1304969544928657, 4000000, 5, arTerms, arPrimes, arError, goldenNbr);
-          clock_t end_time = clock();
-          timeCount[i] = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
-      }*/
-
-      for (int i = 0; i < maxTerms; ++i) {
-          std::string line;
-          int baseIndex = i * 50;
-          if (arTerms[baseIndex]) {
-              line += (arPrimes[baseIndex]) ? std::to_string(i) + " - [" + std::to_string(arTerms[baseIndex]) + "] : " :
-                      std::to_string(i) + " - " + std::to_string(arTerms[baseIndex]) + " : ";
-              bool addValue = false;
-              for (int position = 1; position < 50; ++position) {
-                  int index = baseIndex + position;
-                  if (arTerms[index]) {
-                      line += (arPrimes[index]) ? "[" + std::to_string(arTerms[index]) + "] x " : std::to_string(arTerms[index]) + " x ";
-                      addValue = true;
-                  }
-              }
-              if (addValue)
-                  line = line.substr(0, line.size() - 3);
-              else
-                  line += "Factor not found";
-          }
-          std::cout << line << std::endl;
-      }
+    for (int i = 0; i < maxTerms; ++i) {
+        std::string line;
+        int baseIndex = i * 50;
+        if (arTerms[baseIndex]) {
+            line += (arPrimes[baseIndex]) ? std::to_string(i) + " - [" + std::to_string(arTerms[baseIndex]) + "] : " :
+                    std::to_string(i) + " - " + std::to_string(arTerms[baseIndex]) + " : ";
+            bool addValue = false;
+            for (int position = 1; position < 50; ++position) {
+                int index = baseIndex + position;
+                if (arTerms[index]) {
+                    line += (arPrimes[index]) ? "[" + std::to_string(arTerms[index]) + "] x " :
+                            std::to_string(arTerms[index]) + " x ";
+                    addValue = true;
+                }
+            }
+            if (addValue)
+                line = line.substr(0, line.size() - 3);
+            else
+                line += "Factor not found";
+        }
+        std::cout << line << std::endl;
+    }
 
     std::cout << "Return: " << static_cast<int>(fbRet) << std::endl;
     std::cout << "Test : " << test << std::endl;
-    std::cout << "Golden Number: " << std::setprecision(20) <<  goldenNbr << std::endl;
-//      std::cout << "---------------------------------" << std::endl;
-//      std::cout << "Average Duration: " << mean(timeCount, 5) << std::endl;
-//      std::cout << "Standard Deviation: " << standard_deviation(timeCount, 5) << std::endl;
+    std::cout << "Golden Number: " << std::setprecision(20) << goldenNbr << std::endl;
+    std::cout << "---------------------------------" << std::endl;
+    std::cout << "Average Duration: " << mean(timeCount, 5) << std::endl;
+    std::cout << "Standard Deviation: " << standard_deviation(timeCount, 5) << std::endl;
 
-      delete[] arTerms;
-      delete[] arPrimes;
-      delete[] arError;
+    delete[] arTerms;
+    delete[] arPrimes;
+    delete[] arError;
 
     return 0;
 }
