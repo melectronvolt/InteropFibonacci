@@ -73,6 +73,9 @@ clearAndFill ENDP
 isPrime PROC
 
     push rbx
+    push r8
+    push r9
+    push rdx
     ; need prime_number in r12
     ; need maxfactor
     ; rax, rcx, rdx, r8, r9, r10, r11
@@ -109,6 +112,9 @@ found:
 
 exit:
     mov rax, r9
+    pop rdx
+    pop r9
+    pop r8
     pop rbx
     ret
 isPrime ENDP
@@ -145,6 +151,20 @@ start_while:
     mov r14, r13
     add r14, r8
     mov [r10 + 8 * r14], rbx
+
+    ; test si prime
+    mov r12, rbx
+    call isPrime
+
+   ; si rax = 1 prime sinon rax = 0
+    test rax, rax
+    jz not_prime_facto
+    ; here it is prime we need to modify the value
+
+    mov dl, 1 ; False
+    mov [r9 + r14], dl
+
+not_prime_facto:
 
     cmp r8, 49
     je end_factorization
