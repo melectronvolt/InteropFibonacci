@@ -79,7 +79,7 @@ isPrime PROC
     mov r8, [rbp - 32]   ; maxFactor
 
     cmp r12, r8
-    jg search ; If numberPrime is greate than or equal to maxFactor
+    jg search ; If numberPrime is greater than or equal to maxFactor
     mov r8, r12
 
 search:
@@ -127,7 +127,7 @@ fiboWork PROC
     mov r10 , [rbp - 16] ; maxterms
     mov rcx, 100
     ; maxTerms - R12
-    imul r10, r10, 48
+    imul r10, r10, 50
 calculate_fibo:
     ; Loop body here
     mov rax, [rbp+56] ; get the value
