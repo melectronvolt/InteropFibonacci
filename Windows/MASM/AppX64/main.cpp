@@ -54,27 +54,16 @@ int main() {
     }
 
     double goldenNbr = 0.5;
-    unsigned long long test= 0;
+    unsigned long long test = 0;
     fbReturn fbRet = fibonacci_interop_asm(1, maxTerms, 1304969544928657, 400000, 1, arTerms, arPrimes, arError, goldenNbr, test);
 
 
-    for (int i = 0; i < maxTerms*50; ++i) {
-        std::cout << arTerms[i] << std::endl;
-    }
-
-    for (int i = 0; i < maxTerms*50; ++i) {
-        std::cout << arPrimes[i] << std::endl;
-    }
-
     for (int i = 0; i < maxTerms; ++i) {
-        std::cout << arError[i] << std::endl;
+        std::cout << std::setprecision(20) << arError[i] << std::endl;
     }
 
 
 
-    std::cout << "Return: " << static_cast<int>(fbRet) << std::endl;
-    std::cout << "Test : " << test << std::endl;
-    std::cout << "Golden Number: " << std::setprecision(20) <<  goldenNbr << std::endl;
 
     /*  for (int i = 0; i < 5; ++i) {
           clock_t start_time = clock();
@@ -105,7 +94,9 @@ int main() {
           std::cout << line << std::endl;
       }
 
-//      std::cout << "Golden Number: " << goldenNbr << std::endl;
+    std::cout << "Return: " << static_cast<int>(fbRet) << std::endl;
+    std::cout << "Test : " << test << std::endl;
+    std::cout << "Golden Number: " << std::setprecision(20) <<  goldenNbr << std::endl;
 //      std::cout << "---------------------------------" << std::endl;
 //      std::cout << "Average Duration: " << mean(timeCount, 5) << std::endl;
 //      std::cout << "Standard Deviation: " << standard_deviation(timeCount, 5) << std::endl;

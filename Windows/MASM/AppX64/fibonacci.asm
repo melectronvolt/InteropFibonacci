@@ -19,6 +19,8 @@ FB_TB       EQU 5
 FB_PRM_ERR  EQU 6
 FB_ERR      EQU 7
 
+abs_mask dq 7FFFFFFFFFFFFFFFh  ; Mask with all bits set except the sign bit
+
 .code
 
 
@@ -278,6 +280,16 @@ loop_error:
     cvtsi2sd xmm0, rax
     cvtsi2sd xmm1, rbx
     divsd xmm0, xmm1
+    ; Load GOLDEN_CONST into xmm1
+    movsd xmm1, [GOLDEN_CONST]
+
+    ; Subtract GOLDEN_CONST from xmm0
+    subsd xmm0, xmm1
+
+    ; absolute value
+    movsd xmm1, [abs_mask]  ; Load the mask into xmm1
+    andpd xmm0, xmm1        ; Perform bitwise AND to clear the sign bit
+
     movsd QWORD PTR [r8 + 8 * r11], xmm0
 
 two_first_value:
@@ -287,6 +299,15 @@ two_first_value:
     cmp r11, r10
     ; Continue looping if rcx is less than rdx
     jl loop_error
+
+    ; Load the address stored in arError (at [rbp+72])
+    ; mov rax, [rbp+72]
+    ; Load the first double value from the address in rax into xmm0
+    ; movsd xmm0, QWORD PTR [rax]
+    ; Now xmm0 contains the first element of the arError array
+    ; Store this value to the location pointed to by rdx
+    ; movsd QWORD PTR [rdx], xmm0
+
 
     pop r12
     pop r11
@@ -384,12 +405,16 @@ main_loop:
     cmp rcx, rsi
     jl main_loop
 
+
+    mov rdx, [rbp+80]
+    movsd xmm0, QWORD PTR [GOLDEN_CONST]
+    movsd QWORD PTR [rdx], xmm0
     ;mov r12, 5
     ;call isPrime
     ;mov r10, [rbp+88]
     ;mov [r10], rax
 
-
+    xor rax,rax
     ; test
     ; Load the value 1.234567 into xmm0
     ; movsd xmm0, QWORD PTR [GOLDEN_CONST]
