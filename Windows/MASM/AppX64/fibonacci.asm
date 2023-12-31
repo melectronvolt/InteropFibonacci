@@ -71,9 +71,45 @@ loop_double:
 clearAndFill ENDP
 
 isPrime PROC
-    ; need prime_number
+
+    push rbx
+    ; need prime_number in r12
     ; need maxfactor
-    ; rax, rcx, rdx
+    ; rax, rcx, rdx, r8, r9, r10, r11
+    mov r8, [rbp - 32]   ; maxFactor
+
+    cmp r12, r8
+    jg search ; If numberPrime is greate than or equal to maxFactor
+    mov r8, r12
+
+search:
+
+    mov rbx, 2
+    mov r9,1
+
+brutPrime:
+    xor rdx,rdx
+    mov rax, r12
+    div rbx
+    test rdx, rdx
+    jz found
+
+    ; Increment the loop counter
+    inc rbx
+
+    ; Compare the loop counter with the endpoint
+    cmp rbx, r8
+    ; Continue looping if rcx is less than rdx
+    jl brutPrime
+
+    jmp exit
+
+found:
+    mov r9, 0
+
+exit:
+    mov rax, r9
+    pop rbx
     ret
 isPrime ENDP
 
@@ -84,6 +120,9 @@ factorization ENDP
 
 
 fiboWork PROC
+
+    push r12
+    push r13
 
     mov r10 , [rbp - 16] ; maxterms
     mov rcx, 100
@@ -106,6 +145,9 @@ calculate_fibo:
     ; Continue looping if rcx is less than rdx
     jl calculate_fibo
 
+
+    pop r13
+    pop r12
     ret
 fiboWork ENDP
 
@@ -198,8 +240,10 @@ main_loop:
     cmp rcx, rsi
     jl main_loop
 
-    ; mov r10, [rbp+88]
-    ; mov [r10], r12
+    mov r12, 5
+    call isPrime
+    mov r10, [rbp+88]
+    mov [r10], rax
 
 
     ; test
