@@ -1,0 +1,3 @@
+LIBRARY FiboASMx64
+EXPORTS
+    fibonacci_interop_asm
