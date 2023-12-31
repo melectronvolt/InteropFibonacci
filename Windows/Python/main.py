@@ -127,7 +127,7 @@ def main_dotnet():
     # Since arrays in C# are different from Python lists, we need to create them in a compatible way
     timeCount = []
 
-    for _ in range(10):
+    for _ in range(20):
         start_time = time.time()  # Start the timer
         # Correctly create the arrays using .NET types
         arTerms = Array[UInt64](range(maxTerms * 50))
@@ -182,7 +182,7 @@ def main():
 
     timeCount = []
 
-    for _ in range(10):
+    for _ in range(20):
         start_time = time.time()  # Start the timer
         fbRet, arTerms, arPrimes, arError, goldenNbr = fibonacci_interop_python(1, maxTerms, 1304969544928657, 4000000,
                                                                                 7)
@@ -224,7 +224,7 @@ def main_cython():
     maxTerms = 74
     timeCount = []
 
-    for _ in range(10):
+    for _ in range(20):
         start_time = time.time()  # Start the timer
         arTerms = array('Q', [0] * maxTerms * 50)  # 'Q' for unsigned long long
         arPrimes = array('b', [0] * maxTerms * 50)  # 'b' for signed char
@@ -334,14 +334,82 @@ def main_dll():
     print("Durée moyenne : " + str(mean(timeCount)))
     print("Standard Deviation : " + str(standard_deviation(timeCount)))
 
+def main_dll_ASM():
+    import ctypes
+
+    # Load the DLL
+    lib = ctypes.CDLL(
+        'F:\\OtherProjects\\InteropFibonacci\\Windows\\Python\\FiboASMx64.dll')  # Update with the correct path to your DLL
+
+    # Set the argument types for the fibonacci_interop function
+    lib.fibonacci_interop_asm.argtypes = [
+        ctypes.c_int, ctypes.c_int, ctypes.c_longlong, ctypes.c_int, ctypes.c_int,
+        ctypes.POINTER(ctypes.c_ulonglong), ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_float),
+        ctypes.POINTER(ctypes.c_double)
+    ]
+
+    # Set the return type for the fibonacci_interop function
+    lib.fibonacci_interop_asm.restype = ctypes.c_int
+
+    # Prepare to call the function (example, replace with actual values)
+    fbStart = 1
+    maxTerms = 74
+    maxFibo = 1304969544928657
+    maxFactor = 4000000
+    nbrOfLoops = 7
+    arTerms = (ctypes.c_ulonglong * (maxTerms * 50))()  # Adjust size as needed
+    arPrimes = (ctypes.c_bool * (maxTerms * 50))()  # Adjust size as needed
+    arError = (ctypes.c_float * maxTerms)()  # Adjust size as needed
+    goldenNbr = ctypes.c_double()
+
+    timeCount = []
+
+    # Call the function
+    for _ in range(20):
+        start_time = time.time()  # Start the timer
+        result = lib.fibonacci_interop_asm(fbStart, maxTerms, maxFibo, maxFactor, nbrOfLoops, arTerms, arPrimes, arError,
+                                       ctypes.byref(goldenNbr))
+        end_time = time.time()  # End the timer
+        timeCount.append(end_time - start_time)
+
+    # for i in range(0, maxTerms):
+    #     ligne = ''
+    #     baseIndex = i * 50
+    #     if arTerms[baseIndex]:
+    #         if arPrimes[baseIndex]:
+    #             ligne += f"{i} - [{arTerms[baseIndex]}] : "
+    #         else:
+    #             ligne += f"{i} - {arTerms[baseIndex]} : "
+    #         addValue = False
+    #         for position in range(1, 50):
+    #             index = baseIndex + position
+    #             if arTerms[index]:
+    #                 if arPrimes[index]:
+    #                     ligne += f"[{arTerms[index]}] x "
+    #                 else:
+    #                     ligne += f"{arTerms[index]} x "
+    #                 addValue = True
+    #
+    #         if addValue:
+    #             ligne = ligne[:- 3]
+    #         else:
+    #             ligne += "Factor not found"
+    #     print(ligne)
+    #
+    # print("Golden Number : ", goldenNbr.value)
+
+    print("DLL ASM ---------------------------------")
+    print("Durée moyenne : " + str(mean(timeCount)))
+    print("Standard Deviation : " + str(standard_deviation(timeCount)))
 
 def main_cython_full():
     fibonacci_fullinterop(1, 74, 1304969544928657, 4000000, 7)
 
 
 if __name__ == "__main__":
-    main_cython()
-    main_cython_full()
-    main_dll()
-    # main()
-    main_dotnet()
+    # main_cython()
+    # main_cython_full()
+    # main_dll()
+    # main_dll_ASM()
+    main()
+    # main_dotnet()
