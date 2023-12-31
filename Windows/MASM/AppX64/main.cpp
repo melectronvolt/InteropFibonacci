@@ -12,8 +12,8 @@ enum class fbReturn {
     OK, NOL, OF_P, OF, TMT, TB, PRM_ERR, ERR
 };
 
-extern "C" fbReturn fibonacci_interop_asm(int fbStart, int maxTerms,unsigned long long maxFibo, int maxFactor, int nbrOfLoops,
-                                      unsigned long long* arTerms, bool* arPrimes, float* arError, double& goldenNbr,unsigned long long& test);
+extern "C" fbReturn fibonacci_interop_asm(unsigned long long fbStart, unsigned char maxTerms,unsigned long long maxFibo, unsigned long long maxFactor, unsigned char nbrOfLoops,
+                                      unsigned long long* arTerms, bool* arPrimes, double* arError, double& goldenNbr,unsigned long long& test);
 
 double mean(const double* lst, int size) {
     double sum = 0;
@@ -31,12 +31,27 @@ double standard_deviation(const double* lst, int size) {
 }
 
 int main() {
-    int maxTerms = 74;
+    unsigned char maxTerms = 74;
     double timeCount[5];
 
     unsigned long long* arTerms = new unsigned long long[maxTerms * 50];
+
+    // Fill the arTerms array with the value 12
+    for (int i = 0; i < maxTerms * 50; ++i) {
+        arTerms[i] = 12;
+    }
+
     bool* arPrimes = new bool[maxTerms * 50];
-    float* arError = new float[maxTerms];
+
+    for (int i = 0; i < maxTerms * 50; ++i) {
+        arPrimes[i] = true;
+    }
+
+    double* arError = new double[maxTerms];
+
+    for (int i = 0; i < maxTerms; ++i) {
+        arError[i] = 9.87654321;
+    }
 
     double goldenNbr = 0.5;
     unsigned long long test= 0;
