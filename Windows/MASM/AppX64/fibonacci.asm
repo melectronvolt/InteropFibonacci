@@ -115,19 +115,35 @@ isPrime ENDP
 
 factorization PROC
     ; rax, rcx, rdx, r8, r9, r10, r11
-
+    push r10
+    push r9
+    push r8
+    push rcx
+    push rdx
     ; need baseIndex in R13
     mov r11, [rbp - 32]   ; maxFactor
     mov r10, [rbp + 56]   ; get the first value of arTerms
     mov r9, [rbp + 64]    ; get the first value of arPrimes
 
+    mov r8, 0 ; position = 0
+    mov rcx, [r10 + 8*r13] ; rcx = result
 
 
+    
+    mov r15, rcx
+    mov [r10 + 8*r13], r15
+
+    pop rdx
+    pop rcx
+    pop r8
+    pop r9
+    pop r10
     ret
 factorization ENDP
 
 
 fiboWork PROC
+
     push r12
     push r13
 
