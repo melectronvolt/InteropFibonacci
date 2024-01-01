@@ -46,6 +46,14 @@ public class MyFiboClass
         return true;
     }
 
+    /// <summary>
+    /// Performs factorization of a given number and populates arrays with the factors and their primality.
+    /// </summary>
+    /// <param name="arTerms">An array to store the factors.</param>
+    /// <param name="arPrimes">An array to store the primality of factors.</param>
+    /// <param name="baseIndex">The base index in the arrays to start storing factors.</param>
+    /// <param name="maxFactor">The maximum factor to consider during factorization.</param>
+
     static void Factorization(ulong[] arTerms, bool[] arPrimes, int baseIndex, ulong maxFactor)
     {
         int position = 0;
@@ -71,6 +79,19 @@ public class MyFiboClass
             }
         }
     }
+
+    /// <summary>
+    /// Calculates Fibonacci sequences with additional information.
+    /// </summary>
+    /// <param name="fbStart">The starting value for the Fibonacci sequence.</param>
+    /// <param name="maxTerms">The maximum number of terms in the Fibonacci sequence.</param>
+    /// <param name="maxFibo">The maximum Fibonacci value allowed.</param>
+    /// <param name="maxFactor">The maximum factor to consider during factorization.</param>
+    /// <param name="nbrOfLoops">The number of loops to run the calculation.</param>
+    /// <param name="arTerms">An array to store the terms of the Fibonacci sequence.</param>
+    /// <param name="arPrimes">An array to store the primality of terms.</param>
+    /// <param name="arError">An array to store error values.</param>
+    /// <returns>A <see cref="FibonacciResult"/> object containing the result and the golden number.</returns>
 
     public static FibonacciResult fibonacci_interop_cs(ulong fbStart, byte maxTerms, ulong maxFibo, ulong maxFactor, byte nbrOfLoops,
         ulong[] arTerms, bool[] arPrimes, double[] arError)
