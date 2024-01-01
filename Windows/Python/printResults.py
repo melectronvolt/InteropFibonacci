@@ -1,6 +1,7 @@
 __author__ = "Rémi MEVAERE"
 __copyright__ = "Copyright (c) 2024 Rémi MEVAERE"
 __license__ = "MIT License"
+
 __version__ = "1.0.0"
 __maintainer__ = "Rémi MEVAERE"
 __email__ = "your.email@example.com"

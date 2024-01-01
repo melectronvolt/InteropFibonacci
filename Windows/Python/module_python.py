@@ -7,13 +7,10 @@ __email__ = "your.email@example.com"
 __status__ = "Development"
 __date__ = "2024-01-01"
 
-
 from enum import Enum
 from math import sqrt
 from typing import List, Tuple
-import time
-from printResults import printResults
-from benchParameters import Parameters
+
 
 class fbReturn(Enum):
     OK = 0
@@ -22,20 +19,8 @@ class fbReturn(Enum):
     PRM_ERR = 3
 
 
-# Parameters for the test
-fiboMaxTerms: int = 74  # 74 is the maximum number of terms that can be calculated, it must fit in int64
-loopTime: int = 1  # Number of times the test is performed
-fiboStart: int = 1  # The first term of the fibonacci sequence
-fiboMaxValue: int = 1304969544928657  # The maximum value of the fibonacci sequence, it must fit in int64
-fiboMaxFactor: int = 4000000  # The maximum value of the factorization
-fiboNbrOfLoops: int = 1  # The number of times the test is performed
-
-# List of time taken for the test to calculate the mean and the standard deviation
-listTimeCount: List[float] = []
-
-
-def fibonacci_interop_python(fbStart: int, maxTerms: int, maxFibo: int, maxFactor: int, nbrOfLoops: int) -> Tuple[
-    fbReturn, List, List, List, float]:
+def fibonacci_interop_python(fbStart: int, maxTerms: int, maxFibo: int, maxFactor: int, nbrOfLoops: int) \
+        -> Tuple[fbReturn, List, List, List, float]:
     """
 
     Parameters
@@ -182,23 +167,3 @@ def fibonacci_interop_python(fbStart: int, maxTerms: int, maxFibo: int, maxFacto
             factorization(baseIndex)  # We factorize this value
 
     return fbReturn.OK, arTerms, arPrimes, arError, goldenConst
-
-
-
-
-def execute_loop(nameTest: str, functionToTest)->None:
-    for _ in range(loopTime):
-        start_time: float = time.time()  # Start the timer
-        fbRet, arTerms, arPrimes, arError, goldenNbr = functionToTest(Parameters.fiboStart, Parameters.fiboMaxTerms, Parameters.fiboMaxValue,
-                                                                      Parameters.fiboMaxFactor, Parameters.fiboNbrOfLoops)
-        end_time: float = time.time()  # End the timer
-        listTimeCount.append(end_time - start_time)  # Add the time taken in the list
-
-    printResults(arPrimes, arTerms, goldenNbr, fiboMaxTerms, listTimeCount, nameTest)
-
-def main_python():
-    nameTest: str = "Python"
-    execute_loop(nameTest, fibonacci_interop_python)
-
-
-

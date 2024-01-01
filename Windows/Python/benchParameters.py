@@ -8,7 +8,7 @@ __status__ = "Development"
 __date__ = "2024-01-01"
 
 # Parameters for the test
-class Parameters:
+class parameters:
     fiboMaxTerms: int = 74  # 74 is the maximum number of terms that can be calculated, it must fit in int64
     loopTime: int = 1  # Number of times the test is performed
     fiboStart: int = 1  # The first term of the fibonacci sequence
