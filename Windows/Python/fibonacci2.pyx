@@ -1,6 +1,19 @@
-# fibonacci.pyx
+# cython: language_level=3
+
+"""
+Cythonized version of the Fibonacci program
+"""
+
+__author__ = "Rémi MEVAERE"
+__copyright__ = "Copyright (c) 2024 Rémi MEVAERE"
+__license__ = "MIT License"
+__version__ = "1.0.0"
+__maintainer__ = "Rémi MEVAERE"
+__email__ = "your.email@example.com"
+__status__ = "Development"
+__date__ = "2024-01-01"
+
 from libc.math cimport sqrt
-from cpython.array cimport array, clone
 from libc.stdlib cimport malloc, free
 from libc.stdio cimport printf
 from libc.time cimport clock, CLOCKS_PER_SEC

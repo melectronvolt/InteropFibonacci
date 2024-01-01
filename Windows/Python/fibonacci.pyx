@@ -1,6 +1,21 @@
-# fibonacci.pyx
+# cython: language_level=3
+
+"""
+Cythonized version of the Fibonacci module (only function)
+"""
+
+__author__ = "Rémi MEVAERE"
+__copyright__ = "Copyright (c) 2024 Rémi MEVAERE"
+__license__ = "MIT License"
+__version__ = "1.0.0"
+__maintainer__ = "Rémi MEVAERE"
+__email__ = "your.email@example.com"
+__status__ = "Development"
+__date__ = "2024-01-01"
+
+# Import the C functions
 from libc.math cimport sqrt
-from cpython.array cimport array, clone
+from cpython.array cimport array
 
 cdef enum fbReturn:
     OK = 0
