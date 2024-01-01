@@ -7,7 +7,8 @@ __email__ = "your.email@example.com"
 __status__ = "Development"
 __date__ = "2024-01-01"
 
-# Parameters for the test
+# Parameters for the benchmarks
+
 class parameters:
     fiboMaxTerms: int = 74  # 74 is the maximum number of terms that can be calculated, it must fit in int64
     loopTime: int = 20  # Number of times the test is performed

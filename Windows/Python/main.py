@@ -21,6 +21,23 @@ listTimeCount: List[float] = []
 
 
 def execute_loop(nameTest: str, functionToTest)->None:
+    """Execute a test loop for a given function and print the results.
+
+   This function performs a test loop for a specified function and prints the results.
+   It runs the function `parameters.loopTime` times, measuring the time taken for each run.
+   After the loop, it calculates and prints the results, including prime numbers,
+   terms, the golden number, and the time taken.
+
+   :param nameTest: str
+      The name of the test.
+   :type nameTest: str
+   :param functionToTest: callable
+      The function to be tested. It should have the signature `() -> Tuple`.
+   :type functionToTest: callable
+
+   :return: None
+      This function does not return anything but prints the test results."""
+
     for _ in range(parameters.loopTime):
         start_time: float = time.time()  # Start the timer
         fbRet, arTerms, arPrimes, arError, goldenNbr = functionToTest()
@@ -30,11 +47,13 @@ def execute_loop(nameTest: str, functionToTest)->None:
     printResults(arPrimes, arTerms, goldenNbr, parameters.fiboMaxTerms, listTimeCount, nameTest)
 
 def execute_python():
+    """Execute the test in Python."""
     return fibonacci_interop_python(parameters.fiboStart, parameters.fiboMaxTerms,
                                                                   parameters.fiboMaxValue,
                                                                   parameters.fiboMaxFactor, parameters.fiboNbrOfLoops)
 
 def execute_cython():
+    """Execute the test in Cython."""
     arTerms = array('Q', [0] * parameters.fiboMaxTerms * 50)  # 'Q' for unsigned long long
     arPrimes = array('b', [0] * parameters.fiboMaxTerms * 50)  # 'b' for signed char
     arError = array('f', [0] * parameters.fiboMaxTerms)  # 'f' for float
@@ -42,7 +61,9 @@ def execute_cython():
     fbRet, goldenNbr = fibonacci_interop_cython(parameters.fiboStart, parameters.fiboMaxTerms, parameters.fiboMaxValue, parameters.fiboMaxFactor, parameters.fiboNbrOfLoops, arTerms, arPrimes, arError)
     return fbRet, arTerms, arPrimes, arError, goldenNbr
 
-
+def main_cython_full():
+    """Execute the test in Cython Full Version."""
+    fibonacci_interop_cython_full(parameters.fiboStart, parameters.fiboMaxTerms, parameters.fiboMaxValue, parameters.fiboMaxFactor, parameters.fiboNbrOfLoops)
 
 def main_python():
     nameTest: str = "Python"
@@ -52,9 +73,6 @@ def main_cython():
     nameTest: str = "Cython"
     execute_loop(nameTest, execute_cython)
 
-
-def main_cython_full():
-    fibonacci_interop_cython_full(parameters.fiboStart, parameters.fiboMaxTerms, parameters.fiboMaxValue, parameters.fiboMaxFactor, parameters.fiboNbrOfLoops)
 
 if __name__ == "__main__":
     # main_python()

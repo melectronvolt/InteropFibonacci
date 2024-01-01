@@ -1,8 +1,6 @@
 # cython: language_level=3
 
-"""
-Cythonized version of the Fibonacci module (only function)
-"""
+# Cythonized version of the Fibonacci program (only functions)
 
 __author__ = "Rémi MEVAERE"
 __copyright__ = "Copyright (c) 2024 Rémi MEVAERE"
