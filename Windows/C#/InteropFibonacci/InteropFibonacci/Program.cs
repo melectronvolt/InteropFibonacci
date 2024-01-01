@@ -4,7 +4,7 @@ class Program
 {
     enum FbReturn
     {
-        OK, NOL, OF_P, OF, TMT, TB, PRM_ERR, ERR
+        OK, TMT, TB, PRM_ERR, ERR
     }
 
     static bool IsPrime(int numberPrime, int maxFactor)

@@ -1,4 +1,17 @@
-﻿namespace DllFibonacci;
+﻿// -----------------------------------------------------------------------
+// File Information
+// -----------------------------------------------------------------------
+// Author: Rémi MEVAERE
+// Copyright: Copyright (c) 2024 Rémi MEVAERE
+// License: MIT License
+// Version: 1.0.0
+// Maintainer: Rémi MEVAERE
+// Email: your.email@example.com
+// Status: Development
+// Date: 2024-01-01
+// -----------------------------------------------------------------------
+
+namespace DllFibonacci;
 
 using System;
 
@@ -14,32 +27,28 @@ public class MyFiboClass
     public enum FbReturn
     {
         OK,
-        NOL,
-        OF_P,
-        OF,
         TMT,
         TB,
         PRM_ERR,
         ERR
     }
 
-    static bool IsPrime(int numberPrime, int maxFactor)
+    static bool IsPrime(ulong numberPrime, ulong maxFactor)
     {
-        int maxSearch = (numberPrime < maxFactor) ? numberPrime : maxFactor;
-        for (int i = 2; i < maxSearch; ++i)
+        ulong maxSearch = (numberPrime < maxFactor) ? numberPrime : maxFactor;
+        for (ulong i = 2; i < maxSearch; ++i)
         {
             if (numberPrime % i == 0)
                 return false;
         }
-
         return true;
     }
 
-    static void Factorization(ulong[] arTerms, bool[] arPrimes, int baseIndex, int maxFactor)
+    static void Factorization(ulong[] arTerms, bool[] arPrimes, int baseIndex, ulong maxFactor)
     {
         int position = 0;
         ulong result = arTerms[baseIndex];
-        int testNbr = 2;
+        ulong testNbr = 2;
 
         while (result != 1)
         {
@@ -61,8 +70,8 @@ public class MyFiboClass
         }
     }
 
-    public static FibonacciResult FibonacciInterop(int fbStart, int maxTerms, long maxFibo, int maxFactor, int nbrOfLoops,
-        ulong[] arTerms, bool[] arPrimes, float[] arError)
+    public static FibonacciResult FibonacciInterop(ulong fbStart, byte maxTerms, ulong maxFibo, ulong maxFactor, byte nbrOfLoops,
+        ulong[] arTerms, bool[] arPrimes, double[] arError)
     {
         double goldenNbr = 0;
 
@@ -90,8 +99,13 @@ public class MyFiboClass
             for (int currentTerm = 2; currentTerm < maxTerms; ++currentTerm)
             {
                 int baseIndex = currentTerm * 50;
-                arTerms[baseIndex] = arTerms[baseIndex - 50] + arTerms[baseIndex - 100];
-                arPrimes[baseIndex] = IsPrime((int)arTerms[baseIndex], maxFactor);
+                ulong nextValue = arTerms[baseIndex - 50] + arTerms[baseIndex - 100];
+
+                if (nextValue > (ulong)maxFibo)
+                    return new FibonacciResult { Result = FbReturn.TB, GoldenNumber = goldenNbr };
+
+                arTerms[baseIndex] = nextValue;
+                arPrimes[baseIndex] = IsPrime(arTerms[baseIndex], maxFactor);
                 arError[currentTerm] =
                     Math.Abs((float)(goldenConst - ((double)arTerms[baseIndex] / arTerms[baseIndex - 50])));
                 Factorization(arTerms, arPrimes, baseIndex, maxFactor);
@@ -101,10 +115,5 @@ public class MyFiboClass
         }
 
         return new FibonacciResult { Result = FbReturn.OK, GoldenNumber = goldenNbr };
-    }
-
-    static void Main()
-    {
-        Console.WriteLine("- LOADING THE DLL -");
     }
 }

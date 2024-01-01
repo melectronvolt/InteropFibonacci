@@ -19,9 +19,6 @@ from array import array
 # List of time taken for the test to calculate the mean and the standard deviation
 listTimeCount: List[float] = []
 
-
-
-
 def execute_loop(nameTest: str, functionToTest)->None:
     """Execute a test loop for a given function and print the results.
 
