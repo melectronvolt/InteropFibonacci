@@ -7,8 +7,6 @@ __email__ = "your.email@example.com"
 __status__ = "Development"
 __date__ = "2024-01-01"
 
-
-
 import time
 from printResults import printResults
 from benchParameters import parameters
@@ -18,13 +16,13 @@ from fiboCython import fibonacci_interop_cython
 from fiboCythonFull import fibonacci_interop_cython_full
 from array import array
 import ctypes
+import os
+current_directory = os.getcwd()
 
 from pythonnet import load
 load("coreclr")
 import clr  # Import CLR from Python.NET
-import os
 clr.AddReference('System')
-current_directory = os.getcwd()
 clr.AddReference(os.path.join(current_directory, 'DllFibonacci.dll'))
 from DllFibonacci import MyFiboClass
 from System import Array
@@ -33,14 +31,12 @@ from System.Runtime.InteropServices import GCHandle, GCHandleType
 
 # Load the DLL
 lib = ctypes.CDLL(os.path.join(current_directory, 'InteropFibonacciWinCPP.dll'))  # Update with the correct path to your DLL
-
 # Set the argument types for the fibonacci_interop function
 lib.fibonacci_interop_cpp.argtypes = [
     ctypes.c_ulonglong, ctypes.c_ubyte, ctypes.c_longlong, ctypes.c_ulonglong, ctypes.c_ubyte,
     ctypes.POINTER(ctypes.c_ulonglong), ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_double),
     ctypes.POINTER(ctypes.c_double)
 ]
-
 # Set the return type for the fibonacci_interop function
 lib.fibonacci_interop_cpp.restype = ctypes.c_int
 
@@ -164,6 +160,6 @@ if __name__ == "__main__":
     # main_python()
     # main_cython()
     # main_cython_full()
-    # main_dotnet()
+     main_dotnet()
     # main_cpp_dll()
-    main_cpp_asm()
+    # main_cpp_asm()

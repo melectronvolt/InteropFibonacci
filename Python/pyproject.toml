@@ -1,12 +1,14 @@
 [tool.poetry]
-name = "pythonproject"
+name = "FibonacciInteropPython"
 version = "0.1.0"
 description = ""
 authors = ["Rémi MEVAERE <git_commit@alias.mevaere.fr"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "<3.13,>=3.8"
+pythonnet = "^3.0.3"
+cffi = "^1.16.0"
 
 
 [build-system]
