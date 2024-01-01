@@ -1,6 +1,8 @@
 # cython: language_level=3
 
 # Cythonized version of the Fibonacci program (only functions)
+# No Docstring for this file, it's essentially the same as the Python version with type declarations
+# Some comments are added to explain the Cython specificities
 
 __author__ = "Rémi MEVAERE"
 __copyright__ = "Copyright (c) 2024 Rémi MEVAERE"
@@ -48,14 +50,13 @@ cdef void factorization(unsigned long long* arTerms, char* arPrimes, int baseInd
             break
 
 
-# typedef fbReturn (*LPFIBO)(int fbStart, int maxTerms,unsigned long long maxFibo, int maxFactor, int nbrOfLoops,
-# unsigned long long* arTerms, bool* arPrimes, float* arError, double& goldenNbr,unsigned long long& test);
-
-
 cdef fbReturn fibonacci_interop_c(unsigned long long fbStart, unsigned char maxTerms, unsigned long long maxFibo, unsigned long long maxFactor, unsigned char nbrOfLoops,
-                                  unsigned long long* arTerms, char* arPrimes, float* arError, double* goldenNbr):
-    cdef double goldenConst = (1 + sqrt(5)) / 2
-    cdef int currentTerm, baseIndex
+                                  unsigned long long* arTerms, char* arPrimes, double* arError, double* goldenNbr):
+    cdef int  baseIndex
+    cdef int currentTerm
+    cdef unsigned long long nextValue
+
+    goldenNbr[0] = (1 + sqrt(5)) / 2
 
     if fbStart < 1 or maxFibo < 1 or maxTerms < 3 or maxFactor < 2 or nbrOfLoops < 1:
         return fbReturn.PRM_ERR
@@ -74,11 +75,16 @@ cdef fbReturn fibonacci_interop_c(unsigned long long fbStart, unsigned char maxT
 
         for currentTerm in range(2, maxTerms):
             baseIndex = currentTerm * 50
-            arTerms[baseIndex] = arTerms[baseIndex - 50] + arTerms[baseIndex - 2 * 50]
+            nextValue = arTerms[baseIndex - 50] + arTerms[
+                baseIndex - 2 * 50]  # The next value of the fibonacci sequence
+
+            if nextValue > maxFibo:  # If the next value is greater than the maximum value, leave the loop
+                return fbReturn.OK
+
+            arTerms[baseIndex] = nextValue
             arPrimes[baseIndex] = isPrime(arTerms[baseIndex], maxFactor)
-            arError[currentTerm] = abs(goldenConst - (arTerms[baseIndex] / arTerms[baseIndex - 50]))
+            arError[currentTerm] = abs(goldenNbr[0] - (arTerms[baseIndex] / arTerms[baseIndex - 50]))
             factorization(arTerms, arPrimes, baseIndex, maxFactor)
-        goldenNbr[0] = (arTerms[(maxTerms - 1) * 50] / arTerms[(maxTerms - 2) * 50])
 
     return fbReturn.OK
 
@@ -86,7 +92,7 @@ cpdef tuple fibonacci_interop_cython(unsigned long long fbStart, unsigned char m
                                  array arTermsArray, array arPrimesArray, array arErrorArray):
     cdef unsigned long long[:] arTerms = arTermsArray
     cdef char[:] arPrimes = arPrimesArray
-    cdef float[:] arError = arErrorArray
+    cdef double[:] arError = arErrorArray
     cdef double goldenNbr
 
     # Call the C function

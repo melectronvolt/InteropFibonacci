@@ -1637,7 +1637,7 @@ struct __pyx_MemviewEnum_obj;
 struct __pyx_memoryview_obj;
 struct __pyx_memoryviewslice_obj;
 
-/* "fiboCython.pyx":20
+/* "fiboCython.pyx":19
  * from cpython.array cimport array
  * 
  * cdef enum fbReturn:             # <<<<<<<<<<<<<<
@@ -2785,7 +2785,7 @@ static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_uns
 static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_char(PyObject *, int writable_flag);
 
 /* ObjectToMemviewSlice.proto */
-static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_float(PyObject *, int writable_flag);
+static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_double(PyObject *, int writable_flag);
 
 /* MemviewSliceCopyTemplate.proto */
 static __Pyx_memviewslice
@@ -2919,7 +2919,7 @@ static int __pyx_memoryview_thread_locks_used;
 static PyThread_type_lock __pyx_memoryview_thread_locks[8];
 static char __pyx_f_10fiboCython_isPrime(unsigned PY_LONG_LONG, unsigned PY_LONG_LONG); /*proto*/
 static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *, char *, int, unsigned PY_LONG_LONG); /*proto*/
-static enum __pyx_t_10fiboCython_fbReturn __pyx_f_10fiboCython_fibonacci_interop_c(unsigned PY_LONG_LONG, unsigned char, unsigned PY_LONG_LONG, unsigned PY_LONG_LONG, unsigned char, unsigned PY_LONG_LONG *, char *, float *, double *); /*proto*/
+static enum __pyx_t_10fiboCython_fbReturn __pyx_f_10fiboCython_fibonacci_interop_c(unsigned PY_LONG_LONG, unsigned char, unsigned PY_LONG_LONG, unsigned PY_LONG_LONG, unsigned char, unsigned PY_LONG_LONG *, char *, double *, double *); /*proto*/
 static PyObject *__pyx_f_10fiboCython_fibonacci_interop_cython(unsigned PY_LONG_LONG, unsigned char, unsigned PY_LONG_LONG, unsigned PY_LONG_LONG, unsigned char, arrayobject *, arrayobject *, arrayobject *, int __pyx_skip_dispatch); /*proto*/
 static int __pyx_array_allocate_buffer(struct __pyx_array_obj *); /*proto*/
 static struct __pyx_array_obj *__pyx_array_new(PyObject *, Py_ssize_t, char *, char *, char *); /*proto*/
@@ -2958,7 +2958,7 @@ static PyObject *__pyx_unpickle_Enum__set_state(struct __pyx_MemviewEnum_obj *, 
 /* #### Code section: typeinfo ### */
 static __Pyx_TypeInfo __Pyx_TypeInfo_unsigned_PY_LONG_LONG = { "unsigned long long", NULL, sizeof(unsigned PY_LONG_LONG), { 0 }, 0, __PYX_IS_UNSIGNED(unsigned PY_LONG_LONG) ? 'U' : 'I', __PYX_IS_UNSIGNED(unsigned PY_LONG_LONG), 0 };
 static __Pyx_TypeInfo __Pyx_TypeInfo_char = { "char", NULL, sizeof(char), { 0 }, 0, 'H', __PYX_IS_UNSIGNED(char), 0 };
-static __Pyx_TypeInfo __Pyx_TypeInfo_float = { "float", NULL, sizeof(float), { 0 }, 0, 'R', 0, 0 };
+static __Pyx_TypeInfo __Pyx_TypeInfo_double = { "double", NULL, sizeof(double), { 0 }, 0, 'R', 0, 0 };
 /* #### Code section: before_global_var ### */
 #define __Pyx_MODULE_NAME "fiboCython"
 extern int __pyx_module_is_main_fiboCython;
@@ -3103,7 +3103,6 @@ static const char __pyx_k_itemsize_0_for_cython_array[] = "itemsize <= 0 for cyt
 static const char __pyx_k_Copyright_c_2024_Rmi_MEVAERE[] = "Copyright (c) 2024 R\303\251mi MEVAERE";
 static const char __pyx_k_unable_to_allocate_array_data[] = "unable to allocate array data.";
 static const char __pyx_k_strided_and_direct_or_indirect[] = "<strided and direct or indirect>";
-static const char __pyx_k_Cythonized_version_of_the_Fibon[] = "\nCythonized version of the Fibonacci module (only function)\n";
 static const char __pyx_k_All_dimensions_preceding_dimensi[] = "All dimensions preceding dimension %d must be indexed and not sliced";
 static const char __pyx_k_Buffer_view_does_not_expose_stri[] = "Buffer view does not expose strides";
 static const char __pyx_k_Can_only_create_a_buffer_that_is[] = "Can only create a buffer that is contiguous in memory.";
@@ -18314,7 +18313,7 @@ static CYTHON_INLINE void __pyx_f_7cpython_5array_zero(arrayobject *__pyx_v_self
   /* function exit code */
 }
 
-/* "fiboCython.pyx":26
+/* "fiboCython.pyx":25
  *     PRM_ERR = 3
  * 
  * cdef char isPrime(unsigned long long numberPrime, unsigned long long maxFactor):             # <<<<<<<<<<<<<<
@@ -18334,7 +18333,7 @@ static char __pyx_f_10fiboCython_isPrime(unsigned PY_LONG_LONG __pyx_v_numberPri
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
 
-  /* "fiboCython.pyx":28
+  /* "fiboCython.pyx":27
  * cdef char isPrime(unsigned long long numberPrime, unsigned long long maxFactor):
  *     cdef unsigned long long i
  *     cdef unsigned long long maxSearch = numberPrime if numberPrime < maxFactor else maxFactor             # <<<<<<<<<<<<<<
@@ -18349,7 +18348,7 @@ static char __pyx_f_10fiboCython_isPrime(unsigned PY_LONG_LONG __pyx_v_numberPri
   }
   __pyx_v_maxSearch = __pyx_t_1;
 
-  /* "fiboCython.pyx":29
+  /* "fiboCython.pyx":28
  *     cdef unsigned long long i
  *     cdef unsigned long long maxSearch = numberPrime if numberPrime < maxFactor else maxFactor
  *     for i in range(2, maxSearch):             # <<<<<<<<<<<<<<
@@ -18361,7 +18360,7 @@ static char __pyx_f_10fiboCython_isPrime(unsigned PY_LONG_LONG __pyx_v_numberPri
   for (__pyx_t_4 = 2; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_i = __pyx_t_4;
 
-    /* "fiboCython.pyx":30
+    /* "fiboCython.pyx":29
  *     cdef unsigned long long maxSearch = numberPrime if numberPrime < maxFactor else maxFactor
  *     for i in range(2, maxSearch):
  *         if numberPrime % i == 0:             # <<<<<<<<<<<<<<
@@ -18370,12 +18369,12 @@ static char __pyx_f_10fiboCython_isPrime(unsigned PY_LONG_LONG __pyx_v_numberPri
  */
     if (unlikely(__pyx_v_i == 0)) {
       PyErr_SetString(PyExc_ZeroDivisionError, "integer division or modulo by zero");
-      __PYX_ERR(0, 30, __pyx_L1_error)
+      __PYX_ERR(0, 29, __pyx_L1_error)
     }
     __pyx_t_2 = ((__pyx_v_numberPrime % __pyx_v_i) == 0);
     if (__pyx_t_2) {
 
-      /* "fiboCython.pyx":31
+      /* "fiboCython.pyx":30
  *     for i in range(2, maxSearch):
  *         if numberPrime % i == 0:
  *             return 0  # False             # <<<<<<<<<<<<<<
@@ -18385,7 +18384,7 @@ static char __pyx_f_10fiboCython_isPrime(unsigned PY_LONG_LONG __pyx_v_numberPri
       __pyx_r = 0;
       goto __pyx_L0;
 
-      /* "fiboCython.pyx":30
+      /* "fiboCython.pyx":29
  *     cdef unsigned long long maxSearch = numberPrime if numberPrime < maxFactor else maxFactor
  *     for i in range(2, maxSearch):
  *         if numberPrime % i == 0:             # <<<<<<<<<<<<<<
@@ -18395,7 +18394,7 @@ static char __pyx_f_10fiboCython_isPrime(unsigned PY_LONG_LONG __pyx_v_numberPri
     }
   }
 
-  /* "fiboCython.pyx":32
+  /* "fiboCython.pyx":31
  *         if numberPrime % i == 0:
  *             return 0  # False
  *     return 1  # True             # <<<<<<<<<<<<<<
@@ -18405,7 +18404,7 @@ static char __pyx_f_10fiboCython_isPrime(unsigned PY_LONG_LONG __pyx_v_numberPri
   __pyx_r = 1;
   goto __pyx_L0;
 
-  /* "fiboCython.pyx":26
+  /* "fiboCython.pyx":25
  *     PRM_ERR = 3
  * 
  * cdef char isPrime(unsigned long long numberPrime, unsigned long long maxFactor):             # <<<<<<<<<<<<<<
@@ -18421,7 +18420,7 @@ static char __pyx_f_10fiboCython_isPrime(unsigned PY_LONG_LONG __pyx_v_numberPri
   return __pyx_r;
 }
 
-/* "fiboCython.pyx":34
+/* "fiboCython.pyx":33
  *     return 1  # True
  * 
  * cdef void factorization(unsigned long long* arTerms, char* arPrimes, int baseIndex, unsigned long long maxFactor):             # <<<<<<<<<<<<<<
@@ -18439,7 +18438,7 @@ static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *__pyx_v_ar
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
 
-  /* "fiboCython.pyx":35
+  /* "fiboCython.pyx":34
  * 
  * cdef void factorization(unsigned long long* arTerms, char* arPrimes, int baseIndex, unsigned long long maxFactor):
  *     cdef int position = 0             # <<<<<<<<<<<<<<
@@ -18448,7 +18447,7 @@ static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *__pyx_v_ar
  */
   __pyx_v_position = 0;
 
-  /* "fiboCython.pyx":36
+  /* "fiboCython.pyx":35
  * cdef void factorization(unsigned long long* arTerms, char* arPrimes, int baseIndex, unsigned long long maxFactor):
  *     cdef int position = 0
  *     cdef unsigned long long result = arTerms[baseIndex]             # <<<<<<<<<<<<<<
@@ -18457,7 +18456,7 @@ static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *__pyx_v_ar
  */
   __pyx_v_result = (__pyx_v_arTerms[__pyx_v_baseIndex]);
 
-  /* "fiboCython.pyx":37
+  /* "fiboCython.pyx":36
  *     cdef int position = 0
  *     cdef unsigned long long result = arTerms[baseIndex]
  *     cdef unsigned long long testNbr = 2             # <<<<<<<<<<<<<<
@@ -18466,7 +18465,7 @@ static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *__pyx_v_ar
  */
   __pyx_v_testNbr = 2;
 
-  /* "fiboCython.pyx":39
+  /* "fiboCython.pyx":38
  *     cdef unsigned long long testNbr = 2
  * 
  *     while result != 1:             # <<<<<<<<<<<<<<
@@ -18477,7 +18476,7 @@ static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *__pyx_v_ar
     __pyx_t_1 = (__pyx_v_result != 1);
     if (!__pyx_t_1) break;
 
-    /* "fiboCython.pyx":40
+    /* "fiboCython.pyx":39
  * 
  *     while result != 1:
  *         if result % testNbr == 0:             # <<<<<<<<<<<<<<
@@ -18486,12 +18485,12 @@ static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *__pyx_v_ar
  */
     if (unlikely(__pyx_v_testNbr == 0)) {
       PyErr_SetString(PyExc_ZeroDivisionError, "integer division or modulo by zero");
-      __PYX_ERR(0, 40, __pyx_L1_error)
+      __PYX_ERR(0, 39, __pyx_L1_error)
     }
     __pyx_t_1 = ((__pyx_v_result % __pyx_v_testNbr) == 0);
     if (__pyx_t_1) {
 
-      /* "fiboCython.pyx":41
+      /* "fiboCython.pyx":40
  *     while result != 1:
  *         if result % testNbr == 0:
  *             position += 1             # <<<<<<<<<<<<<<
@@ -18500,7 +18499,7 @@ static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *__pyx_v_ar
  */
       __pyx_v_position = (__pyx_v_position + 1);
 
-      /* "fiboCython.pyx":42
+      /* "fiboCython.pyx":41
  *         if result % testNbr == 0:
  *             position += 1
  *             arTerms[baseIndex + position] = testNbr             # <<<<<<<<<<<<<<
@@ -18509,17 +18508,17 @@ static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *__pyx_v_ar
  */
       (__pyx_v_arTerms[(__pyx_v_baseIndex + __pyx_v_position)]) = __pyx_v_testNbr;
 
-      /* "fiboCython.pyx":43
+      /* "fiboCython.pyx":42
  *             position += 1
  *             arTerms[baseIndex + position] = testNbr
  *             arPrimes[baseIndex + position] = isPrime(testNbr, maxFactor)             # <<<<<<<<<<<<<<
  *             result /= testNbr
  *             if position == 49:
  */
-      __pyx_t_2 = __pyx_f_10fiboCython_isPrime(__pyx_v_testNbr, __pyx_v_maxFactor); if (unlikely(__pyx_t_2 == ((char)-1) && PyErr_Occurred())) __PYX_ERR(0, 43, __pyx_L1_error)
+      __pyx_t_2 = __pyx_f_10fiboCython_isPrime(__pyx_v_testNbr, __pyx_v_maxFactor); if (unlikely(__pyx_t_2 == ((char)-1) && PyErr_Occurred())) __PYX_ERR(0, 42, __pyx_L1_error)
       (__pyx_v_arPrimes[(__pyx_v_baseIndex + __pyx_v_position)]) = __pyx_t_2;
 
-      /* "fiboCython.pyx":44
+      /* "fiboCython.pyx":43
  *             arTerms[baseIndex + position] = testNbr
  *             arPrimes[baseIndex + position] = isPrime(testNbr, maxFactor)
  *             result /= testNbr             # <<<<<<<<<<<<<<
@@ -18528,11 +18527,11 @@ static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *__pyx_v_ar
  */
       if (unlikely(__pyx_v_testNbr == 0)) {
         PyErr_SetString(PyExc_ZeroDivisionError, "integer division or modulo by zero");
-        __PYX_ERR(0, 44, __pyx_L1_error)
+        __PYX_ERR(0, 43, __pyx_L1_error)
       }
       __pyx_v_result = (__pyx_v_result / __pyx_v_testNbr);
 
-      /* "fiboCython.pyx":45
+      /* "fiboCython.pyx":44
  *             arPrimes[baseIndex + position] = isPrime(testNbr, maxFactor)
  *             result /= testNbr
  *             if position == 49:             # <<<<<<<<<<<<<<
@@ -18542,7 +18541,7 @@ static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *__pyx_v_ar
       __pyx_t_1 = (__pyx_v_position == 49);
       if (__pyx_t_1) {
 
-        /* "fiboCython.pyx":46
+        /* "fiboCython.pyx":45
  *             result /= testNbr
  *             if position == 49:
  *                 break             # <<<<<<<<<<<<<<
@@ -18551,7 +18550,7 @@ static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *__pyx_v_ar
  */
         goto __pyx_L4_break;
 
-        /* "fiboCython.pyx":45
+        /* "fiboCython.pyx":44
  *             arPrimes[baseIndex + position] = isPrime(testNbr, maxFactor)
  *             result /= testNbr
  *             if position == 49:             # <<<<<<<<<<<<<<
@@ -18560,7 +18559,7 @@ static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *__pyx_v_ar
  */
       }
 
-      /* "fiboCython.pyx":47
+      /* "fiboCython.pyx":46
  *             if position == 49:
  *                 break
  *             continue             # <<<<<<<<<<<<<<
@@ -18569,7 +18568,7 @@ static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *__pyx_v_ar
  */
       goto __pyx_L3_continue;
 
-      /* "fiboCython.pyx":40
+      /* "fiboCython.pyx":39
  * 
  *     while result != 1:
  *         if result % testNbr == 0:             # <<<<<<<<<<<<<<
@@ -18578,7 +18577,7 @@ static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *__pyx_v_ar
  */
     }
 
-    /* "fiboCython.pyx":48
+    /* "fiboCython.pyx":47
  *                 break
  *             continue
  *         testNbr += 1             # <<<<<<<<<<<<<<
@@ -18587,7 +18586,7 @@ static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *__pyx_v_ar
  */
     __pyx_v_testNbr = (__pyx_v_testNbr + 1);
 
-    /* "fiboCython.pyx":49
+    /* "fiboCython.pyx":48
  *             continue
  *         testNbr += 1
  *         if testNbr > maxFactor:             # <<<<<<<<<<<<<<
@@ -18597,7 +18596,7 @@ static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *__pyx_v_ar
     __pyx_t_1 = (__pyx_v_testNbr > __pyx_v_maxFactor);
     if (__pyx_t_1) {
 
-      /* "fiboCython.pyx":50
+      /* "fiboCython.pyx":49
  *         testNbr += 1
  *         if testNbr > maxFactor:
  *             break             # <<<<<<<<<<<<<<
@@ -18606,7 +18605,7 @@ static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *__pyx_v_ar
  */
       goto __pyx_L4_break;
 
-      /* "fiboCython.pyx":49
+      /* "fiboCython.pyx":48
  *             continue
  *         testNbr += 1
  *         if testNbr > maxFactor:             # <<<<<<<<<<<<<<
@@ -18618,7 +18617,7 @@ static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *__pyx_v_ar
   }
   __pyx_L4_break:;
 
-  /* "fiboCython.pyx":34
+  /* "fiboCython.pyx":33
  *     return 1  # True
  * 
  * cdef void factorization(unsigned long long* arTerms, char* arPrimes, int baseIndex, unsigned long long maxFactor):             # <<<<<<<<<<<<<<
@@ -18633,18 +18632,18 @@ static void __pyx_f_10fiboCython_factorization(unsigned PY_LONG_LONG *__pyx_v_ar
   __pyx_L0:;
 }
 
-/* "fiboCython.pyx":57
+/* "fiboCython.pyx":52
  * 
  * 
  * cdef fbReturn fibonacci_interop_c(unsigned long long fbStart, unsigned char maxTerms, unsigned long long maxFibo, unsigned long long maxFactor, unsigned char nbrOfLoops,             # <<<<<<<<<<<<<<
- *                                   unsigned long long* arTerms, char* arPrimes, float* arError, double* goldenNbr):
- *     cdef double goldenConst = (1 + sqrt(5)) / 2
+ *                                   unsigned long long* arTerms, char* arPrimes, double* arError, double* goldenNbr):
+ *     cdef int  baseIndex
  */
 
-static enum __pyx_t_10fiboCython_fbReturn __pyx_f_10fiboCython_fibonacci_interop_c(unsigned PY_LONG_LONG __pyx_v_fbStart, unsigned char __pyx_v_maxTerms, unsigned PY_LONG_LONG __pyx_v_maxFibo, unsigned PY_LONG_LONG __pyx_v_maxFactor, unsigned char __pyx_v_nbrOfLoops, unsigned PY_LONG_LONG *__pyx_v_arTerms, char *__pyx_v_arPrimes, float *__pyx_v_arError, double *__pyx_v_goldenNbr) {
-  double __pyx_v_goldenConst;
-  int __pyx_v_currentTerm;
+static enum __pyx_t_10fiboCython_fbReturn __pyx_f_10fiboCython_fibonacci_interop_c(unsigned PY_LONG_LONG __pyx_v_fbStart, unsigned char __pyx_v_maxTerms, unsigned PY_LONG_LONG __pyx_v_maxFibo, unsigned PY_LONG_LONG __pyx_v_maxFactor, unsigned char __pyx_v_nbrOfLoops, unsigned PY_LONG_LONG *__pyx_v_arTerms, char *__pyx_v_arPrimes, double *__pyx_v_arError, double *__pyx_v_goldenNbr) {
   int __pyx_v_baseIndex;
+  int __pyx_v_currentTerm;
+  unsigned PY_LONG_LONG __pyx_v_nextValue;
   CYTHON_UNUSED unsigned char __pyx_v__;
   enum __pyx_t_10fiboCython_fbReturn __pyx_r;
   __Pyx_RefNannyDeclarations
@@ -18660,23 +18659,22 @@ static enum __pyx_t_10fiboCython_fbReturn __pyx_f_10fiboCython_fibonacci_interop
   int __pyx_t_10;
   char __pyx_t_11;
   unsigned PY_LONG_LONG __pyx_t_12;
-  unsigned PY_LONG_LONG __pyx_t_13;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("fibonacci_interop_c", 1);
 
-  /* "fiboCython.pyx":59
- * cdef fbReturn fibonacci_interop_c(unsigned long long fbStart, unsigned char maxTerms, unsigned long long maxFibo, unsigned long long maxFactor, unsigned char nbrOfLoops,
- *                                   unsigned long long* arTerms, char* arPrimes, float* arError, double* goldenNbr):
- *     cdef double goldenConst = (1 + sqrt(5)) / 2             # <<<<<<<<<<<<<<
- *     cdef int currentTerm, baseIndex
+  /* "fiboCython.pyx":58
+ *     cdef unsigned long long nextValue
  * 
+ *     goldenNbr[0] = (1 + sqrt(5)) / 2             # <<<<<<<<<<<<<<
+ * 
+ *     if fbStart < 1 or maxFibo < 1 or maxTerms < 3 or maxFactor < 2 or nbrOfLoops < 1:
  */
-  __pyx_v_goldenConst = ((1.0 + sqrt(5.0)) / 2.0);
+  (__pyx_v_goldenNbr[0]) = ((1.0 + sqrt(5.0)) / 2.0);
 
-  /* "fiboCython.pyx":62
- *     cdef int currentTerm, baseIndex
+  /* "fiboCython.pyx":60
+ *     goldenNbr[0] = (1 + sqrt(5)) / 2
  * 
  *     if fbStart < 1 or maxFibo < 1 or maxTerms < 3 or maxFactor < 2 or nbrOfLoops < 1:             # <<<<<<<<<<<<<<
  *         return fbReturn.PRM_ERR
@@ -18711,7 +18709,7 @@ static enum __pyx_t_10fiboCython_fbReturn __pyx_f_10fiboCython_fibonacci_interop
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "fiboCython.pyx":63
+    /* "fiboCython.pyx":61
  * 
  *     if fbStart < 1 or maxFibo < 1 or maxTerms < 3 or maxFactor < 2 or nbrOfLoops < 1:
  *         return fbReturn.PRM_ERR             # <<<<<<<<<<<<<<
@@ -18721,8 +18719,8 @@ static enum __pyx_t_10fiboCython_fbReturn __pyx_f_10fiboCython_fibonacci_interop
     __pyx_r = __pyx_e_10fiboCython_PRM_ERR;
     goto __pyx_L0;
 
-    /* "fiboCython.pyx":62
- *     cdef int currentTerm, baseIndex
+    /* "fiboCython.pyx":60
+ *     goldenNbr[0] = (1 + sqrt(5)) / 2
  * 
  *     if fbStart < 1 or maxFibo < 1 or maxTerms < 3 or maxFactor < 2 or nbrOfLoops < 1:             # <<<<<<<<<<<<<<
  *         return fbReturn.PRM_ERR
@@ -18730,7 +18728,7 @@ static enum __pyx_t_10fiboCython_fbReturn __pyx_f_10fiboCython_fibonacci_interop
  */
   }
 
-  /* "fiboCython.pyx":65
+  /* "fiboCython.pyx":63
  *         return fbReturn.PRM_ERR
  * 
  *     if maxTerms > 74:             # <<<<<<<<<<<<<<
@@ -18740,7 +18738,7 @@ static enum __pyx_t_10fiboCython_fbReturn __pyx_f_10fiboCython_fibonacci_interop
   __pyx_t_1 = (__pyx_v_maxTerms > 74);
   if (__pyx_t_1) {
 
-    /* "fiboCython.pyx":66
+    /* "fiboCython.pyx":64
  * 
  *     if maxTerms > 74:
  *         return fbReturn.TMT             # <<<<<<<<<<<<<<
@@ -18750,7 +18748,7 @@ static enum __pyx_t_10fiboCython_fbReturn __pyx_f_10fiboCython_fibonacci_interop
     __pyx_r = __pyx_e_10fiboCython_TMT;
     goto __pyx_L0;
 
-    /* "fiboCython.pyx":65
+    /* "fiboCython.pyx":63
  *         return fbReturn.PRM_ERR
  * 
  *     if maxTerms > 74:             # <<<<<<<<<<<<<<
@@ -18759,22 +18757,22 @@ static enum __pyx_t_10fiboCython_fbReturn __pyx_f_10fiboCython_fibonacci_interop
  */
   }
 
-  /* "fiboCython.pyx":68
+  /* "fiboCython.pyx":66
  *         return fbReturn.TMT
  * 
  *     if maxFibo > 1304969544928657:             # <<<<<<<<<<<<<<
  *         return fbReturn.TB
  * 
  */
-  __pyx_t_3 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG(__pyx_v_maxFibo); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG(__pyx_v_maxFibo); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyObject_RichCompare(__pyx_t_3, __pyx_int_0x4a2dce62b0d91, Py_GT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_t_4 = PyObject_RichCompare(__pyx_t_3, __pyx_int_0x4a2dce62b0d91, Py_GT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (__pyx_t_1) {
 
-    /* "fiboCython.pyx":69
+    /* "fiboCython.pyx":67
  * 
  *     if maxFibo > 1304969544928657:
  *         return fbReturn.TB             # <<<<<<<<<<<<<<
@@ -18784,7 +18782,7 @@ static enum __pyx_t_10fiboCython_fbReturn __pyx_f_10fiboCython_fibonacci_interop
     __pyx_r = __pyx_e_10fiboCython_TB;
     goto __pyx_L0;
 
-    /* "fiboCython.pyx":68
+    /* "fiboCython.pyx":66
  *         return fbReturn.TMT
  * 
  *     if maxFibo > 1304969544928657:             # <<<<<<<<<<<<<<
@@ -18793,7 +18791,7 @@ static enum __pyx_t_10fiboCython_fbReturn __pyx_f_10fiboCython_fibonacci_interop
  */
   }
 
-  /* "fiboCython.pyx":71
+  /* "fiboCython.pyx":69
  *         return fbReturn.TB
  * 
  *     for _ in range(nbrOfLoops):             # <<<<<<<<<<<<<<
@@ -18805,7 +18803,7 @@ static enum __pyx_t_10fiboCython_fbReturn __pyx_f_10fiboCython_fibonacci_interop
   for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
     __pyx_v__ = __pyx_t_7;
 
-    /* "fiboCython.pyx":72
+    /* "fiboCython.pyx":70
  * 
  *     for _ in range(nbrOfLoops):
  *         arTerms[0] = fbStart             # <<<<<<<<<<<<<<
@@ -18814,7 +18812,7 @@ static enum __pyx_t_10fiboCython_fbReturn __pyx_f_10fiboCython_fibonacci_interop
  */
     (__pyx_v_arTerms[0]) = __pyx_v_fbStart;
 
-    /* "fiboCython.pyx":73
+    /* "fiboCython.pyx":71
  *     for _ in range(nbrOfLoops):
  *         arTerms[0] = fbStart
  *         arTerms[50] = fbStart             # <<<<<<<<<<<<<<
@@ -18823,106 +18821,129 @@ static enum __pyx_t_10fiboCython_fbReturn __pyx_f_10fiboCython_fibonacci_interop
  */
     (__pyx_v_arTerms[50]) = __pyx_v_fbStart;
 
-    /* "fiboCython.pyx":74
+    /* "fiboCython.pyx":72
  *         arTerms[0] = fbStart
  *         arTerms[50] = fbStart
  *         factorization(arTerms, arPrimes, 0, maxFactor)             # <<<<<<<<<<<<<<
  *         factorization(arTerms, arPrimes, 50, maxFactor)
  * 
  */
-    __pyx_f_10fiboCython_factorization(__pyx_v_arTerms, __pyx_v_arPrimes, 0, __pyx_v_maxFactor); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 74, __pyx_L1_error)
+    __pyx_f_10fiboCython_factorization(__pyx_v_arTerms, __pyx_v_arPrimes, 0, __pyx_v_maxFactor); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 72, __pyx_L1_error)
 
-    /* "fiboCython.pyx":75
+    /* "fiboCython.pyx":73
  *         arTerms[50] = fbStart
  *         factorization(arTerms, arPrimes, 0, maxFactor)
  *         factorization(arTerms, arPrimes, 50, maxFactor)             # <<<<<<<<<<<<<<
  * 
  *         for currentTerm in range(2, maxTerms):
  */
-    __pyx_f_10fiboCython_factorization(__pyx_v_arTerms, __pyx_v_arPrimes, 50, __pyx_v_maxFactor); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 75, __pyx_L1_error)
+    __pyx_f_10fiboCython_factorization(__pyx_v_arTerms, __pyx_v_arPrimes, 50, __pyx_v_maxFactor); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 73, __pyx_L1_error)
 
-    /* "fiboCython.pyx":77
+    /* "fiboCython.pyx":75
  *         factorization(arTerms, arPrimes, 50, maxFactor)
  * 
  *         for currentTerm in range(2, maxTerms):             # <<<<<<<<<<<<<<
  *             baseIndex = currentTerm * 50
- *             arTerms[baseIndex] = arTerms[baseIndex - 50] + arTerms[baseIndex - 2 * 50]
+ *             nextValue = arTerms[baseIndex - 50] + arTerms[
  */
     __pyx_t_8 = __pyx_v_maxTerms;
     __pyx_t_9 = __pyx_t_8;
     for (__pyx_t_10 = 2; __pyx_t_10 < __pyx_t_9; __pyx_t_10+=1) {
       __pyx_v_currentTerm = __pyx_t_10;
 
-      /* "fiboCython.pyx":78
+      /* "fiboCython.pyx":76
  * 
  *         for currentTerm in range(2, maxTerms):
  *             baseIndex = currentTerm * 50             # <<<<<<<<<<<<<<
- *             arTerms[baseIndex] = arTerms[baseIndex - 50] + arTerms[baseIndex - 2 * 50]
- *             arPrimes[baseIndex] = isPrime(arTerms[baseIndex], maxFactor)
+ *             nextValue = arTerms[baseIndex - 50] + arTerms[
+ *                 baseIndex - 2 * 50]  # The next value of the fibonacci sequence
  */
       __pyx_v_baseIndex = (__pyx_v_currentTerm * 50);
 
-      /* "fiboCython.pyx":79
+      /* "fiboCython.pyx":77
  *         for currentTerm in range(2, maxTerms):
  *             baseIndex = currentTerm * 50
- *             arTerms[baseIndex] = arTerms[baseIndex - 50] + arTerms[baseIndex - 2 * 50]             # <<<<<<<<<<<<<<
- *             arPrimes[baseIndex] = isPrime(arTerms[baseIndex], maxFactor)
- *             arError[currentTerm] = abs(goldenConst - (arTerms[baseIndex] / arTerms[baseIndex - 50]))
+ *             nextValue = arTerms[baseIndex - 50] + arTerms[             # <<<<<<<<<<<<<<
+ *                 baseIndex - 2 * 50]  # The next value of the fibonacci sequence
+ * 
  */
-      (__pyx_v_arTerms[__pyx_v_baseIndex]) = ((__pyx_v_arTerms[(__pyx_v_baseIndex - 50)]) + (__pyx_v_arTerms[(__pyx_v_baseIndex - 0x64)]));
+      __pyx_v_nextValue = ((__pyx_v_arTerms[(__pyx_v_baseIndex - 50)]) + (__pyx_v_arTerms[(__pyx_v_baseIndex - 0x64)]));
 
       /* "fiboCython.pyx":80
- *             baseIndex = currentTerm * 50
- *             arTerms[baseIndex] = arTerms[baseIndex - 50] + arTerms[baseIndex - 2 * 50]
+ *                 baseIndex - 2 * 50]  # The next value of the fibonacci sequence
+ * 
+ *             if nextValue > maxFibo:  # If the next value is greater than the maximum value, leave the loop             # <<<<<<<<<<<<<<
+ *                 return fbReturn.OK
+ * 
+ */
+      __pyx_t_1 = (__pyx_v_nextValue > __pyx_v_maxFibo);
+      if (__pyx_t_1) {
+
+        /* "fiboCython.pyx":81
+ * 
+ *             if nextValue > maxFibo:  # If the next value is greater than the maximum value, leave the loop
+ *                 return fbReturn.OK             # <<<<<<<<<<<<<<
+ * 
+ *             arTerms[baseIndex] = nextValue
+ */
+        __pyx_r = __pyx_e_10fiboCython_OK;
+        goto __pyx_L0;
+
+        /* "fiboCython.pyx":80
+ *                 baseIndex - 2 * 50]  # The next value of the fibonacci sequence
+ * 
+ *             if nextValue > maxFibo:  # If the next value is greater than the maximum value, leave the loop             # <<<<<<<<<<<<<<
+ *                 return fbReturn.OK
+ * 
+ */
+      }
+
+      /* "fiboCython.pyx":83
+ *                 return fbReturn.OK
+ * 
+ *             arTerms[baseIndex] = nextValue             # <<<<<<<<<<<<<<
+ *             arPrimes[baseIndex] = isPrime(arTerms[baseIndex], maxFactor)
+ *             arError[currentTerm] = abs(goldenNbr[0] - (arTerms[baseIndex] / arTerms[baseIndex - 50]))
+ */
+      (__pyx_v_arTerms[__pyx_v_baseIndex]) = __pyx_v_nextValue;
+
+      /* "fiboCython.pyx":84
+ * 
+ *             arTerms[baseIndex] = nextValue
  *             arPrimes[baseIndex] = isPrime(arTerms[baseIndex], maxFactor)             # <<<<<<<<<<<<<<
- *             arError[currentTerm] = abs(goldenConst - (arTerms[baseIndex] / arTerms[baseIndex - 50]))
+ *             arError[currentTerm] = abs(goldenNbr[0] - (arTerms[baseIndex] / arTerms[baseIndex - 50]))
  *             factorization(arTerms, arPrimes, baseIndex, maxFactor)
  */
-      __pyx_t_11 = __pyx_f_10fiboCython_isPrime((__pyx_v_arTerms[__pyx_v_baseIndex]), __pyx_v_maxFactor); if (unlikely(__pyx_t_11 == ((char)-1) && PyErr_Occurred())) __PYX_ERR(0, 80, __pyx_L1_error)
+      __pyx_t_11 = __pyx_f_10fiboCython_isPrime((__pyx_v_arTerms[__pyx_v_baseIndex]), __pyx_v_maxFactor); if (unlikely(__pyx_t_11 == ((char)-1) && PyErr_Occurred())) __PYX_ERR(0, 84, __pyx_L1_error)
       (__pyx_v_arPrimes[__pyx_v_baseIndex]) = __pyx_t_11;
 
-      /* "fiboCython.pyx":81
- *             arTerms[baseIndex] = arTerms[baseIndex - 50] + arTerms[baseIndex - 2 * 50]
+      /* "fiboCython.pyx":85
+ *             arTerms[baseIndex] = nextValue
  *             arPrimes[baseIndex] = isPrime(arTerms[baseIndex], maxFactor)
- *             arError[currentTerm] = abs(goldenConst - (arTerms[baseIndex] / arTerms[baseIndex - 50]))             # <<<<<<<<<<<<<<
+ *             arError[currentTerm] = abs(goldenNbr[0] - (arTerms[baseIndex] / arTerms[baseIndex - 50]))             # <<<<<<<<<<<<<<
  *             factorization(arTerms, arPrimes, baseIndex, maxFactor)
- *         goldenNbr[0] = (arTerms[(maxTerms - 1) * 50] / arTerms[(maxTerms - 2) * 50])
+ * 
  */
       __pyx_t_12 = (__pyx_v_arTerms[(__pyx_v_baseIndex - 50)]);
       if (unlikely(__pyx_t_12 == 0)) {
         PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-        __PYX_ERR(0, 81, __pyx_L1_error)
+        __PYX_ERR(0, 85, __pyx_L1_error)
       }
-      (__pyx_v_arError[__pyx_v_currentTerm]) = fabs((__pyx_v_goldenConst - (((double)(__pyx_v_arTerms[__pyx_v_baseIndex])) / ((double)__pyx_t_12))));
+      (__pyx_v_arError[__pyx_v_currentTerm]) = fabs(((__pyx_v_goldenNbr[0]) - (((double)(__pyx_v_arTerms[__pyx_v_baseIndex])) / ((double)__pyx_t_12))));
 
-      /* "fiboCython.pyx":82
+      /* "fiboCython.pyx":86
  *             arPrimes[baseIndex] = isPrime(arTerms[baseIndex], maxFactor)
- *             arError[currentTerm] = abs(goldenConst - (arTerms[baseIndex] / arTerms[baseIndex - 50]))
+ *             arError[currentTerm] = abs(goldenNbr[0] - (arTerms[baseIndex] / arTerms[baseIndex - 50]))
  *             factorization(arTerms, arPrimes, baseIndex, maxFactor)             # <<<<<<<<<<<<<<
- *         goldenNbr[0] = (arTerms[(maxTerms - 1) * 50] / arTerms[(maxTerms - 2) * 50])
- * 
- */
-      __pyx_f_10fiboCython_factorization(__pyx_v_arTerms, __pyx_v_arPrimes, __pyx_v_baseIndex, __pyx_v_maxFactor); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 82, __pyx_L1_error)
-    }
-
-    /* "fiboCython.pyx":83
- *             arError[currentTerm] = abs(goldenConst - (arTerms[baseIndex] / arTerms[baseIndex - 50]))
- *             factorization(arTerms, arPrimes, baseIndex, maxFactor)
- *         goldenNbr[0] = (arTerms[(maxTerms - 1) * 50] / arTerms[(maxTerms - 2) * 50])             # <<<<<<<<<<<<<<
  * 
  *     return fbReturn.OK
  */
-    __pyx_t_12 = (__pyx_v_arTerms[((__pyx_v_maxTerms - 1) * 50)]);
-    __pyx_t_13 = (__pyx_v_arTerms[((__pyx_v_maxTerms - 2) * 50)]);
-    if (unlikely(__pyx_t_13 == 0)) {
-      PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-      __PYX_ERR(0, 83, __pyx_L1_error)
+      __pyx_f_10fiboCython_factorization(__pyx_v_arTerms, __pyx_v_arPrimes, __pyx_v_baseIndex, __pyx_v_maxFactor); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 86, __pyx_L1_error)
     }
-    (__pyx_v_goldenNbr[0]) = (((double)__pyx_t_12) / ((double)__pyx_t_13));
   }
 
-  /* "fiboCython.pyx":85
- *         goldenNbr[0] = (arTerms[(maxTerms - 1) * 50] / arTerms[(maxTerms - 2) * 50])
+  /* "fiboCython.pyx":88
+ *             factorization(arTerms, arPrimes, baseIndex, maxFactor)
  * 
  *     return fbReturn.OK             # <<<<<<<<<<<<<<
  * 
@@ -18931,12 +18952,12 @@ static enum __pyx_t_10fiboCython_fbReturn __pyx_f_10fiboCython_fibonacci_interop
   __pyx_r = __pyx_e_10fiboCython_OK;
   goto __pyx_L0;
 
-  /* "fiboCython.pyx":57
+  /* "fiboCython.pyx":52
  * 
  * 
  * cdef fbReturn fibonacci_interop_c(unsigned long long fbStart, unsigned char maxTerms, unsigned long long maxFibo, unsigned long long maxFactor, unsigned char nbrOfLoops,             # <<<<<<<<<<<<<<
- *                                   unsigned long long* arTerms, char* arPrimes, float* arError, double* goldenNbr):
- *     cdef double goldenConst = (1 + sqrt(5)) / 2
+ *                                   unsigned long long* arTerms, char* arPrimes, double* arError, double* goldenNbr):
+ *     cdef int  baseIndex
  */
 
   /* function exit code */
@@ -18950,7 +18971,7 @@ static enum __pyx_t_10fiboCython_fbReturn __pyx_f_10fiboCython_fibonacci_interop
   return __pyx_r;
 }
 
-/* "fiboCython.pyx":87
+/* "fiboCython.pyx":90
  *     return fbReturn.OK
  * 
  * cpdef tuple fibonacci_interop_cython(unsigned long long fbStart, unsigned char maxTerms, unsigned long long maxFibo, unsigned long long maxFactor, unsigned char nbrOfLoops,             # <<<<<<<<<<<<<<
@@ -18989,43 +19010,43 @@ static PyObject *__pyx_f_10fiboCython_fibonacci_interop_cython(unsigned PY_LONG_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("fibonacci_interop_cython", 1);
 
-  /* "fiboCython.pyx":89
+  /* "fiboCython.pyx":92
  * cpdef tuple fibonacci_interop_cython(unsigned long long fbStart, unsigned char maxTerms, unsigned long long maxFibo, unsigned long long maxFactor, unsigned char nbrOfLoops,
  *                                  array arTermsArray, array arPrimesArray, array arErrorArray):
  *     cdef unsigned long long[:] arTerms = arTermsArray             # <<<<<<<<<<<<<<
  *     cdef char[:] arPrimes = arPrimesArray
- *     cdef float[:] arError = arErrorArray
+ *     cdef double[:] arError = arErrorArray
  */
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_PY_LONG_LONG(((PyObject *)__pyx_v_arTermsArray), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_ds_unsigned_PY_LONG_LONG(((PyObject *)__pyx_v_arTermsArray), PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 92, __pyx_L1_error)
   __pyx_v_arTerms = __pyx_t_1;
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;
 
-  /* "fiboCython.pyx":90
+  /* "fiboCython.pyx":93
  *                                  array arTermsArray, array arPrimesArray, array arErrorArray):
  *     cdef unsigned long long[:] arTerms = arTermsArray
  *     cdef char[:] arPrimes = arPrimesArray             # <<<<<<<<<<<<<<
- *     cdef float[:] arError = arErrorArray
+ *     cdef double[:] arError = arErrorArray
  *     cdef double goldenNbr
  */
-  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_char(((PyObject *)__pyx_v_arPrimesArray), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 90, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_char(((PyObject *)__pyx_v_arPrimesArray), PyBUF_WRITABLE); if (unlikely(!__pyx_t_2.memview)) __PYX_ERR(0, 93, __pyx_L1_error)
   __pyx_v_arPrimes = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
 
-  /* "fiboCython.pyx":91
+  /* "fiboCython.pyx":94
  *     cdef unsigned long long[:] arTerms = arTermsArray
  *     cdef char[:] arPrimes = arPrimesArray
- *     cdef float[:] arError = arErrorArray             # <<<<<<<<<<<<<<
+ *     cdef double[:] arError = arErrorArray             # <<<<<<<<<<<<<<
  *     cdef double goldenNbr
  * 
  */
-  __pyx_t_3 = __Pyx_PyObject_to_MemoryviewSlice_ds_float(((PyObject *)__pyx_v_arErrorArray), PyBUF_WRITABLE); if (unlikely(!__pyx_t_3.memview)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(((PyObject *)__pyx_v_arErrorArray), PyBUF_WRITABLE); if (unlikely(!__pyx_t_3.memview)) __PYX_ERR(0, 94, __pyx_L1_error)
   __pyx_v_arError = __pyx_t_3;
   __pyx_t_3.memview = NULL;
   __pyx_t_3.data = NULL;
 
-  /* "fiboCython.pyx":96
+  /* "fiboCython.pyx":99
  *     # Call the C function
  *     result = fibonacci_interop_c(fbStart, maxTerms, maxFibo, maxFactor, nbrOfLoops,
  *                                          &arTerms[0], &arPrimes[0], &arError[0], &goldenNbr)             # <<<<<<<<<<<<<<
@@ -19040,7 +19061,7 @@ static PyObject *__pyx_f_10fiboCython_fibonacci_interop_cython(unsigned PY_LONG_
   } else if (unlikely(__pyx_t_4 >= __pyx_v_arTerms.shape[0])) __pyx_t_5 = 0;
   if (unlikely(__pyx_t_5 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_5);
-    __PYX_ERR(0, 96, __pyx_L1_error)
+    __PYX_ERR(0, 99, __pyx_L1_error)
   }
   __pyx_t_6 = 0;
   __pyx_t_5 = -1;
@@ -19050,7 +19071,7 @@ static PyObject *__pyx_f_10fiboCython_fibonacci_interop_cython(unsigned PY_LONG_
   } else if (unlikely(__pyx_t_6 >= __pyx_v_arPrimes.shape[0])) __pyx_t_5 = 0;
   if (unlikely(__pyx_t_5 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_5);
-    __PYX_ERR(0, 96, __pyx_L1_error)
+    __PYX_ERR(0, 99, __pyx_L1_error)
   }
   __pyx_t_7 = 0;
   __pyx_t_5 = -1;
@@ -19060,42 +19081,42 @@ static PyObject *__pyx_f_10fiboCython_fibonacci_interop_cython(unsigned PY_LONG_
   } else if (unlikely(__pyx_t_7 >= __pyx_v_arError.shape[0])) __pyx_t_5 = 0;
   if (unlikely(__pyx_t_5 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_5);
-    __PYX_ERR(0, 96, __pyx_L1_error)
+    __PYX_ERR(0, 99, __pyx_L1_error)
   }
 
-  /* "fiboCython.pyx":95
+  /* "fiboCython.pyx":98
  * 
  *     # Call the C function
  *     result = fibonacci_interop_c(fbStart, maxTerms, maxFibo, maxFactor, nbrOfLoops,             # <<<<<<<<<<<<<<
  *                                          &arTerms[0], &arPrimes[0], &arError[0], &goldenNbr)
  * 
  */
-  __pyx_t_8 = __pyx_f_10fiboCython_fibonacci_interop_c(__pyx_v_fbStart, __pyx_v_maxTerms, __pyx_v_maxFibo, __pyx_v_maxFactor, __pyx_v_nbrOfLoops, (&(*((unsigned PY_LONG_LONG *) ( /* dim=0 */ (__pyx_v_arTerms.data + __pyx_t_4 * __pyx_v_arTerms.strides[0]) )))), (&(*((char *) ( /* dim=0 */ (__pyx_v_arPrimes.data + __pyx_t_6 * __pyx_v_arPrimes.strides[0]) )))), (&(*((float *) ( /* dim=0 */ (__pyx_v_arError.data + __pyx_t_7 * __pyx_v_arError.strides[0]) )))), (&__pyx_v_goldenNbr)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 95, __pyx_L1_error)
+  __pyx_t_8 = __pyx_f_10fiboCython_fibonacci_interop_c(__pyx_v_fbStart, __pyx_v_maxTerms, __pyx_v_maxFibo, __pyx_v_maxFactor, __pyx_v_nbrOfLoops, (&(*((unsigned PY_LONG_LONG *) ( /* dim=0 */ (__pyx_v_arTerms.data + __pyx_t_4 * __pyx_v_arTerms.strides[0]) )))), (&(*((char *) ( /* dim=0 */ (__pyx_v_arPrimes.data + __pyx_t_6 * __pyx_v_arPrimes.strides[0]) )))), (&(*((double *) ( /* dim=0 */ (__pyx_v_arError.data + __pyx_t_7 * __pyx_v_arError.strides[0]) )))), (&__pyx_v_goldenNbr)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 98, __pyx_L1_error)
   __pyx_v_result = __pyx_t_8;
 
-  /* "fiboCython.pyx":99
+  /* "fiboCython.pyx":102
  * 
  *     # Return the result and golden number
  *     return result, goldenNbr             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_9 = __Pyx_PyInt_From_enum____pyx_t_10fiboCython_fbReturn(__pyx_v_result); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyInt_From_enum____pyx_t_10fiboCython_fbReturn(__pyx_v_result); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_10 = PyFloat_FromDouble(__pyx_v_goldenNbr); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_t_10 = PyFloat_FromDouble(__pyx_v_goldenNbr); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_11 = PyTuple_New(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_t_11 = PyTuple_New(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_GIVEREF(__pyx_t_9);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_9)) __PYX_ERR(0, 99, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_9)) __PYX_ERR(0, 102, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_10);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 1, __pyx_t_10)) __PYX_ERR(0, 99, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_11, 1, __pyx_t_10)) __PYX_ERR(0, 102, __pyx_L1_error);
   __pyx_t_9 = 0;
   __pyx_t_10 = 0;
   __pyx_r = ((PyObject*)__pyx_t_11);
   __pyx_t_11 = 0;
   goto __pyx_L0;
 
-  /* "fiboCython.pyx":87
+  /* "fiboCython.pyx":90
  *     return fbReturn.OK
  * 
  * cpdef tuple fibonacci_interop_cython(unsigned long long fbStart, unsigned char maxTerms, unsigned long long maxFibo, unsigned long long maxFactor, unsigned char nbrOfLoops,             # <<<<<<<<<<<<<<
@@ -19196,7 +19217,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 90, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -19204,9 +19225,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 90, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("fibonacci_interop_cython", 1, 8, 8, 1); __PYX_ERR(0, 87, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("fibonacci_interop_cython", 1, 8, 8, 1); __PYX_ERR(0, 90, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -19214,9 +19235,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 90, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("fibonacci_interop_cython", 1, 8, 8, 2); __PYX_ERR(0, 87, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("fibonacci_interop_cython", 1, 8, 8, 2); __PYX_ERR(0, 90, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -19224,9 +19245,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 90, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("fibonacci_interop_cython", 1, 8, 8, 3); __PYX_ERR(0, 87, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("fibonacci_interop_cython", 1, 8, 8, 3); __PYX_ERR(0, 90, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
@@ -19234,9 +19255,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[4]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 90, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("fibonacci_interop_cython", 1, 8, 8, 4); __PYX_ERR(0, 87, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("fibonacci_interop_cython", 1, 8, 8, 4); __PYX_ERR(0, 90, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
@@ -19244,9 +19265,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[5]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 90, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("fibonacci_interop_cython", 1, 8, 8, 5); __PYX_ERR(0, 87, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("fibonacci_interop_cython", 1, 8, 8, 5); __PYX_ERR(0, 90, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  6:
@@ -19254,9 +19275,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[6]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 90, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("fibonacci_interop_cython", 1, 8, 8, 6); __PYX_ERR(0, 87, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("fibonacci_interop_cython", 1, 8, 8, 6); __PYX_ERR(0, 90, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  7:
@@ -19264,14 +19285,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[7]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 90, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("fibonacci_interop_cython", 1, 8, 8, 7); __PYX_ERR(0, 87, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("fibonacci_interop_cython", 1, 8, 8, 7); __PYX_ERR(0, 90, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "fibonacci_interop_cython") < 0)) __PYX_ERR(0, 87, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "fibonacci_interop_cython") < 0)) __PYX_ERR(0, 90, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 8)) {
       goto __pyx_L5_argtuple_error;
@@ -19285,18 +19306,18 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[6] = __Pyx_Arg_FASTCALL(__pyx_args, 6);
       values[7] = __Pyx_Arg_FASTCALL(__pyx_args, 7);
     }
-    __pyx_v_fbStart = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(values[0]); if (unlikely((__pyx_v_fbStart == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
-    __pyx_v_maxTerms = __Pyx_PyInt_As_unsigned_char(values[1]); if (unlikely((__pyx_v_maxTerms == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
-    __pyx_v_maxFibo = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(values[2]); if (unlikely((__pyx_v_maxFibo == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
-    __pyx_v_maxFactor = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(values[3]); if (unlikely((__pyx_v_maxFactor == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
-    __pyx_v_nbrOfLoops = __Pyx_PyInt_As_unsigned_char(values[4]); if (unlikely((__pyx_v_nbrOfLoops == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
+    __pyx_v_fbStart = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(values[0]); if (unlikely((__pyx_v_fbStart == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 90, __pyx_L3_error)
+    __pyx_v_maxTerms = __Pyx_PyInt_As_unsigned_char(values[1]); if (unlikely((__pyx_v_maxTerms == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 90, __pyx_L3_error)
+    __pyx_v_maxFibo = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(values[2]); if (unlikely((__pyx_v_maxFibo == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 90, __pyx_L3_error)
+    __pyx_v_maxFactor = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(values[3]); if (unlikely((__pyx_v_maxFactor == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 90, __pyx_L3_error)
+    __pyx_v_nbrOfLoops = __Pyx_PyInt_As_unsigned_char(values[4]); if (unlikely((__pyx_v_nbrOfLoops == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 90, __pyx_L3_error)
     __pyx_v_arTermsArray = ((arrayobject *)values[5]);
     __pyx_v_arPrimesArray = ((arrayobject *)values[6]);
     __pyx_v_arErrorArray = ((arrayobject *)values[7]);
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("fibonacci_interop_cython", 1, 8, 8, __pyx_nargs); __PYX_ERR(0, 87, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("fibonacci_interop_cython", 1, 8, 8, __pyx_nargs); __PYX_ERR(0, 90, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -19310,9 +19331,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_arTermsArray), __pyx_ptype_7cpython_5array_array, 1, "arTermsArray", 0))) __PYX_ERR(0, 88, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_arPrimesArray), __pyx_ptype_7cpython_5array_array, 1, "arPrimesArray", 0))) __PYX_ERR(0, 88, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_arErrorArray), __pyx_ptype_7cpython_5array_array, 1, "arErrorArray", 0))) __PYX_ERR(0, 88, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_arTermsArray), __pyx_ptype_7cpython_5array_array, 1, "arTermsArray", 0))) __PYX_ERR(0, 91, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_arPrimesArray), __pyx_ptype_7cpython_5array_array, 1, "arPrimesArray", 0))) __PYX_ERR(0, 91, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_arErrorArray), __pyx_ptype_7cpython_5array_array, 1, "arErrorArray", 0))) __PYX_ERR(0, 91, __pyx_L1_error)
   __pyx_r = __pyx_pf_10fiboCython_fibonacci_interop_cython(__pyx_self, __pyx_v_fbStart, __pyx_v_maxTerms, __pyx_v_maxFibo, __pyx_v_maxFactor, __pyx_v_nbrOfLoops, __pyx_v_arTermsArray, __pyx_v_arPrimesArray, __pyx_v_arErrorArray);
 
   /* function exit code */
@@ -19339,7 +19360,7 @@ static PyObject *__pyx_pf_10fiboCython_fibonacci_interop_cython(CYTHON_UNUSED Py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("fibonacci_interop_cython", 1);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_10fiboCython_fibonacci_interop_cython(__pyx_v_fbStart, __pyx_v_maxTerms, __pyx_v_maxFibo, __pyx_v_maxFactor, __pyx_v_nbrOfLoops, __pyx_v_arTermsArray, __pyx_v_arPrimesArray, __pyx_v_arErrorArray, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_10fiboCython_fibonacci_interop_cython(__pyx_v_fbStart, __pyx_v_maxTerms, __pyx_v_maxFibo, __pyx_v_maxFactor, __pyx_v_nbrOfLoops, __pyx_v_arTermsArray, __pyx_v_arPrimesArray, __pyx_v_arErrorArray, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -20467,7 +20488,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
 }
 /* #### Code section: cached_builtins ### */
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 28, __pyx_L1_error)
   __pyx_builtin___import__ = __Pyx_GetBuiltinName(__pyx_n_s_import); if (!__pyx_builtin___import__) __PYX_ERR(1, 100, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 141, __pyx_L1_error)
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) __PYX_ERR(1, 156, __pyx_L1_error)
@@ -20624,17 +20645,17 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__18);
   __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_Enum, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(1, 1, __pyx_L1_error)
 
-  /* "fiboCython.pyx":87
+  /* "fiboCython.pyx":90
  *     return fbReturn.OK
  * 
  * cpdef tuple fibonacci_interop_cython(unsigned long long fbStart, unsigned char maxTerms, unsigned long long maxFibo, unsigned long long maxFactor, unsigned char nbrOfLoops,             # <<<<<<<<<<<<<<
  *                                  array arTermsArray, array arPrimesArray, array arErrorArray):
  *     cdef unsigned long long[:] arTerms = arTermsArray
  */
-  __pyx_tuple__20 = PyTuple_Pack(8, __pyx_n_s_fbStart, __pyx_n_s_maxTerms, __pyx_n_s_maxFibo, __pyx_n_s_maxFactor, __pyx_n_s_nbrOfLoops, __pyx_n_s_arTermsArray, __pyx_n_s_arPrimesArray, __pyx_n_s_arErrorArray); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_tuple__20 = PyTuple_Pack(8, __pyx_n_s_fbStart, __pyx_n_s_maxTerms, __pyx_n_s_maxFibo, __pyx_n_s_maxFactor, __pyx_n_s_nbrOfLoops, __pyx_n_s_arTermsArray, __pyx_n_s_arPrimesArray, __pyx_n_s_arErrorArray); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__20);
   __Pyx_GIVEREF(__pyx_tuple__20);
-  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(8, 0, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_fiboCython_pyx, __pyx_n_s_fibonacci_interop_cython, 87, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(8, 0, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_fiboCython_pyx, __pyx_n_s_fibonacci_interop_cython, 90, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -20934,7 +20955,7 @@ namespace {
   {
       PyModuleDef_HEAD_INIT,
       "fiboCython",
-      __pyx_k_Cythonized_version_of_the_Fibon, /* m_doc */
+      0, /* m_doc */
     #if CYTHON_PEP489_MULTI_PHASE_INIT
       0, /* m_size */
     #elif CYTHON_USE_MODULE_STATE
@@ -21101,7 +21122,7 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_fiboCython(PyObject *__pyx_pyinit_
   Py_INCREF(__pyx_m);
   #else
   #if PY_MAJOR_VERSION < 3
-  __pyx_m = Py_InitModule4("fiboCython", __pyx_methods, __pyx_k_Cythonized_version_of_the_Fibon, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
+  __pyx_m = Py_InitModule4("fiboCython", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
   if (unlikely(!__pyx_m)) __PYX_ERR(0, 1, __pyx_L1_error)
   #elif CYTHON_USE_MODULE_STATE
   __pyx_t_1 = PyModule_Create(&__pyx_moduledef); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -21710,94 +21731,94 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_Enum, __pyx_t_7) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "fiboCython.pyx":7
- * """
+  /* "fiboCython.pyx":6
+ * # No Docstring for this file cause it's essentially the same as the Python version with type declarations
  * 
  * __author__ = "Rmi MEVAERE"             # <<<<<<<<<<<<<<
  * __copyright__ = "Copyright (c) 2024 Rmi MEVAERE"
  * __license__ = "MIT License"
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_author, __pyx_kp_u_Rmi_MEVAERE) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_author, __pyx_kp_u_Rmi_MEVAERE) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
 
-  /* "fiboCython.pyx":8
+  /* "fiboCython.pyx":7
  * 
  * __author__ = "Rmi MEVAERE"
  * __copyright__ = "Copyright (c) 2024 Rmi MEVAERE"             # <<<<<<<<<<<<<<
  * __license__ = "MIT License"
  * __version__ = "1.0.0"
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_copyright, __pyx_kp_u_Copyright_c_2024_Rmi_MEVAERE) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_copyright, __pyx_kp_u_Copyright_c_2024_Rmi_MEVAERE) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
 
-  /* "fiboCython.pyx":9
+  /* "fiboCython.pyx":8
  * __author__ = "Rmi MEVAERE"
  * __copyright__ = "Copyright (c) 2024 Rmi MEVAERE"
  * __license__ = "MIT License"             # <<<<<<<<<<<<<<
  * __version__ = "1.0.0"
  * __maintainer__ = "Rmi MEVAERE"
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_license, __pyx_kp_u_MIT_License) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_license, __pyx_kp_u_MIT_License) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
 
-  /* "fiboCython.pyx":10
+  /* "fiboCython.pyx":9
  * __copyright__ = "Copyright (c) 2024 Rmi MEVAERE"
  * __license__ = "MIT License"
  * __version__ = "1.0.0"             # <<<<<<<<<<<<<<
  * __maintainer__ = "Rmi MEVAERE"
  * __email__ = "your.email@example.com"
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_version, __pyx_kp_u_1_0_0) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_version, __pyx_kp_u_1_0_0) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
 
-  /* "fiboCython.pyx":11
+  /* "fiboCython.pyx":10
  * __license__ = "MIT License"
  * __version__ = "1.0.0"
  * __maintainer__ = "Rmi MEVAERE"             # <<<<<<<<<<<<<<
  * __email__ = "your.email@example.com"
  * __status__ = "Development"
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_maintainer, __pyx_kp_u_Rmi_MEVAERE) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_maintainer, __pyx_kp_u_Rmi_MEVAERE) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
 
-  /* "fiboCython.pyx":12
+  /* "fiboCython.pyx":11
  * __version__ = "1.0.0"
  * __maintainer__ = "Rmi MEVAERE"
  * __email__ = "your.email@example.com"             # <<<<<<<<<<<<<<
  * __status__ = "Development"
  * __date__ = "2024-01-01"
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_email, __pyx_kp_u_your_email_example_com) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_email, __pyx_kp_u_your_email_example_com) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
 
-  /* "fiboCython.pyx":13
+  /* "fiboCython.pyx":12
  * __maintainer__ = "Rmi MEVAERE"
  * __email__ = "your.email@example.com"
  * __status__ = "Development"             # <<<<<<<<<<<<<<
  * __date__ = "2024-01-01"
  * 
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_status, __pyx_n_u_Development) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_status, __pyx_n_u_Development) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
 
-  /* "fiboCython.pyx":14
+  /* "fiboCython.pyx":13
  * __email__ = "your.email@example.com"
  * __status__ = "Development"
  * __date__ = "2024-01-01"             # <<<<<<<<<<<<<<
  * 
  * # Import the C functions
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_date, __pyx_kp_u_2024_01_01) < 0) __PYX_ERR(0, 14, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_date, __pyx_kp_u_2024_01_01) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
 
-  /* "fiboCython.pyx":87
+  /* "fiboCython.pyx":90
  *     return fbReturn.OK
  * 
  * cpdef tuple fibonacci_interop_cython(unsigned long long fbStart, unsigned char maxTerms, unsigned long long maxFibo, unsigned long long maxFactor, unsigned char nbrOfLoops,             # <<<<<<<<<<<<<<
  *                                  array arTermsArray, array arPrimesArray, array arErrorArray):
  *     cdef unsigned long long[:] arTerms = arTermsArray
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_10fiboCython_1fibonacci_interop_cython, 0, __pyx_n_s_fibonacci_interop_cython, NULL, __pyx_n_s_fiboCython, __pyx_d, ((PyObject *)__pyx_codeobj__21)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_10fiboCython_1fibonacci_interop_cython, 0, __pyx_n_s_fibonacci_interop_cython, NULL, __pyx_n_s_fiboCython, __pyx_d, ((PyObject *)__pyx_codeobj__21)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_fibonacci_interop_cython, __pyx_t_7) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_fibonacci_interop_cython, __pyx_t_7) < 0) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
   /* "fiboCython.pyx":1
  * # cython: language_level=3             # <<<<<<<<<<<<<<
  * 
- * """
+ * # Cythonized version of the Fibonacci program (only functions)
  */
   __pyx_t_7 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
@@ -27387,7 +27408,7 @@ __pyx_fail:
 }
 
 /* ObjectToMemviewSlice */
-  static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_float(PyObject *obj, int writable_flag) {
+  static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_double(PyObject *obj, int writable_flag) {
     __Pyx_memviewslice result = { 0, 0, { 0 }, { 0 }, { 0 } };
     __Pyx_BufFmt_StackElem stack[1];
     int axes_specs[] = { (__Pyx_MEMVIEW_DIRECT | __Pyx_MEMVIEW_STRIDED) };
@@ -27398,7 +27419,7 @@ __pyx_fail:
     }
     retcode = __Pyx_ValidateAndInit_memviewslice(axes_specs, 0,
                                                  PyBUF_RECORDS_RO | writable_flag, 1,
-                                                 &__Pyx_TypeInfo_float, stack,
+                                                 &__Pyx_TypeInfo_double, stack,
                                                  &result, obj);
     if (unlikely(retcode == -1))
         goto __pyx_fail;

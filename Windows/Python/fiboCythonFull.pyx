@@ -1,6 +1,8 @@
 # cython: language_level=3
 
 # Cythonized version 2 of the Fibonacci program
+# No Docstring for this file, it's essentially the same as the Python version with type declarations
+# Some comments are added to explain the Cython specificities
 
 __author__ = "Rémi MEVAERE"
 __copyright__ = "Copyright (c) 2024 Rémi MEVAERE"
@@ -49,9 +51,11 @@ cdef void factorization(unsigned long long * arTerms, char * arPrimes, int baseI
             break
 
 cdef fbReturn fibonacci_interop_c(unsigned long long fbStart, unsigned char maxTerms, unsigned long long maxFibo, unsigned long long maxFactor, unsigned char nbrOfLoops,
-                                  unsigned long long * arTerms, char * arPrimes, float * arError, double * goldenNbr):
-    cdef double goldenConst = (1 + sqrt(5)) / 2
-    cdef int currentTerm, baseIndex
+                                  unsigned long long * arTerms, char * arPrimes, double * arError, double * goldenNbr):
+    cdef int  baseIndex
+    cdef int currentTerm
+    cdef unsigned long long nextValue
+    goldenNbr[0] = (1 + sqrt(5)) / 2
 
     if fbStart < 1 or maxFibo < 1 or maxTerms < 3 or maxFactor < 2 or nbrOfLoops < 1:
         return fbReturn.PRM_ERR
@@ -70,11 +74,16 @@ cdef fbReturn fibonacci_interop_c(unsigned long long fbStart, unsigned char maxT
 
         for currentTerm in range(2, maxTerms):
             baseIndex = currentTerm * 50
-            arTerms[baseIndex] = arTerms[baseIndex - 50] + arTerms[baseIndex - 2 * 50]
+            nextValue = arTerms[baseIndex - 50] + arTerms[
+                baseIndex - 2 * 50]  # The next value of the fibonacci sequence
+
+            if nextValue > maxFibo:  # If the next value is greater than the maximum value, leave the loop
+                return fbReturn.OK
+
+            arTerms[baseIndex] = nextValue
             arPrimes[baseIndex] = isPrime(arTerms[baseIndex], maxFactor)
-            arError[currentTerm] = abs(goldenConst - (arTerms[baseIndex] / arTerms[baseIndex - 50]))
+            arError[currentTerm] = abs(goldenNbr[0] - (arTerms[baseIndex] / arTerms[baseIndex - 50]))
             factorization(arTerms, arPrimes, baseIndex, maxFactor)
-        goldenNbr[0] = (arTerms[(maxTerms - 1) * 50] / arTerms[(maxTerms - 2) * 50])
 
     return fbReturn.OK
 
@@ -97,7 +106,7 @@ cpdef void fibonacci_interop_cython_full(unsigned long long fbStart, unsigned ch
                                  unsigned char nbrOfLoops):
     cdef unsigned long long * arTerms
     cdef char * arPrimes
-    cdef float * arError
+    cdef double * arError
     cdef double * timeArray
     cdef double goldenNbr
     cdef int array_size
@@ -106,9 +115,10 @@ cpdef void fibonacci_interop_cython_full(unsigned long long fbStart, unsigned ch
     array_size = maxTerms * 50
     arTerms = <unsigned long long *> malloc(array_size * sizeof(unsigned long long))
     arPrimes = <char *> malloc(array_size * sizeof(char))
-    arError = <float *> malloc(maxTerms * sizeof(float))
+    arError = <double *> malloc(maxTerms * sizeof(double))
     timeArray = <double *> malloc(nbrOfLoops * sizeof(double))
 
+    # Check if memory allocation was successful but we don't care
     if not arTerms or not arPrimes or not arError or not timeArray:
         # Handle memory allocation failure
         if arTerms: free(arTerms)
@@ -124,13 +134,14 @@ cpdef void fibonacci_interop_cython_full(unsigned long long fbStart, unsigned ch
         end_time = clock()
         timeArray[loop] = (end_time - start_time) / CLOCKS_PER_SEC
 
-    # Usage
+    # Convert C arrays to Python lists
     py_arTerms = convert_to_pylist(arTerms, maxTerms)
     py_timeArray = convert_double_array_to_pylist(timeArray, nbrOfLoops)
 
-
+    # Print results
     printResults(arPrimes, py_arTerms, goldenNbr, maxTerms, py_timeArray, "Cython Full")
 
+    # Free memory
     free(arTerms)
     free(arPrimes)
     free(arError)
