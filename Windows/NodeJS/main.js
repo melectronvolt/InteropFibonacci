@@ -115,7 +115,7 @@ function fibonacci_interop(fbStart, maxTerms, maxFibo, maxFactor, nbrOfLoops) {
         return [fbReturn.TB, null, null, null];
     }
 
-    const goldenConst = (1 + Math.sqrt(5)) / 2;
+    let goldenNbr = (1 + Math.sqrt(5)) / 2;
 
     for (let _ = 0; _ < nbrOfLoops; _++) {
         arTerms = new Array(maxTerms * 50).fill(0);
@@ -137,12 +137,11 @@ function fibonacci_interop(fbStart, maxTerms, maxFibo, maxFactor, nbrOfLoops) {
 
             arTerms[baseIndex] = nextValue;
             arPrimes[baseIndex] = isPrime(arTerms[baseIndex]);
-            arError[currentTerm] = Math.abs(goldenConst - (arTerms[baseIndex] / arTerms[baseIndex - 50]));
+            arError[currentTerm] = Math.abs(goldenNbr - (arTerms[baseIndex] / arTerms[baseIndex - 50]));
             factorization(baseIndex, arTerms, arPrimes, maxFactor);
         }
     }
 
-    let goldenNbr = arTerms[(maxTerms - 1) * 50] / arTerms[(maxTerms - 2) * 50];
     return [fbReturn.OK, arTerms, arPrimes, arError, goldenNbr];
 }
 
