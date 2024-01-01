@@ -21,63 +21,61 @@ class fbReturn(Enum):
 
 def fibonacci_interop_python(fbStart: int, maxTerms: int, maxFibo: int, maxFactor: int, nbrOfLoops: int) \
         -> Tuple[fbReturn, List, List, List, float]:
-    """
+    """ Calculate Fibonacci sequence values and related information.
+       :param fbStart: int
+          The two first terms of the Fibonacci sequence.
+       :type fbStart: int
+       :param maxTerms: int
+          The maximum number of terms that can be calculated; it must fit in int64.
+       :type maxTerms: int
+       :param maxFibo: int
+          The maximum value of the Fibonacci sequence; it must fit in int64.
+       :type maxFibo: int
+       :param maxFactor: int
+          The maximum value of the factorization.
+       :type maxFactor: int
+       :param nbrOfLoops: int
+          The number of times the test is performed.
+       :type nbrOfLoops: int
 
-    Parameters
-    ----------
-    fbStart: int
-        The two first terms of the fibonacci sequence.
-    maxTerms: int
-        The maximum number of terms that can be calculated, it must fit in int64.
-    maxFibo: int
-        The maximum value of the fibonacci sequence, it must fit in int64.
-    maxFactor: int
-        The maximum value of the factorization.
-    nbrOfLoops: int
-        The number of times the test is performed.
+       :return: Tuple[int, List, List, List, float]
+          A tuple with the following components:
+          - 0 (int): fbReturn.OK if the test is OK
+          - 1 (List[int]): arTerms, a list of integer values (empty by default)
+          - 2 (List[bool]): arPrimes, a list of boolean values (empty by default)
+          - 3 (List[float]): arError, a list of float values (empty by default)
+          - 4 (float): goldenConst, the golden constant
 
-    Returns
-    -------
-    Tuple[int, List, List, List, float]
-        - fbReturn.OK if the test is OK
-        - fbReturn.TMT if the maxTerms is too high
-        - fbReturn.TB if the maxFibo is too high
-        - fbReturn.PRM_ERR if one of the parameters is not correct
-        - arTerms: List[int] = []
-        - arPrimes: List[bool] = []
-        - arError: List[float] = []
-        - goldenConst: float
+          Possible return values:
+          - fbReturn.OK: Test is OK
+          - fbReturn.TMT: maxTerms is too high
+          - fbReturn.TB: maxFibo is too high
+          - fbReturn.PRM_ERR: One of the parameters is not correct
     """
     arTerms: List[int] = []
     arPrimes: List[bool] = []
     arError: List[float] = []
 
     def isPrime(numberPrime: int) -> bool:
-        """
-        Check if the number is a prime number.
+        """Check if the number is a prime number.
 
-        Parameters
-        ----------
-        numberPrime: int
-            The number to be tested.
+       :param numberPrime: int
+          The number to be tested.
+       :type numberPrime: int
 
-        Returns
-        -------
-        bool:
-            True if the number is a prime number, False otherwise.
+       :return: bool
+          True if the number is a prime number, False otherwise.
 
-        Notes
-        -----
-        This algorithm is bruteforce stupid version, it is not optimized, the goal is not to optimize it.
+       :notes:
+          This algorithm is a brute-force, non-optimized version. The goal is not to optimize it.
 
-        If you want to optimize it, you can use the following tips :
-            You can avoid :
-                - the even numbers,
-                - the number greater than the square root of the number to be tested
+          If you want to optimize it, you can consider the following tips:
+          - Avoid testing even numbers.
+          - Stop testing when the divisor is greater than the square root of the number.
 
-            You can use :
-                - the sieve of Eratosthenes tables
-                - the Miller-Rabin algorithm, but it is not the purpose of this test.
+          You can also explore more efficient algorithms such as:
+          - The sieve of Eratosthenes tables.
+          - The Miller-Rabin algorithm, although it is not the purpose of this test.
         """
 
         # MaxSearch to don't test all the numbers
@@ -91,20 +89,19 @@ def fibonacci_interop_python(fbStart: int, maxTerms: int, maxFibo: int, maxFacto
         return True
 
     def factorization(baseIndex: int) -> None:
-        """
-        Factorize the number, and fill the array after the baseIndex with the factors.
-        The maximum number of factors is 49.
-        The algorithm is not optimized at all, it's just straightforward.
+        """Factorize the number and fill the array after the baseIndex with the factors.
 
-        Parameters
-        ----------
-        baseIndex:int
-            The base index of the array which is a multiple of 50.
+               :param baseIndex: int
+                  The base index of the array, which is a multiple of 50.
+               :type baseIndex: int
 
-        Returns
-        -------
-            None
-                This function does not return anything. It fills the arrays.
+               :return: None
+                  This function does not return anything. It fills the arrays.
+
+               :notes:
+                  The maximum number of factors is 49.
+
+                  The algorithm used here is not optimized; it's just a straightforward implementation.
         """
         position: int = 0  # The offset in the array after baseIndex
         result = arTerms[baseIndex]  # The number to be factorized

@@ -1,7 +1,7 @@
 # cython: language_level=3
 
 """
-Cythonized version of the Fibonacci module (only function)
+Cythonized version of the Fibonacci program
 """
 
 __author__ = "Rémi MEVAERE"
@@ -13,9 +13,10 @@ __email__ = "your.email@example.com"
 __status__ = "Development"
 __date__ = "2024-01-01"
 
-# Import the C functions
 from libc.math cimport sqrt
-from cpython.array cimport array
+from libc.stdlib cimport malloc, free
+from libc.time cimport clock, CLOCKS_PER_SEC
+from printResults import printResults
 
 cdef enum fbReturn:
     OK = 0
@@ -31,7 +32,7 @@ cdef char isPrime(unsigned long long numberPrime, unsigned long long maxFactor):
             return 0  # False
     return 1  # True
 
-cdef void factorization(unsigned long long* arTerms, char* arPrimes, int baseIndex, unsigned long long maxFactor):
+cdef void factorization(unsigned long long * arTerms, char * arPrimes, int baseIndex, unsigned long long maxFactor):
     cdef int position = 0
     cdef unsigned long long result = arTerms[baseIndex]
     cdef unsigned long long testNbr = 2
@@ -49,13 +50,8 @@ cdef void factorization(unsigned long long* arTerms, char* arPrimes, int baseInd
         if testNbr > maxFactor:
             break
 
-
-# typedef fbReturn (*LPFIBO)(int fbStart, int maxTerms,unsigned long long maxFibo, int maxFactor, int nbrOfLoops,
-# unsigned long long* arTerms, bool* arPrimes, float* arError, double& goldenNbr,unsigned long long& test);
-
-
 cdef fbReturn fibonacci_interop_c(unsigned long long fbStart, unsigned char maxTerms, unsigned long long maxFibo, unsigned long long maxFactor, unsigned char nbrOfLoops,
-                                  unsigned long long* arTerms, char* arPrimes, float* arError, double* goldenNbr):
+                                  unsigned long long * arTerms, char * arPrimes, float * arError, double * goldenNbr):
     cdef double goldenConst = (1 + sqrt(5)) / 2
     cdef int currentTerm, baseIndex
 
@@ -84,16 +80,60 @@ cdef fbReturn fibonacci_interop_c(unsigned long long fbStart, unsigned char maxT
 
     return fbReturn.OK
 
-cpdef tuple fibonacci_interop_cython(unsigned long long fbStart, unsigned char maxTerms, unsigned long long maxFibo, unsigned long long maxFactor, unsigned char nbrOfLoops,
-                                 array arTermsArray, array arPrimesArray, array arErrorArray):
-    cdef unsigned long long[:] arTerms = arTermsArray
-    cdef char[:] arPrimes = arPrimesArray
-    cdef float[:] arError = arErrorArray
+cdef list convert_to_pylist(unsigned long long *c_array, int size):
+    cdef list py_list = []
+    cdef int i
+    for i in range(size):
+        py_list.append(c_array[i])
+    return py_list
+
+cdef list convert_double_array_to_pylist(double *c_array, int size):
+    cdef list py_list = []
+    cdef int i
+    for i in range(size):
+        py_list.append(c_array[i])
+    return py_list
+
+
+cpdef void fibonacci_interop_cython_full(unsigned long long fbStart, unsigned char maxTerms, unsigned long long maxFibo, unsigned long long maxFactor,
+                                 unsigned char nbrOfLoops):
+    cdef unsigned long long * arTerms
+    cdef char * arPrimes
+    cdef float * arError
+    cdef double * timeArray
     cdef double goldenNbr
+    cdef int array_size
 
-    # Call the C function
-    result = fibonacci_interop_c(fbStart, maxTerms, maxFibo, maxFactor, nbrOfLoops,
-                                         &arTerms[0], &arPrimes[0], &arError[0], &goldenNbr)
+    # Dynamically allocate memory
+    array_size = maxTerms * 50
+    arTerms = <unsigned long long *> malloc(array_size * sizeof(unsigned long long))
+    arPrimes = <char *> malloc(array_size * sizeof(char))
+    arError = <float *> malloc(maxTerms * sizeof(float))
+    timeArray = <double *> malloc(nbrOfLoops * sizeof(double))
 
-    # Return the result and golden number
-    return result, goldenNbr
+    if not arTerms or not arPrimes or not arError or not timeArray:
+        # Handle memory allocation failure
+        if arTerms: free(arTerms)
+        if arPrimes: free(arPrimes)
+        if arError: free(arError)
+        if timeArray: free(timeArray)
+        raise MemoryError("Failed to allocate memory")
+
+    for loop in range(nbrOfLoops):
+        start_time = clock()
+        result = fibonacci_interop_c(fbStart, maxTerms, maxFibo, maxFactor, nbrOfLoops,
+                                     &arTerms[0], &arPrimes[0], &arError[0], &goldenNbr)
+        end_time = clock()
+        timeArray[loop] = (end_time - start_time) / CLOCKS_PER_SEC
+
+    # Usage
+    py_arTerms = convert_to_pylist(arTerms, maxTerms)
+    py_timeArray = convert_double_array_to_pylist(timeArray, nbrOfLoops)
+
+
+    printResults(arPrimes, py_arTerms, goldenNbr, maxTerms, py_timeArray, "Cython Full")
+
+    free(arTerms)
+    free(arPrimes)
+    free(arError)
+    free(timeArray)

@@ -12,32 +12,51 @@ from printResults import printResults
 from benchParameters import parameters
 from module_python import fibonacci_interop_python
 from typing import List
+from fiboCython import fibonacci_interop_cython
+from fiboCythonFull import fibonacci_interop_cython_full
+from array import array
 
 # List of time taken for the test to calculate the mean and the standard deviation
 listTimeCount: List[float] = []
 
+
 def execute_loop(nameTest: str, functionToTest)->None:
-    for _ in range(loopTime):
+    for _ in range(parameters.loopTime):
         start_time: float = time.time()  # Start the timer
-        fbRet, arTerms, arPrimes, arError, goldenNbr = functionToTest(parameters.fiboStart, parameters.fiboMaxTerms, parameters.fiboMaxValue,
-                                                                      parameters.fiboMaxFactor, parameters.fiboNbrOfLoops)
+        fbRet, arTerms, arPrimes, arError, goldenNbr = functionToTest()
         end_time: float = time.time()  # End the timer
         listTimeCount.append(end_time - start_time)  # Add the time taken in the list
 
-    printResults(arPrimes, arTerms, goldenNbr, fiboMaxTerms, listTimeCount, nameTest)
+    printResults(arPrimes, arTerms, goldenNbr, parameters.fiboMaxTerms, listTimeCount, nameTest)
+
+def execute_python():
+    return fibonacci_interop_python(parameters.fiboStart, parameters.fiboMaxTerms,
+                                                                  parameters.fiboMaxValue,
+                                                                  parameters.fiboMaxFactor, parameters.fiboNbrOfLoops)
+
+def execute_cython():
+    arTerms = array('Q', [0] * parameters.fiboMaxTerms * 50)  # 'Q' for unsigned long long
+    arPrimes = array('b', [0] * parameters.fiboMaxTerms * 50)  # 'b' for signed char
+    arError = array('f', [0] * parameters.fiboMaxTerms)  # 'f' for float
+
+    fbRet, goldenNbr = fibonacci_interop_cython(parameters.fiboStart, parameters.fiboMaxTerms, parameters.fiboMaxValue, parameters.fiboMaxFactor, parameters.fiboNbrOfLoops, arTerms, arPrimes, arError)
+    return fbRet, arTerms, arPrimes, arError, goldenNbr
 
 
-# Parameters for the test
-fiboMaxTerms: int = 74  # 74 is the maximum number of terms that can be calculated, it must fit in int64
-loopTime: int = 1  # Number of times the test is performed
-fiboStart: int = 1  # The first term of the fibonacci sequence
-fiboMaxValue: int = 1304969544928657  # The maximum value of the fibonacci sequence, it must fit in int64
-fiboMaxFactor: int = 4000000  # The maximum value of the factorization
-fiboNbrOfLoops: int = 1  # The number of times the test is performed
 
 def main_python():
     nameTest: str = "Python"
-    execute_loop(nameTest, fibonacci_interop_python)
+    execute_loop(nameTest, execute_python)
+
+def main_cython():
+    nameTest: str = "Cython"
+    execute_loop(nameTest, execute_cython)
+
+
+def main_cython_full():
+    fibonacci_interop_cython_full(parameters.fiboStart, parameters.fiboMaxTerms, parameters.fiboMaxValue, parameters.fiboMaxFactor, parameters.fiboNbrOfLoops)
 
 if __name__ == "__main__":
-    main_python()
+    # main_python()
+    # main_cython()
+    main_cython_full()
