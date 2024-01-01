@@ -19,11 +19,14 @@ from array import array
 # List of time taken for the test to calculate the mean and the standard deviation
 listTimeCount: List[float] = []
 
+
+
+
 def execute_loop(nameTest: str, functionToTest)->None:
     """Execute a test loop for a given function and print the results.
 
    This function performs a test loop for a specified function and prints the results.
-   It runs the function `parameters.loopTime` times, measuring the time taken for each run.
+   It runs the function `parameters.numberRun` times, measuring the time taken for each run.
    After the loop, it calculates and prints the results, including prime numbers,
    terms, the golden number, and the time taken.
 
@@ -37,7 +40,7 @@ def execute_loop(nameTest: str, functionToTest)->None:
    :return: None
       This function does not return anything but prints the test results."""
 
-    for _ in range(parameters.loopTime):
+    for _ in range(parameters.numberRun):
         start_time: float = time.time()  # Start the timer
         fbRet, arTerms, arPrimes, arError, goldenNbr = functionToTest()
         end_time: float = time.time()  # End the timer
@@ -55,14 +58,14 @@ def execute_cython():
     """Execute the test in Cython."""
     arTerms = array('Q', [0] * parameters.fiboMaxTerms * 50)  # 'Q' for unsigned long long
     arPrimes = array('b', [0] * parameters.fiboMaxTerms * 50)  # 'b' for signed char
-    arError = array('f', [0] * parameters.fiboMaxTerms)  # 'f' for float
+    arError = array('d', [0] * parameters.fiboMaxTerms)  # 'f' for double
 
     fbRet, goldenNbr = fibonacci_interop_cython(parameters.fiboStart, parameters.fiboMaxTerms, parameters.fiboMaxValue, parameters.fiboMaxFactor, parameters.fiboNbrOfLoops, arTerms, arPrimes, arError)
     return fbRet, arTerms, arPrimes, arError, goldenNbr
 
 def main_cython_full():
     """Execute the test in Cython Full Version."""
-    fibonacci_interop_cython_full(parameters.fiboStart, parameters.fiboMaxTerms, parameters.fiboMaxValue, parameters.fiboMaxFactor, parameters.fiboNbrOfLoops)
+    fibonacci_interop_cython_full(parameters.fiboStart, parameters.fiboMaxTerms, parameters.fiboMaxValue, parameters.fiboMaxFactor, parameters.fiboNbrOfLoops, parameters.numberRun)
 
 def main_python():
     nameTest: str = "Python"
@@ -73,6 +76,6 @@ def main_cython():
     execute_loop(nameTest, execute_cython)
 
 if __name__ == "__main__":
-    main_python()
-    main_cython()
+    # main_python()
+    # main_cython()
     main_cython_full()
