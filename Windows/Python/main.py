@@ -17,6 +17,7 @@ from typing import List
 from fiboCython import fibonacci_interop_cython
 from fiboCythonFull import fibonacci_interop_cython_full
 from array import array
+import ctypes
 
 from pythonnet import load
 load("coreclr")
@@ -29,6 +30,19 @@ from DllFibonacci import MyFiboClass
 from System import Array
 from System import UInt64, Boolean, Single, Double
 from System.Runtime.InteropServices import GCHandle, GCHandleType
+
+# Load the DLL
+lib = ctypes.CDLL(os.path.join(current_directory, 'InteropFibonacciWinCPP.dll'))  # Update with the correct path to your DLL
+
+# Set the argument types for the fibonacci_interop function
+lib.fibonacci_interop_cpp.argtypes = [
+    ctypes.c_ulonglong, ctypes.c_ubyte, ctypes.c_longlong, ctypes.c_ulonglong, ctypes.c_ubyte,
+    ctypes.POINTER(ctypes.c_ulonglong), ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_double),
+    ctypes.POINTER(ctypes.c_double)
+]
+
+# Set the return type for the fibonacci_interop function
+lib.fibonacci_interop_cpp.restype = ctypes.c_int
 
 # List of time taken for the test to calculate the mean and the standard deviation
 listTimeCount: List[float] = []
@@ -90,6 +104,16 @@ def execute_dotnet():
     result = fibonacciResult.Result
     return result, arTerms, arPrimes, arError, fibonacciResult.GoldenNumber
 
+def execute_cpp():
+    arTerms = (ctypes.c_ulonglong * (parameters.fiboMaxTerms * 50))()  # Adjust size as needed
+    arPrimes = (ctypes.c_bool * (parameters.fiboMaxTerms * 50))()  # Adjust size as needed
+    arError = (ctypes.c_double * parameters.fiboMaxTerms)()  # Adjust size as needed
+    goldenNbr = ctypes.c_double()
+
+    result = lib.fibonacci_interop_cpp(parameters.fiboStart, parameters.fiboMaxTerms, parameters.fiboMaxValue, parameters.fiboMaxFactor, parameters.fiboNbrOfLoops, arTerms, arPrimes, arError,
+                                   ctypes.byref(goldenNbr))
+    return result, arTerms, arPrimes, arError, goldenNbr.value
+
 def main_dotnet():
     nameTest: str = "Dotnet Core"
     execute_loop(nameTest, execute_dotnet)
@@ -106,8 +130,13 @@ def main_cython():
     nameTest: str = "Cython"
     execute_loop(nameTest, execute_cython)
 
+def main_cpp_dll():
+    nameTest: str = "C++ DLL"
+    execute_loop(nameTest, execute_cpp)
+
 if __name__ == "__main__":
     # main_python()
     # main_cython()
-    #main_cython_full()
-    main_dotnet()
+    # main_cython_full()
+    # main_dotnet()
+    main_cpp_dll()
