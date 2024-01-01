@@ -17,13 +17,11 @@ using System;
 
 public class MyFiboClass
 {
-
     public class FibonacciResult
     {
         public FbReturn Result { get; set; }
         public double GoldenNumber { get; set; }
     }
-
     public enum FbReturn
     {
         OK,
@@ -33,6 +31,10 @@ public class MyFiboClass
         ERR
     }
 
+    /// <summary>Checks if a number is prime.</summary>
+    /// <param name="number">The number to check for primality.</param>
+    /// <param name="maxFactor">The maximum factor to consider.</param>
+    /// <returns>True if the number is prime, otherwise false.</returns>
     static bool IsPrime(ulong numberPrime, ulong maxFactor)
     {
         ulong maxSearch = (numberPrime < maxFactor) ? numberPrime : maxFactor;
