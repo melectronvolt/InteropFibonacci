@@ -54,6 +54,15 @@ lib2.fibonacci_interop_asm.argtypes = [
 lib2.fibonacci_interop_asm.restype = ctypes.c_int
 
 
+lib3 = ctypes.CDLL(os.path.join(current_directory, 'CleanNASM.dll'))
+# Set the argument types for the fibonacci_interop function
+lib3.fibonacci_interop_nasm.argtypes = [
+    ctypes.c_int, ctypes.c_int, ctypes.c_longlong, ctypes.c_int, ctypes.c_int,
+    ctypes.POINTER(ctypes.c_ulonglong), ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_double),
+    ctypes.POINTER(ctypes.c_double)
+]
+lib3.fibonacci_interop_nasm.restype = ctypes.c_int
+
 def execute_loop(nameTest: str, functionToTest) -> None:
     """Execute a test loop for a given function and print the results.
 
@@ -145,6 +154,17 @@ def execute_asm():
 
     return result, arTerms, arPrimes, arError, goldenNbr.value
 
+def execute_nasm():
+    arTerms = (ctypes.c_ulonglong * (parameters.fiboMaxTerms * 50))()  # Adjust size as needed
+    arPrimes = (ctypes.c_bool * (parameters.fiboMaxTerms * 50))()  # Adjust size as needed
+    arError = (ctypes.c_double * parameters.fiboMaxTerms)()  # Adjust size as needed
+    goldenNbr = ctypes.c_double()
+
+    result = lib3.fibonacci_interop_nasm(parameters.fiboStart, parameters.fiboMaxTerms, parameters.fiboMaxValue,
+                                        parameters.fiboMaxFactor, parameters.fiboNbrOfLoops, arTerms, arPrimes, arError,
+                                        ctypes.byref(goldenNbr))
+
+    return result, arTerms, arPrimes, arError, goldenNbr.value
 
 def main_dotnet():
     nameTest: str = "Dotnet Core"
@@ -172,15 +192,19 @@ def main_cpp_dll():
     execute_loop(nameTest, execute_cpp)
 
 
-def main_cpp_asm():
+def main_asm():
     nameTest: str = "ASM x64 DLL"
     execute_loop(nameTest, execute_asm)
 
+def main_nasm():
+    nameTest: str = "ASM x64 DLL"
+    execute_loop(nameTest, execute_nasm)
 
 if __name__ == "__main__":
-    main_python()
-    main_cython()
-    main_cython_full()
-    main_dotnet()
-    main_cpp_dll()
-    main_cpp_asm()
+    # main_python()
+    # main_cython()
+    # main_cython_full()
+    # main_dotnet()
+    # main_cpp_dll()
+    main_nasm()
+    # main_asm()

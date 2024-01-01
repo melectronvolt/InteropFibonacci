@@ -1,1 +1,0 @@
-ml64 FiboASMx64.asm /link /DLL /DEF:FiboASMx64.def /OUT:FiboASMx64.dll

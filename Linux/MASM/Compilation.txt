@@ -1,0 +1,6 @@
+ml64 FiboASMx64.asm /link /DLL /DEF:FiboASMx64.def /OUT:FiboASMx64.dll
+
+ml64 CleanMASM.asm /link /DLL /DEF:CleanMASM.def /OUT:CleanMASM.dll
+
+nasm -f win64 -o CleanNASM.obj CleanNASM.asm
+link /DLL /OUT:CleanNASM.dll /DEF:CleanNASM.def CleanNASM.obj
