@@ -59,8 +59,8 @@ factorization:
     push r10
     push rcx
     mov r11, [rbp - 32]
-    mov r10, [rbp + 56]
-    mov r9, [rbp + 64]
+    mov r10, [rbp - 48]
+    mov r9, [rbp + 16]
 
     mov r8, 0
     mov rbx, 2
@@ -113,7 +113,7 @@ fiboWork:
     mov rcx, 100
     imul r10, r10, 50
 calculate_fibo:
-    mov rax, [rbp+56]
+    mov rax, [rbp - 48]
     mov rdx, 0
     mov r8, [rax + 8 * rcx - 800]
     add rdx, r8
@@ -125,7 +125,7 @@ calculate_fibo:
     mov r12, rdx
     call isPrime
 
-    mov r11, [rbp+64]
+    mov r11, [rbp+16]
     test rax, rax
     jz not_prime
 
@@ -149,11 +149,11 @@ clearAndFill:
     mov r9 , [rbp - 8]
 
 loop_unsigned:
-    mov rax, [rbp+56]
+    mov rax, [rbp - 48]
     mov rdx,0
     mov [rax + 8 * rcx], rdx
 
-    mov rax, [rbp+64]
+    mov rax, [rbp+16]
     mov dl, 0
     mov [rax + rcx], dl
     inc rcx
@@ -161,7 +161,7 @@ loop_unsigned:
     jl loop_unsigned
 
     mov rcx, 0
-    mov rax, [rbp+56]
+    mov rax, [rbp - 48]
     mov [rax], r9
     mov [rax + 8 * 50], r9
     mov r13, 0
@@ -170,7 +170,7 @@ loop_unsigned:
     call factorization
 
 loop_double:
-    mov rax, [rbp+72]
+    mov rax, [rbp+24] 
     movsd xmm0, QWORD [rel INIT]
     movsd QWORD [rax + 8 * rcx], xmm0
     inc rcx
@@ -180,8 +180,8 @@ loop_double:
 
 calculate_error:
     mov r10, [rbp - 16]
-    mov r8, [rbp + 72]
-    mov r9, [rbp + 56]
+    mov r8, [rbp+24] 
+    mov r9, [rbp - 48]
     xor r11, r11
 
 loop_error:
@@ -247,16 +247,16 @@ fibonacci_interop_nasm:
     ; Arguments in the stack
     ; - 48 bytes of local variables 
     ; Return Address -> 0 bytes to 8 bytes (+8bytes for alignment)
-    ; [rbp+24] -> pointer to arPrimes (bool*) 
-    ; [rbp+32] -> pointer to arError (double*)
-    ; [rbp+40] -> reference to goldenNbr
+    ; [rbp+16] -> pointer to arPrimes (bool*) 
+    ; [rbp+24] -> pointer to arError (double*)
+    ; [rbp+32] -> reference to goldenNbr
 
     mov rax, rcx
     mov rcx, rdx
     mov rbx, r8
     mov rdx, r9
     xor rsi, rsi
-    movzx rsi, byte [rbp+48]
+    movzx rsi, byte [rbp - 40]
 
     cmp rax, 1
     jl prm_err_label
@@ -284,7 +284,7 @@ main_loop:
     cmp rcx, rsi
     jl main_loop
 
-    mov rdx, [rbp+80]
+    mov rdx, [rbp+32]
     movsd xmm0, QWORD [rel GOLDEN_CONST]
     movsd QWORD [rdx], xmm0
     xor rax,rax
