@@ -1,7 +1,7 @@
 section .data
 MAX_FIBO         dq 1304969544928657
 MAX_FIBO_TERMS   equ 74
-LOCAL_VAR_SPACE  equ 32
+LOCAL_VAR_SPACE  equ 48
 
 FIVE             dq 5.0
 TWO              dq 2.0
@@ -227,10 +227,29 @@ fibonacci_interop_nasm:
     fdiv
     fstp QWORD [rel GOLDEN_CONST]
 
-     mov [rbp - 8], rcx
-    mov [rbp - 16], rdx
-    mov [rbp - 24], r8
-    mov [rbp - 32], r9
+    
+    ; Arguments in register store in local
+    ; RDI -> fbStart (8 bytes)
+    ; RSI -> maxTerms (1 byte)
+    ; RDX -> maxFibo (8 bytes)
+    ; RCX -> maxFactor (8 bytes)
+    ; R8 -> nbrOfLoops - (8 bytes)
+    ; R9 -> pointer to arTerms (unsigned long long*) - (8 bytes)
+
+
+    mov [rbp - 8], RDI ; fbStart
+    mov [rbp - 16], RSI ; maxTerms
+    mov [rbp - 24], RDX ; maxFibo
+    mov [rbp - 32], RCX ; maxFactor
+    mov [rbp - 40], R8 ; nbrOfLoops
+    mov [rbp - 48], R9 ; pointer to arTerms (unsigned long long*) 
+
+    ; Arguments in the stack
+    ; - 48 bytes of local variables 
+    ; Return Address -> 0 bytes to 8 bytes (+8bytes for alignment)
+    ; [rbp+24] -> pointer to arPrimes (bool*) 
+    ; [rbp+32] -> pointer to arError (double*)
+    ; [rbp+40] -> reference to goldenNbr
 
     mov rax, rcx
     mov rcx, rdx
