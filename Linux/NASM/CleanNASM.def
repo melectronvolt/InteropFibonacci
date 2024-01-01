@@ -1,3 +1,0 @@
-LIBRARY CleanNASM
-EXPORTS
-    fibonacci_interop_nasm

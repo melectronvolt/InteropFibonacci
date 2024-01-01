@@ -251,10 +251,10 @@ fibonacci_interop_nasm:
     ; [rbp+24] -> pointer to arError (double*)
     ; [rbp+32] -> reference to goldenNbr
 
-    mov rax, rcx
-    mov rcx, rdx
-    mov rbx, r8
-    mov rdx, r9
+    mov rax, [rbp - 8]
+    mov rcx, [rbp - 16]
+    mov rbx, [rbp - 24]
+    mov rdx, [rbp - 32]
     xor rsi, rsi
     movzx rsi, byte [rbp - 40]
 
