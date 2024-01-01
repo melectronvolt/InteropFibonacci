@@ -1,0 +1,6 @@
+nasm -f elf64 -o CleanNASM.o CleanNASM.asm
+gcc -shared -o CleanNASM.so CleanNASM.o
+
+
+nm -D CleanNASM.so
+objdump -T CleanNASM.so

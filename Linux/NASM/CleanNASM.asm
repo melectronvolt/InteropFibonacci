@@ -19,12 +19,7 @@ GOLDEN_CONST     dq ?
 
 section .text
 
-global _DllMainCRTStartup
 global fibonacci_interop_nasm
-
-_DllMainCRTStartup:
-    mov eax, 1
-    ret
 
 isPrime:
     push r8
@@ -303,3 +298,4 @@ epilogue:
     ret
 
 end:
+section .note.GNU-stack noalloc noexec nowrite progbits
