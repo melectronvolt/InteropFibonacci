@@ -72,7 +72,7 @@ public class MyFiboClass
         }
     }
 
-    public static FibonacciResult FibonacciInterop(ulong fbStart, byte maxTerms, ulong maxFibo, ulong maxFactor, byte nbrOfLoops,
+    public static FibonacciResult fibonacci_interop_cs(ulong fbStart, byte maxTerms, ulong maxFibo, ulong maxFactor, byte nbrOfLoops,
         ulong[] arTerms, bool[] arPrimes, double[] arError)
     {
         double goldenNbr = 0;

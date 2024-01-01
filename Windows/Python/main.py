@@ -7,6 +7,8 @@ __email__ = "your.email@example.com"
 __status__ = "Development"
 __date__ = "2024-01-01"
 
+
+
 import time
 from printResults import printResults
 from benchParameters import parameters
@@ -15,6 +17,18 @@ from typing import List
 from fiboCython import fibonacci_interop_cython
 from fiboCythonFull import fibonacci_interop_cython_full
 from array import array
+
+from pythonnet import load
+load("coreclr")
+import clr  # Import CLR from Python.NET
+import os
+clr.AddReference('System')
+current_directory = os.getcwd()
+clr.AddReference(os.path.join(current_directory, 'DllFibonacci.dll'))
+from DllFibonacci import MyFiboClass
+from System import Array
+from System import UInt64, Boolean, Single, Double
+from System.Runtime.InteropServices import GCHandle, GCHandleType
 
 # List of time taken for the test to calculate the mean and the standard deviation
 listTimeCount: List[float] = []
@@ -60,6 +74,26 @@ def execute_cython():
     fbRet, goldenNbr = fibonacci_interop_cython(parameters.fiboStart, parameters.fiboMaxTerms, parameters.fiboMaxValue, parameters.fiboMaxFactor, parameters.fiboNbrOfLoops, arTerms, arPrimes, arError)
     return fbRet, arTerms, arPrimes, arError, goldenNbr
 
+
+def execute_dotnet():
+    arTerms = Array[UInt64](range(parameters.fiboMaxTerms * 50))
+    arPrimes = Array[Boolean]([False] * (parameters.fiboMaxTerms * 50))
+    arError = Array[Double]([0.0] * parameters.fiboMaxTerms)
+
+    # Call the method
+    # Initialize the out parameter as a reference
+    goldenNbr = Array[Double]([0.0])
+
+    fibonacciResult = MyFiboClass.fibonacci_interop_cs(parameters.fiboStart, parameters.fiboMaxTerms, parameters.fiboMaxValue, parameters.fiboMaxFactor, parameters.fiboNbrOfLoops, arTerms,
+                                                   arPrimes, arError)
+
+    result = fibonacciResult.Result
+    return result, arTerms, arPrimes, arError, fibonacciResult.GoldenNumber
+
+def main_dotnet():
+    nameTest: str = "Dotnet Core"
+    execute_loop(nameTest, execute_dotnet)
+
 def main_cython_full():
     """Execute the test in Cython Full Version."""
     fibonacci_interop_cython_full(parameters.fiboStart, parameters.fiboMaxTerms, parameters.fiboMaxValue, parameters.fiboMaxFactor, parameters.fiboNbrOfLoops, parameters.numberRun)
@@ -75,4 +109,5 @@ def main_cython():
 if __name__ == "__main__":
     # main_python()
     # main_cython()
-    main_cython_full()
+    #main_cython_full()
+    main_dotnet()
