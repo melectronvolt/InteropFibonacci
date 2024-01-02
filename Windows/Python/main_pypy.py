@@ -12,11 +12,6 @@ from printResults import printResults
 from benchParameters import parameters
 from module_python import fibonacci_interop_python
 from typing import List
-from fiboCython import fibonacci_interop_cython
-from fiboCythonFull import fibonacci_interop_cython_full
-from array import array
-import ctypes
-import os
 
 
 def execute_loop(nameTest: str, functionToTest) -> None:
@@ -57,7 +52,7 @@ def execute_python():
 
 
 def main_python():
-    nameTest: str = "Python"
+    nameTest: str = "Python PyPy"
     execute_loop(nameTest, execute_python)
 
 

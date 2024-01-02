@@ -193,18 +193,18 @@ def main_cpp_dll():
 
 
 def main_asm():
-    nameTest: str = "ASM x64 DLL"
+    nameTest: str = "ASM x64 MASM"
     execute_loop(nameTest, execute_asm)
 
 def main_nasm():
-    nameTest: str = "ASM x64 DLL"
+    nameTest: str = "ASM x64 NASM"
     execute_loop(nameTest, execute_nasm)
 
 if __name__ == "__main__":
-    # main_python()
-    # main_cython()
-    # main_cython_full()
-    # main_dotnet()
-    # main_cpp_dll()
+    main_python()
+    main_cython()
+    main_cython_full()
+    main_dotnet()
+    main_cpp_dll()
     main_nasm()
-    # main_asm()
+    main_asm()
