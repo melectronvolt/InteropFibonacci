@@ -1,0 +1,137 @@
+----------------------
+  WINDOWS (40pass)
+----------------------
+
+Javascript - nodeJS v21.5.0
+Mean execution time(s) : 2.74385
+Standard Deviation (s) : 0.3628918261686256
+Standard Error (s) : 0.058109198155338625
+
+TypeScript - compiled v21.5.0
+Mean execution time(s) : 3.198575
+Standard Deviation (s) : 0.17799043338056122
+Standard Error (s) : 0.028501279492196625
+
+TypeScript ts-node v5.3.3
+Mean execution time(s) : 3.202875
+Standard Deviation (s) : 0.17523658115530558
+Standard Error (s) : 0.028060310219514405
+
+Firefox v122.0b4
+Mean execution time(s) : 9.774725
+Standard Deviation (s) : 0.039305207988255195
+Standard Error (s) : 0.006293870390084267
+
+TypeScript compiled Firefox v122.0b4
+Mean execution time(s) : 9.870375
+Standard Deviation (s) : 0.20077271820394324
+Standard Error (s) : 0.03214936470042644
+
+Cython v3.0.7
+Mean execution time(s) : 1.0044625520706176
+Standard Deviation (s) : 0.002832878068946567
+Standard Error (s) : 0.00045362353513533416
+
+Cython Full v3.0.7
+Mean execution time(s) : 1.0046825289726258
+Standard Deviation (s) : 0.0030548135678096756
+Standard Error (s) : 0.0004891616568320947
+
+C++ MSVC x64 v19.38.33133 / Linker v14.38.33133.0
+Mean execution time(s) : 1.0027522146701813
+Standard Deviation (s) : 0.0041351195564440085
+Standard Error (s) : 0.00066214906033669
+
+ASM - MASM x64 v14.38.33133.0
+Mean execution time(s) : 0.18934940695762634
+Standard Deviation (s) : 0.0011160514166992125
+Standard Error (s) : 0.0001787112529075969
+
+ASM - NASM x64 v2.16.01
+Mean execution time(s) : 0.1894469141960144
+Standard Deviation (s) : 0.0010896798752122376
+Standard Error (s) : 0.00017448842665629334
+
+Python 3.12.1
+Mean execution time(s) : 27.093213498592377
+Standard Deviation (s) : 0.11129706241426955
+Standard Error (s) : 0.017821793128326536
+
+DotnetCore v8.0.100 
+Golden Number :  1.618033988749895
+Mean execution time(s) : 1.0029198229312897
+Standard Deviation (s) : 0.003894043777412162
+Standard Error (s) : 0.0006235460409131971
+
+PyPy v7.3.14 with MSC v.1929 with python v3.10.13
+Mean execution time(s) : 7.733976191282272
+Standard Deviation (s) : 0.05929733292690887
+Standard Error (s) : 0.00949517244715152
+
+----------------------
+    LINUX (40pass)
+----------------------
+
+Javascript - nodeJS v21.5.0
+Mean execution time(s) : 2.589175
+Standard Deviation (s) : 0.10403097795849083
+Standard Error (s) : 0.016658288439030847
+
+TypeScript - compiled v21.5.0
+Mean execution time(s) : 3.21995
+Standard Deviation (s) : 0.16612840666183495
+Standard Error (s) : 0.026601835053340368
+
+TypeScript ts-node v5.3.3
+Mean execution time(s) : 3.2089499999999997
+Standard Deviation (s) : 0.18374669384780776
+Standard Error (s) : 0.029423018853638017
+
+Firefox v119
+Mean execution time(s) : 4.7254
+Standard Deviation (s) : 0.02450999796001624
+Standard Error (s) : 0.0039247407231038514
+
+TypeScript compiled Firefox v119
+Mean execution time(s) : 7.0036499999999995
+Standard Deviation (s) : 0.022016527882479577
+Standard Error (s) : 0.0035254659630196777
+
+Python 3.12.1
+Mean execution time(s) : 19.180686682462692
+Standard Deviation (s) : 0.16243111125405724
+Standard Error (s) : 0.0260097939656209
+
+Cython v3.0.7
+Mean execution time(s) : 1.0150709450244904
+Standard Deviation (s) : 0.005261571892300852
+Standard Error (s) : 0.000842525793226874
+
+Cython Full v3.0.7
+Golden Number :  1.618033988749895
+Mean execution time(s) : 1.0161641597747804
+Standard Deviation (s) : 0.004086534805596528
+Standard Error (s) : 0.0006543692738804025
+
+Dotnet Core v8.0.100
+Golden Number :  1.618033988749895
+Mean execution time(s) : 1.0181671142578126
+Standard Deviation (s) : 0.005934754726927231
+Standard Error (s) : 0.0009503213177088714
+
+C++ gcc version v13.2.0
+Golden Number :  1.618033988749895
+Mean execution time(s) : 1.018523734807968
+Standard Deviation (s) : 0.018319418895237076
+Standard Error (s) : 0.002933454726476342
+
+NASM x64 DLL v2.16.01
+Golden Number :  1.618033988749895
+Mean execution time(s) : 0.19086963534355164
+Standard Deviation (s) : 0.0008874886411816247
+Standard Error (s) : 0.00014211191763539898
+
+PyPy 7.3.14 with GCC 10.2.1 with Python 3.10.13 
+Mean execution time(s) : 3.449873721599579
+Standard Deviation (s) : 0.03928170831371492
+Standard Error (s) : 0.009011841940480256
