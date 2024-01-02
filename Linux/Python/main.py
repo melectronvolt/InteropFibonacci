@@ -18,23 +18,26 @@ from array import array
 import ctypes
 import os
 
-current_directory = os.getcwd()
+current_directory = os.path.dirname(os.path.abspath(__file__))
 
 from pythonnet import load
+
 
 load("coreclr")
 import clr  # Import CLR from Python.NET
 
 clr.AddReference('System')
-clr.AddReference(os.path.join(current_directory, 'DllFibonacci.dll'))
-from DllFibonacci import MyFiboClass
+
+clr.AddReference(os.path.join(current_directory, 'SOFibonacci.dll'))
+from SOFibonacci import MyFiboLinuxClass
+
 from System import Array
 from System import UInt64, Boolean, Single, Double
 from System.Runtime.InteropServices import GCHandle, GCHandleType
 
 # Load the DLL
 lib = ctypes.CDLL(
-    os.path.join(current_directory, 'InteropFibonacciWinCPP.dll'))  # Update with the correct path to your DLL
+    os.path.join(current_directory, 'libInteropFibonacciWinCPP.so'))  # Update with the correct path to your DLL
 # Set the argument types for the fibonacci_interop function
 lib.fibonacci_interop_cpp.argtypes = [
     ctypes.c_ulonglong, ctypes.c_ubyte, ctypes.c_longlong, ctypes.c_ulonglong, ctypes.c_ubyte,
@@ -44,17 +47,7 @@ lib.fibonacci_interop_cpp.argtypes = [
 # Set the return type for the fibonacci_interop function
 lib.fibonacci_interop_cpp.restype = ctypes.c_int
 
-lib2 = ctypes.CDLL(os.path.join(current_directory, 'FiboASMx64.dll'))
-# Set the argument types for the fibonacci_interop function
-lib2.fibonacci_interop_asm.argtypes = [
-    ctypes.c_int, ctypes.c_int, ctypes.c_longlong, ctypes.c_int, ctypes.c_int,
-    ctypes.POINTER(ctypes.c_ulonglong), ctypes.POINTER(ctypes.c_bool), ctypes.POINTER(ctypes.c_double),
-    ctypes.POINTER(ctypes.c_double)
-]
-lib2.fibonacci_interop_asm.restype = ctypes.c_int
-
-
-lib3 = ctypes.CDLL(os.path.join(current_directory, 'CleanNASM.dll'))
+lib3 = ctypes.CDLL(os.path.join(current_directory, 'CleanNASM.so'))
 # Set the argument types for the fibonacci_interop function
 lib3.fibonacci_interop_nasm.argtypes = [
     ctypes.c_int, ctypes.c_int, ctypes.c_longlong, ctypes.c_int, ctypes.c_int,
@@ -62,6 +55,7 @@ lib3.fibonacci_interop_nasm.argtypes = [
     ctypes.POINTER(ctypes.c_double)
 ]
 lib3.fibonacci_interop_nasm.restype = ctypes.c_int
+
 
 def execute_loop(nameTest: str, functionToTest) -> None:
     """Execute a test loop for a given function and print the results.
@@ -121,6 +115,23 @@ def execute_dotnet():
     # Initialize the out parameter as a reference
     goldenNbr = Array[Double]([0.0])
 
+    fibonacciResult = MyFiboLinuxClass.fibonacci_interop_cs(parameters.fiboStart, parameters.fiboMaxTerms,
+                                                       parameters.fiboMaxValue, parameters.fiboMaxFactor,
+                                                       parameters.fiboNbrOfLoops, arTerms,
+                                                       arPrimes, arError)
+
+    result = fibonacciResult.Result
+    return result, arTerms, arPrimes, arError, fibonacciResult.GoldenNumber
+
+def execute_dotnetwin():
+    arTerms = Array[UInt64](range(parameters.fiboMaxTerms * 50))
+    arPrimes = Array[Boolean]([False] * (parameters.fiboMaxTerms * 50))
+    arError = Array[Double]([0.0] * parameters.fiboMaxTerms)
+
+    # Call the method
+    # Initialize the out parameter as a reference
+    goldenNbr = Array[Double]([0.0])
+
     fibonacciResult = MyFiboClass.fibonacci_interop_cs(parameters.fiboStart, parameters.fiboMaxTerms,
                                                        parameters.fiboMaxValue, parameters.fiboMaxFactor,
                                                        parameters.fiboNbrOfLoops, arTerms,
@@ -142,17 +153,6 @@ def execute_cpp():
     return result, arTerms, arPrimes, arError, goldenNbr.value
 
 
-def execute_asm():
-    arTerms = (ctypes.c_ulonglong * (parameters.fiboMaxTerms * 50))()  # Adjust size as needed
-    arPrimes = (ctypes.c_bool * (parameters.fiboMaxTerms * 50))()  # Adjust size as needed
-    arError = (ctypes.c_double * parameters.fiboMaxTerms)()  # Adjust size as needed
-    goldenNbr = ctypes.c_double()
-
-    result = lib2.fibonacci_interop_asm(parameters.fiboStart, parameters.fiboMaxTerms, parameters.fiboMaxValue,
-                                        parameters.fiboMaxFactor, parameters.fiboNbrOfLoops, arTerms, arPrimes, arError,
-                                        ctypes.byref(goldenNbr))
-
-    return result, arTerms, arPrimes, arError, goldenNbr.value
 
 def execute_nasm():
     arTerms = (ctypes.c_ulonglong * (parameters.fiboMaxTerms * 50))()  # Adjust size as needed
@@ -191,20 +191,14 @@ def main_cpp_dll():
     nameTest: str = "C++ DLL"
     execute_loop(nameTest, execute_cpp)
 
-
-def main_asm():
-    nameTest: str = "ASM x64 DLL"
-    execute_loop(nameTest, execute_asm)
-
 def main_nasm():
     nameTest: str = "ASM x64 DLL"
     execute_loop(nameTest, execute_nasm)
 
 if __name__ == "__main__":
     # main_python()
-    # main_cython()
-    # main_cython_full()
-    # main_dotnet()
-    # main_cpp_dll()
-    main_nasm()
-    # main_asm()
+    main_cython()
+    #main_cython_full()
+    #main_dotnet()
+    #main_cpp_dll()
+    #main_nasm()

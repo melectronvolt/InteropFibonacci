@@ -11,17 +11,19 @@
 // Date: 2024-01-01
 // -----------------------------------------------------------------------
 
-namespace DllFibonacci;
+
+namespace SOFibonacci;
 
 using System;
 
-public class MyFiboClass
+public class MyFiboLinuxClass
 {
     public class FibonacciResult
     {
         public FbReturn Result { get; set; }
         public double GoldenNumber { get; set; }
     }
+
     public enum FbReturn
     {
         OK,
@@ -42,6 +44,7 @@ public class MyFiboClass
             if (numberPrime % i == 0)
                 return false;
         }
+
         return true;
     }
 
@@ -52,7 +55,6 @@ public class MyFiboClass
     /// <param name="arPrimes">An array to store the primality of factors.</param>
     /// <param name="baseIndex">The base index in the arrays to start storing factors.</param>
     /// <param name="maxFactor">The maximum factor to consider during factorization.</param>
-
     static void Factorization(ulong[] arTerms, bool[] arPrimes, int baseIndex, ulong maxFactor)
     {
         int position = 0;
@@ -91,8 +93,8 @@ public class MyFiboClass
     /// <param name="arPrimes">An array to store the primality of terms.</param>
     /// <param name="arError">An array to store error values.</param>
     /// <returns>A <see cref="FibonacciResult"/> object containing the result and the golden number.</returns>
-
-    public static FibonacciResult fibonacci_interop_cs(ulong fbStart, byte maxTerms, ulong maxFibo, ulong maxFactor, byte nbrOfLoops,
+    public static FibonacciResult fibonacci_interop_cs(ulong fbStart, byte maxTerms, ulong maxFibo, ulong maxFactor,
+        byte nbrOfLoops,
         ulong[] arTerms, bool[] arPrimes, double[] arError)
     {
         double goldenNbr = 0;

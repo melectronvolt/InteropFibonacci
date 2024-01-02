@@ -26,6 +26,27 @@ def mean(lst: List[float]) -> float:
     return sum(lst) / len(lst)
 
 
+def standard_error(lst: List[float]) -> float:
+    """Calculate the standard error.
+
+       :param lst: List[float]
+          The list of values.
+       :type lst: list of float
+
+       :return: float
+          The standard error or -1 if failure.
+    """
+    # Calculate the variance (average of squared differences from the mean)
+    if (len(lst) > 1):
+        variance_correct = sum((x - mean(lst)) ** 2 for x in lst) / (len(lst) - 1)
+        # Standard deviation is the square root of the variance
+        std_dev_correct = variance_correct ** 0.5
+        se = std_dev_correct / len(lst) ** 0.5
+        return se
+    else:
+        return -1
+
+
 def standard_deviation(lst: List[float]) -> float:
     """Calculate the standard deviation.
 
@@ -101,5 +122,6 @@ def printResults(arPrimes, arTerms, goldenNbr, maxTerms, listTimeCount, nameTest
     print("--------------------------------------------------")
     print(nameTest)
     print("Golden Number : ", goldenNbr)
-    print("Durée moyenne : " + str(mean(listTimeCount)))
-    print("Standard Deviation : " + str(standard_deviation(listTimeCount)))
+    print("Mean execution time(s) : " + str(mean(listTimeCount)))
+    print("Standard Deviation (s) : " + str(standard_deviation(listTimeCount)))
+    print("Standard Error (s) : " + str(standard_error(listTimeCount)))

@@ -35,7 +35,7 @@ void factorization(unsigned long long* arTerms, bool* arPrimes, int baseIndex, u
     }
 }
 
-extern "C" __declspec(dllexport) fbReturn fibonacci_interop_cpp(unsigned long long fbStart, unsigned char maxTerms, long long maxFibo, unsigned long long maxFactor, unsigned char nbrOfLoops,
+extern "C" __attribute__((visibility("default"))) fbReturn fibonacci_interop_cpp(unsigned long long fbStart, unsigned char maxTerms, long long maxFibo, unsigned long long maxFactor, unsigned char nbrOfLoops,
                            unsigned long long* arTerms, bool* arPrimes, double* arError, double& goldenNbr) {
 
     if (fbStart < 1 || maxFibo < 1 || maxTerms < 3 || maxFactor < 2 || nbrOfLoops < 1)
