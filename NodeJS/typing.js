@@ -187,7 +187,7 @@ function main() {
     let arPrimes = null;
     let arError = null;
     let goldenNbr = null;
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 40; i++) {
         let startTime = Date.now();
         [fbRet, arTerms, arPrimes, arError, goldenNbr] = fibonacci_interop(1, maxTerms, 1304969544928657, 4000000, 7);
         let endTime = Date.now();

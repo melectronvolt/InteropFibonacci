@@ -207,7 +207,7 @@ function main(): void {
     let arError: number[] | null = null;
     let goldenNbr: number | null = null;
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 40; i++) {
         let startTime: number = Date.now();
         [fbRet, arTerms, arPrimes, arError, goldenNbr] = fibonacci_interop(1, maxTerms, 1304969544928657, 4000000, 7);
         let endTime: number = Date.now();
