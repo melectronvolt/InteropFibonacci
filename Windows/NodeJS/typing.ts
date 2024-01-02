@@ -155,6 +155,30 @@ function mean(lst: number[]): number {
  * @param {number[]} lst - An array of numbers for which the standard deviation is to be calculated.
  * @returns {number} - The standard deviation of the values in the array.
  */
+
+
+/**
+ * Calculates the standard error (SE) of the values in an array.
+ *
+ * The function first calculates the variance using the sample variance formula (if there are at least 2 values).
+ * Then, it calculates the standard deviation as the square root of the variance. Finally, it computes the standard error
+ * by dividing the standard deviation by the square root of the array length.
+ *
+ * @param {number[]} lst - An array of numbers for which the standard error is to be calculated.
+ * @returns {number} - The standard error of the values in the array or -1 if there are less than 2 values.
+ */
+function standardError(lst: number[]): number {
+    if (lst.length > 1) {
+        const variance_correct = lst.reduce((total, num) => total + Math.pow(num - mean(lst), 2), 0) / (lst.length - 1);
+        const stdDev_correct = Math.sqrt(variance_correct);
+        const se = stdDev_correct / Math.sqrt(lst.length);
+        return se;
+    } else {
+        return -1;
+    }
+}
+
+
 function standardDeviation(lst: number[]): number {
     const meanValue: number = mean(lst);
     const variance: number = lst.reduce((total, num) => total + Math.pow(num - meanValue, 2), 0) / lst.length;
@@ -214,10 +238,13 @@ function main(): void {
 
     }
 
-    console.log("Golden Number: ", goldenNbr);
     console.log("---------------------------------");
-    console.log("Average Duration: " + mean(timeCount) / 1000);
-    console.log("Standard Deviation: " + standardDeviation(timeCount) / 1000);
+    console.log("TypeScript");
+    console.log("Golden Number: ", goldenNbr);
+    console.log("Mean execution time(s) : " + mean(timeCount) / 1000)
+    console.log("Standard Deviation (s) : " + standardDeviation(timeCount) / 1000)
+    console.log("Standard Error (s) : " + standardError(timeCount) / 1000)
+
 }
 
 main();
