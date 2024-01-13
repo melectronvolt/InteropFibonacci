@@ -280,7 +280,7 @@ fibonacci_interop_nasm:
     jl prm_err_label
     cmp rsi, 1
     jl prm_err_label
-    cmp rcx, 74
+    cmp rcx, MAX_FIBO_TERMS
     jg tmt_label
     mov rax, MAX_FIBO
     cmp rbx, rax

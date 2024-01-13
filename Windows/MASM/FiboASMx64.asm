@@ -420,7 +420,7 @@ fibonacci_interop_asm PROC
     cmp rsi, 1          ; Compare nbrOfLoops with 1
     jl prm_err_label
 
-    cmp rcx, 74          ; Compare maxTerms with 74
+    cmp rcx, MAX_FIBO_TERMS          ; Compare maxTerms with 74
     jg tmt_label
 
     mov rax, MAX_FIBO
