@@ -282,8 +282,10 @@ fibonacci_interop_nasm:
     jl prm_err_label
     cmp rcx, 74
     jg tmt_label
-    mov rax, 1304969544928657
+    mov rax, MAX_FIBO
     cmp rbx, rax
+    jg too_big_label
+    cmp rdx, rax
     jg too_big_label
 
     xor rcx,rcx
