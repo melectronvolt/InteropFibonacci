@@ -196,9 +196,9 @@ def main_nasm():
     execute_loop(nameTest, execute_nasm)
 
 if __name__ == "__main__":
-    # main_python()
+    main_python()
     main_cython()
-    #main_cython_full()
-    #main_dotnet()
-    #main_cpp_dll()
-    #main_nasm()
+    main_cython_full()
+    main_dotnet()
+    main_cpp_dll()
+    main_nasm()

@@ -12,7 +12,7 @@ __date__ = "2024-01-01"
 
 class parameters:
     fiboMaxTerms: int = 74  # 74 is the maximum number of terms that can be calculated, it must fit in int64
-    numberRun: int = 20  # Number of times the test is performed
+    numberRun: int = 40  # Number of times the test is performed
     fiboStart: int = 1  # The first term of the fibonacci sequence
     fiboMaxValue: int = 1304969544928657  # The maximum value of the fibonacci sequence, it must fit in int64
     fiboMaxFactor: int = 4000000  # The maximum value of the factorization
