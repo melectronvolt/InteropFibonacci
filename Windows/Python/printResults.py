@@ -1,10 +1,10 @@
 __author__ = "Rémi MEVAERE"
 __copyright__ = "Copyright (c) 2024 Rémi MEVAERE"
 __license__ = "MIT License"
-
 __version__ = "1.0.0"
 __maintainer__ = "Rémi MEVAERE"
-__email__ = "your.email@example.com"
+__email__ = "github@volt.melectron.fr"
+__website__ = "spnet.fr"
 __status__ = "Development"
 __date__ = "2024-01-01"
 
@@ -22,7 +22,6 @@ def mean(lst: List[float]) -> float:
        :return: float
           The mean.
     """
-
     return sum(lst) / len(lst)
 
 
@@ -42,20 +41,17 @@ def standard_deviation(lst: List[float]) -> float:
     std_dev = variance ** 0.5
     return std_dev
 
-def standard_error(lst: List[float]) -> float:
-    """Calculate the standard error.
-
+def standard_uncertainty(lst: List[float]) -> float:
+    """Calculate the standard uncertainty.
        :param lst: List[float]
           The list of values.
        :type lst: list of float
 
        :return: float
-          The standard error or -1 if failure.
+          The standard uncertainty or -1 if failure.
     """
-    # Calculate the variance (average of squared differences from the mean)
     if (len(lst) > 1):
         variance_correct = sum((x - mean(lst)) ** 2 for x in lst) / (len(lst) - 1)
-        # Standard deviation is the square root of the variance
         std_dev_correct = variance_correct ** 0.5
         se = std_dev_correct / len(lst) ** 0.5
         return se
@@ -122,4 +118,4 @@ def printResults(arPrimes, arTerms, goldenNbr, maxTerms, listTimeCount, nameTest
     print("Golden Number : ", goldenNbr)
     print("Mean execution time(s) : " + str(mean(listTimeCount)))
     print("Standard Deviation (s) : " + str(standard_deviation(listTimeCount)))
-    print("Standard Error (s) : " + str(standard_error(listTimeCount)))
+    print("Standard Uncertainty (s) : " + str(standard_uncertainty(listTimeCount)))

@@ -1,3 +1,14 @@
+/*
+ * (c) 2024 Rémi MEVAERE
+ * MIT License
+ * Version 1.0.0
+ * Maintainer: Rémi MEVAERE
+ * Email: github@volt.melectron.fr
+ * Website: spnet.fr
+ * Status: Development
+ * Date: 2024-01-01
+ */
+
 #include <cmath>
 #include <string>
 
@@ -35,17 +46,21 @@ void factorization(unsigned long long* arTerms, bool* arPrimes, int baseIndex, u
     }
 }
 
-extern "C" __declspec(dllexport) fbReturn fibonacci_interop_cpp(unsigned long long fbStart, unsigned char maxTerms, long long maxFibo, unsigned long long maxFactor, unsigned char nbrOfLoops,
+extern "C" __declspec(dllexport) fbReturn fibonacci_interop_cpp(unsigned long long fbStart, unsigned char maxTerms, unsigned long long maxFibo, unsigned long long maxFactor, unsigned char nbrOfLoops,
                            unsigned long long* arTerms, bool* arPrimes, double* arError, double& goldenNbr) {
 
     if (fbStart < 1 || maxFibo < 1 || maxTerms < 3 || maxFactor < 2 || nbrOfLoops < 1)
         return fbReturn::PRM_ERR;
 
-    if (maxTerms > 74)
+    if (maxTerms > 93)
         return fbReturn::TMT;
 
-    if (maxFibo > 1304969544928657)
+    if (maxFibo > 18446744073709551615)
         return fbReturn::TB;
+    if (maxFactor > 18446744073709551615)
+        return fbReturn::TB;
+
+
 
     goldenNbr = (1 + sqrt(5)) / 2;
     unsigned long long nextValue;

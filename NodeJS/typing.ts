@@ -1,3 +1,14 @@
+// -----------------------------------------------------------------------
+// Author: Rémi MEVAERE
+// Copyright: Copyright (c) 2024 Rémi MEVAERE
+// License: MIT License
+// Version: 1.0.0
+// Maintainer: Rémi MEVAERE
+// Email: github@volt.melectron.fr
+// Website: spnet.fr
+// Status: Development
+// Date: 2024-01-01
+// -----------------------------------------------------------------------
 
 enum fbReturn {
     OK = 0,
@@ -95,11 +106,11 @@ function fibonacci_interop(fbStart: number, maxTerms: number = 74, maxFibo: numb
         return [fbReturn.PRM_ERR, null, null, null, null];
     }
 
-    if (maxTerms > 74) {
+    if (maxTerms > 93) {
         return [fbReturn.TMT, null, null, null, null];
     }
 
-    if (maxFibo > 1304969544928657) {
+    if (maxFibo > 18446744073709551615 || maxFactor > 18446744073709551615) {
         return [fbReturn.TB, null, null, null, null];
     }
 

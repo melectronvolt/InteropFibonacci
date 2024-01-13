@@ -1,9 +1,10 @@
-_author__ = "Rémi MEVAERE"
+__author__ = "Rémi MEVAERE"
 __copyright__ = "Copyright (c) 2024 Rémi MEVAERE"
 __license__ = "MIT License"
 __version__ = "1.0.0"
 __maintainer__ = "Rémi MEVAERE"
-__email__ = "your.email@example.com"
+__email__ = "github@volt.melectron.fr"
+__website__ = "spnet.fr"
 __status__ = "Development"
 __date__ = "2024-01-01"
 

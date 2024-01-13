@@ -1,3 +1,14 @@
+/*
+ * (c) 2024 Rémi MEVAERE
+ * MIT License
+ * Version 1.0.0
+ * Maintainer: Rémi MEVAERE
+ * Email: github@volt.melectron.fr
+ * Website: spnet.fr
+ * Status: Development
+ * Date: 2024-01-01
+ */
+
 #include <cmath>
 #include <string>
 
@@ -41,10 +52,10 @@ extern "C" __attribute__((visibility("default"))) fbReturn fibonacci_interop_cpp
     if (fbStart < 1 || maxFibo < 1 || maxTerms < 3 || maxFactor < 2 || nbrOfLoops < 1)
         return fbReturn::PRM_ERR;
 
-    if (maxTerms > 74)
+    if (maxTerms > 93)
         return fbReturn::TMT;
 
-    if (maxFibo > 1304969544928657)
+    if (maxFibo > 18446744073709551615 || maxFactor > 18446744073709551615)
         return fbReturn::TB;
 
     goldenNbr = (1 + sqrt(5)) / 2;

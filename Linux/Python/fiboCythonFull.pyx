@@ -9,7 +9,8 @@ __copyright__ = "Copyright (c) 2024 Rémi MEVAERE"
 __license__ = "MIT License"
 __version__ = "1.0.0"
 __maintainer__ = "Rémi MEVAERE"
-__email__ = "your.email@example.com"
+__email__ = "github@volt.melectron.fr"
+__website__ = "spnet.fr"
 __status__ = "Development"
 __date__ = "2024-01-01"
 
@@ -63,10 +64,10 @@ cdef fbReturn fibonacci_interop_c(unsigned long long fbStart, unsigned char maxT
     if fbStart < 1 or maxFibo < 1 or maxTerms < 3 or maxFactor < 2 or nbrOfLoops < 1:
         return fbReturn.PRM_ERR
 
-    if maxTerms > 74:
+    if maxTerms > 93:
         return fbReturn.TMT
 
-    if maxFibo > 1304969544928657:
+    if maxFibo > 18446744073709551615 or maxFactor > 18446744073709551615:
         return fbReturn.TB
 
     for _ in range(nbrOfLoops):

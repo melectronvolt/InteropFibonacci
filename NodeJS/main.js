@@ -1,15 +1,15 @@
 // -----------------------------------------------------------------------
-// File Information
-// -----------------------------------------------------------------------
 // Author: Rémi MEVAERE
 // Copyright: Copyright (c) 2024 Rémi MEVAERE
 // License: MIT License
 // Version: 1.0.0
 // Maintainer: Rémi MEVAERE
-// Email: your.email@example.com
+// Email: github@volt.melectron.fr
+// Website: spnet.fr
 // Status: Development
 // Date: 2024-01-01
 // -----------------------------------------------------------------------
+
 
 const fbReturn = {
     OK: 0,
@@ -90,8 +90,8 @@ function factorization(baseIndex, arTerms, arPrimes, maxFactor) {
  * The function operates for 'nbrOfLoops' iterations and returns an array containing the terms, their primality, error values, and the last golden ratio approximation.
  *
  * @param {number} fbStart - The starting value of the Fibonacci sequence.
- * @param {number} [maxTerms=74] - The maximum number of terms to generate.
- * @param {number} [maxFibo=1304969544928657] - The maximum value a Fibonacci term can have.
+ * @param {number} [maxTerms=93] - The maximum number of terms to generate.
+ * @param {number} [maxFibo=18446744073709551615] - The maximum value a Fibonacci term can have.
  * @param {number} [maxFactor=5000] - The maximum factor for the factorization process.
  * @param {number} [nbrOfLoops=1] - The number of iterations to run the algorithm.
  * @returns {Array} - An array containing the results: Fibonacci terms, their primality status, error values, and last golden ratio approximation.
@@ -107,11 +107,11 @@ function fibonacci_interop(fbStart, maxTerms, maxFibo, maxFactor, nbrOfLoops) {
         return [fbReturn.PRM_ERR, null, null, null];
     }
 
-    if (maxTerms > 74) {
+    if (maxTerms > 93) {
         return [fbReturn.TMT, null, null, null];
     }
 
-    if (maxFibo > 1304969544928657) {
+    if (maxFibo > 18446744073709551615 || maxFactor > 18446744073709551615) {
         return [fbReturn.TB, null, null, null];
     }
 

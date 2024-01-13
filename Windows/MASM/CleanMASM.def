@@ -1,3 +1,0 @@
-LIBRARY CleanMASM
-EXPORTS
-    fibonacci_interop_asm

@@ -3,7 +3,8 @@ __copyright__ = "Copyright (c) 2024 Rémi MEVAERE"
 __license__ = "MIT License"
 __version__ = "1.0.0"
 __maintainer__ = "Rémi MEVAERE"
-__email__ = "your.email@example.com"
+__email__ = "github@volt.melectron.fr"
+__website__ = "spnet.fr"
 __status__ = "Development"
 __date__ = "2024-01-01"
 
@@ -17,14 +18,11 @@ from fiboCythonFull import fibonacci_interop_cython_full
 from array import array
 import ctypes
 import os
-
 current_directory = os.getcwd()
 
 from pythonnet import load
-
 load("coreclr")
 import clr  # Import CLR from Python.NET
-
 clr.AddReference('System')
 clr.AddReference(os.path.join(current_directory, 'DllFibonacci.dll'))
 from DllFibonacci import MyFiboClass

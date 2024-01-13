@@ -1,12 +1,11 @@
 ﻿// -----------------------------------------------------------------------
-// File Information
-// -----------------------------------------------------------------------
 // Author: Rémi MEVAERE
 // Copyright: Copyright (c) 2024 Rémi MEVAERE
 // License: MIT License
 // Version: 1.0.0
 // Maintainer: Rémi MEVAERE
-// Email: your.email@example.com
+// Email: github@volt.melectron.fr
+// Website: spnet.fr
 // Status: Development
 // Date: 2024-01-01
 // -----------------------------------------------------------------------
@@ -100,10 +99,10 @@ public class MyFiboClass
         if (fbStart < 1 || maxFibo < 1 || maxTerms < 3 || maxFactor < 2 || nbrOfLoops < 1)
             return new FibonacciResult { Result = FbReturn.PRM_ERR, GoldenNumber = goldenNbr };
 
-        if (maxTerms > 74)
+        if (maxTerms > 93)
             return new FibonacciResult { Result = FbReturn.TMT, GoldenNumber = goldenNbr };
 
-        if (maxFibo > 1304969544928657)
+        if (maxFibo > 18446744073709551615 || maxFactor > 18446744073709551615)
             return new FibonacciResult { Result = FbReturn.TB, GoldenNumber = goldenNbr };
 
         double goldenConst = (1 + Math.Sqrt(5)) / 2;

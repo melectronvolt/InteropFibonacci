@@ -1,6 +1,18 @@
+; -----------------------------------------------------------------------
+; Author: Rémi MEVAERE
+; Copyright: Copyright (c) 2024 Rémi MEVAERE
+; License: MIT License
+; Version: 1.0.0
+; Maintainer: Rémi MEVAERE
+; Email: github@volt.melectron.fr
+; Website: spnet.fr
+; Status: Development
+; Date: 2024-01-01
+; -----------------------------------------------------------------------
+
 section .data
-MAX_FIBO         dq 1304969544928657
-MAX_FIBO_TERMS   equ 74
+MAX_FIBO         dq 18446744073709551615
+MAX_FIBO_TERMS   equ 93
 LOCAL_VAR_SPACE  equ 48
 
 FIVE             dq 5.0

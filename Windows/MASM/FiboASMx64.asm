@@ -1,6 +1,18 @@
+; -----------------------------------------------------------------------
+; Author: Rémi MEVAERE
+; Copyright: Copyright (c) 2024 Rémi MEVAERE
+; License: MIT License
+; Version: 1.0.0
+; Maintainer: Rémi MEVAERE
+; Email: github@volt.melectron.fr
+; Website: spnet.fr
+; Status: Development
+; Date: 2024-01-01
+; -----------------------------------------------------------------------
+
 .data
-MAX_FIBO         DQ 1304969544928657          ; 64-bit integer constant
-MAX_FIBO_TERMS   EQU 74                       ; Simple constant
+MAX_FIBO         DQ 18446744073709551615          ; 64-bit integer constant
+MAX_FIBO_TERMS   EQU 93                       ; Simple constant
 LOCAL_VAR_SPACE  EQU 32                       ; Local variable space in bytes
 
 ; Calculate GOLDEN_CONST
@@ -411,8 +423,11 @@ fibonacci_interop_asm PROC
     cmp rcx, 74          ; Compare maxTerms with 74
     jg tmt_label
 
-    mov rax, 1304969544928657
+    mov rax, MAX_FIBO
     cmp rbx, rax
+    jg too_big_label
+
+    cmp rdx, rax
     jg too_big_label
 
     ; fill the array with value
