@@ -159,6 +159,8 @@ end_factorization:
     ret
     
 fiboWork:
+    push rcx
+    push rsi
     mov r10 , [rbp - 16] ; r10 = maxterms
     mov rcx, 100
     imul r10, r10, 50 ; r10 *= 50
@@ -201,9 +203,13 @@ not_prime:
     jl calculate_fibo
 
 out_max_fibo:
+    pop rsi
+    pop rcx
     ret
     
 clearAndFill:
+    push rcx
+    push rsi
     ; Clear arTerms and arPrimes
     ; --------------------------
     mov r10 , [rbp - 16] ; r10 = maxterms 
@@ -257,6 +263,8 @@ loop_double:
     ; Continue looping if rcx is less than rdx
     jl loop_double
 
+    pop rsi
+    pop rcx
     ret
 
 calculate_error:  ; Calculate and fill error array

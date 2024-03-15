@@ -167,6 +167,8 @@ fiboWork:
     imul r10, r10, 50 ; r10 *= 50
 
 calculate_fibo:
+    push rcx
+    push rsi
     mov rax, [rbp+56] ; ptr to arTerms
 
     mov rdx, 0 ; rdx = 0
@@ -204,9 +206,13 @@ not_prime:
     jl calculate_fibo
 
 out_max_fibo:
+    pop rsi
+    pop rcx
     ret
     
 clearAndFill:
+    push rcx
+    push rsi
 
     ; Clear arTerms and arPrimes
     ; --------------------------
@@ -263,6 +269,8 @@ loop_double:
     ; Continue looping if rcx is less than rdx
     jl loop_double
 
+    pop rsi
+    pop rcx
     ret
 
 calculate_error:  ; Calculate and fill error array
